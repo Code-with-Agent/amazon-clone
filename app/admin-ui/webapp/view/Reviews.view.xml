@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Reviews"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="reviewsListPage" title="Customer Reviews &amp; Moderation Queue" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <Table id="reviewsTable"
+                   items="{path: '/Reviews', parameters: {$expand: 'product,customer'}}"
+                   growing="true"
+                   growingThreshold="20"
+                   itemPress=".onReviewPress">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Review Moderation Queue" level="H3" />
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="24%"><Text text="Product" /></Column>
+                    <Column width="20%"><Text text="Customer" /></Column>
+                    <Column width="12%" hAlign="Center"><Text text="Rating" /></Column>
+                    <Column width="20%"><Text text="Headline" /></Column>
+                    <Column width="10%" hAlign="Center"><Text text="Verified" /></Column>
+                    <Column width="14%" hAlign="Center"><Text text="Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onReviewPress">
+                        <cells>
+                            <Text text="{product/title}" />
+                            <Text text="{customer/email}" />
+                            <RatingIndicator value="{rating}" maxValue="5" editable="false" iconSize="0.8rem" />
+                            <Text text="{headline}" />
+                            <Switch state="{isVerifiedPurchase}" enabled="false" customTextOn="Yes" customTextOff="No" />
+                            <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

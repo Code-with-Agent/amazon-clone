@@ -1,0 +1,3 @@
+ID,product_ID,customer_ID,rating,headline,comment,isVerifiedPurchase,helpfulVotes,status
+rev00000-0000-0000-0000-000000000001,p0000000-0000-0000-0000-000000000002,c0000000-0000-0000-0000-000000000001,5,Best ANC headphones on the market!,The sound quality and active noise cancellation are completely unmatched. Battery life easily lasts multiple days of work and commute.,true,12,APPROVED
+rev00000-0000-0000-0000-000000000002,p0000000-0000-0000-0000-000000000001,c0000000-0000-0000-0000-000000000002,5,Incredible workstation powerhouse,The M3 Max is blazing fast for video editing and compiling code. The Space Black finish is stunning.,true,8,APPROVED

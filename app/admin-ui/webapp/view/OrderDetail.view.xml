@@ -1,0 +1,201 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.OrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="orderObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{orderNumber}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'orderStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{orderNumber}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Customer: {customer/firstName} {customer/lastName} ({customer/email})" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Fulfill Shipment" type="Emphasized" icon="sap-icon://shipping-status" press=".onFulfillShipment" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Total Amount" class="auraKpiTitle" />
+                    <ObjectNumber number="{path: 'totalAmount', formatter: '.formatCurrency'}" state="Success" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Payment Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{paymentStatus}" state="{path: 'paymentStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Fulfillment Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{fulfillmentStatus}" state="{path: 'fulfillmentCriticality', formatter: '.formatCriticalityState'}" inverted="true" class="auraKpiValue" />
+                </VBox>
+                <VBox>
+                    <Text text="Order Date" class="auraKpiTitle" />
+                    <Text text="{path: 'createdAt', formatter: '.formatDateTime'}" class="auraKpiSubtext" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <!-- 1. Order Header -->
+            <uxap:ObjectPageSection title="Order Header" id="secOrderHeader">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Commercial Snapshot">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="3">
+                            <Label text="Order Number" /><Text text="{orderNumber}" />
+                            <Label text="Order Status" /><ObjectStatus text="{status}" state="{path: 'orderStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Order Timestamp" /><Text text="{path: 'createdAt', formatter: '.formatDateTime'}" />
+                            <Label text="Subtotal" /><ObjectNumber number="{path: 'subtotal', formatter: '.formatCurrency'}" />
+                            <Label text="Promotional Discount" /><ObjectNumber number="{path: 'discount', formatter: '.formatCurrency'}" state="Warning" />
+                            <Label text="Shipping Fee" /><ObjectNumber number="{path: 'shippingCost', formatter: '.formatCurrency'}" />
+                            <Label text="Sales Tax" /><ObjectNumber number="{path: 'taxAmount', formatter: '.formatCurrency'}" />
+                            <Label text="Grand Total" /><ObjectNumber number="{path: 'totalAmount', formatter: '.formatCurrency'}" state="Success" />
+                            <Label text="RMA / Return Info" /><Text text="{rmaNumber}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 2. Customer -->
+            <uxap:ObjectPageSection title="Customer" id="secCustomer">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Buyer Profile">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Name" /><Text text="{customer/firstName} {customer/lastName}" />
+                            <Label text="Email" /><Text text="{customer/email}" />
+                            <Label text="Phone Number" /><Text text="{customer/phoneNumber}" />
+                            <Label text="Preferred Language" /><Text text="{customer/preferredLanguage}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 3. Address -->
+            <uxap:ObjectPageSection title="Address" id="secAddress">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Shipping &amp; Billing Destination">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Recipient" /><Text text="{shippingAddress/fullName}" />
+                            <Label text="Street Address" /><Text text="{shippingAddress/streetName} {shippingAddress/apartmentSuite}" />
+                            <Label text="City, State, Postal" /><Text text="{shippingAddress/city}, {shippingAddress/stateProvince} {shippingAddress/postalCode}" />
+                            <Label text="Country" /><Text text="{shippingAddress/country_code}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 4. Items -->
+            <uxap:ObjectPageSection title="Items" id="secItems">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Ordered Line Items">
+                        <Table items="{items}">
+                            <columns>
+                                <Column width="35%"><Text text="Product Title" /></Column>
+                                <Column width="15%"><Text text="SKU" /></Column>
+                                <Column width="10%" hAlign="Center"><Text text="Quantity" /></Column>
+                                <Column width="15%" hAlign="End"><Text text="Unit Price" /></Column>
+                                <Column width="15%" hAlign="End"><Text text="Line Total" /></Column>
+                                <Column width="10%" hAlign="Center"><Text text="Status" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{productTitle}" />
+                                        <Text text="{variantSku}" />
+                                        <Text text="{quantity}" />
+                                        <ObjectNumber number="{path: 'unitPrice', formatter: '.formatCurrency'}" />
+                                        <ObjectNumber number="{path: 'lineTotal', formatter: '.formatCurrency'}" state="Success" />
+                                        <Text text="{status}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 5. Payment -->
+            <uxap:ObjectPageSection title="Payment" id="secPayment">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Captured Payment Transaction">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Payment Method" /><Text text="{payment/paymentMethod}" />
+                            <Label text="Payment Provider" /><Text text="{payment/paymentProvider}" />
+                            <Label text="Transaction Reference" /><Text text="{payment/transactionReference}" />
+                            <Label text="Captured Amount" /><ObjectNumber number="{path: 'payment/amount', formatter: '.formatCurrency'}" state="Success" />
+                            <Label text="Status" /><ObjectStatus text="{payment/status}" state="{path: 'payment/statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 6. Shipment -->
+            <uxap:ObjectPageSection title="Shipment" id="secShipment">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Consignments &amp; Dispatches">
+                        <Table items="{shipments}">
+                            <columns>
+                                <Column><Text text="Tracking Number" /></Column>
+                                <Column><Text text="Carrier" /></Column>
+                                <Column><Text text="Status" /></Column>
+                                <Column><Text text="Shipped At" /></Column>
+                                <Column><Text text="Delivered At" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{trackingNumber}" />
+                                        <Text text="{carrier}" />
+                                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                                        <Text text="{path: 'shippedAt', formatter: '.formatDateTime'}" />
+                                        <Text text="{path: 'deliveredAt', formatter: '.formatDateTime'}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 7. Status History -->
+            <uxap:ObjectPageSection title="Status History" id="secHistory">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Lifecycle Audit Trail">
+                        <Table items="{history}">
+                            <columns>
+                                <Column><Text text="From Status" /></Column>
+                                <Column><Text text="To Status" /></Column>
+                                <Column><Text text="Timestamp" /></Column>
+                                <Column><Text text="Actor" /></Column>
+                                <Column><Text text="Notes" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{oldStatus}" />
+                                        <ObjectStatus text="{newStatus}" state="Information" inverted="true" />
+                                        <Text text="{path: 'changedAt', formatter: '.formatDateTime'}" />
+                                        <Text text="{changedBy}" />
+                                        <Text text="{notes}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

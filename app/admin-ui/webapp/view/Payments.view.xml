@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Payments"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="paymentsListPage" title="Payment Processing &amp; Financial Ledger" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <Table id="paymentsTable"
+                   items="{path: '/Payments', parameters: {$expand: 'order'}}"
+                   growing="true"
+                   growingThreshold="20"
+                   itemPress=".onPaymentPress">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Payment Transactions" level="H3" />
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="22%"><Text text="Transaction Reference" /></Column>
+                    <Column width="18%"><Text text="Order" /></Column>
+                    <Column width="16%"><Text text="Payment Method" /></Column>
+                    <Column width="14%" hAlign="End"><Text text="Amount" /></Column>
+                    <Column width="14%"><Text text="Provider" /></Column>
+                    <Column width="16%" hAlign="Center"><Text text="Payment Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onPaymentPress">
+                        <cells>
+                            <ObjectIdentifier title="{transactionReference}" />
+                            <Text text="{order/orderNumber}" />
+                            <Text text="{paymentMethod}" />
+                            <ObjectNumber number="{path: 'amount', formatter: '.formatCurrency'}" state="Success" />
+                            <Text text="{paymentProvider}" />
+                            <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

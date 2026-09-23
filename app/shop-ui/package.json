@@ -1,0 +1,24 @@
+{
+  "name": "shop-ui",
+  "version": "1.0.0",
+  "description": "Aura Marketplace - Customer-Facing SAPUI5 Freestyle Application",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5",
+    "freestyle",
+    "ecommerce",
+    "marketplace"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "start": "ui5 serve --port 8080 -o index.html",
+    "build": "node ../../scripts/build-ui.js shop-ui"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^3.9.0"
+  },
+  "ui5": {
+    "dependencies": []
+  }
+}

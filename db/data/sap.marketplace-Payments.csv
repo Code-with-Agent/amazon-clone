@@ -1,0 +1,3 @@
+ID,order_ID,paymentMethod,paymentProvider,transactionReference,amount,currency_code,status,rawGatewayResponse
+pay00000-0000-0000-0000-000000000001,ord00000-0000-0000-0000-000000000001,CREDIT_CARD,STRIPE,ch_3N8s9A2eZvKYlo2C1x9011,375.84,USD,CAPTURED,"{""authorized"":true}"
+pay00000-0000-0000-0000-000000000002,ord00000-0000-0000-0000-000000000002,CREDIT_CARD,STRIPE,ch_3N8s9A2eZvKYlo2C1x9022,2698.92,USD,CAPTURED,"{""authorized"":true}"

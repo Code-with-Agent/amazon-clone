@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Inventory"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m">
+    <Page id="inventoryListPage" title="Inventory Management &amp; Stock Analytics" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <!-- Analytical KPI Ribbon -->
+            <layout:Grid defaultSpan="XL4 L4 M4 S12" class="sapUiSmallMargin">
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="TOTAL AVAILABLE UNITS" class="auraKpiTitle" />
+                            <Text text="640 Units" class="auraKpiValue" />
+                            <Text text="Available across all fulfillment nodes" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://inventory" size="2rem" color="#059669" />
+                    </HBox>
+                </VBox>
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="RESERVED IN TRANSIT / ORDERS" class="auraKpiTitle" />
+                            <Text text="1 Unit" class="auraKpiValue" />
+                            <Text text="Allocated to active checkout holds" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://shipping-status" size="2rem" color="#3b82f6" />
+                    </HBox>
+                </VBox>
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="REORDER THRESHOLD ALERTS" class="auraKpiTitle" />
+                            <Text text="0 Critical" class="auraKpiValue" />
+                            <Text text="Stock replenishment status optimal" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://alert" size="2rem" color="#d97706" />
+                    </HBox>
+                </VBox>
+            </layout:Grid>
+
+            <!-- Inventory List Report Table with Criticality -->
+            <Table id="inventoryTable"
+                   items="{path: '/Inventories', parameters: {$expand: 'variant($expand=product),warehouse'}}"
+                   growing="true"
+                   growingThreshold="20"
+                   class="sapUiSmallMargin">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Warehouse Stock Levels" level="H3" />
+                        <ToolbarSpacer />
+                        <SearchField width="250px" placeholder="Search by SKU or Warehouse..." search=".onSearch" />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                        <Button text="Audit Physical Stock" icon="sap-icon://survey" type="Emphasized" press=".onAuditStock" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="28%"><Text text="Product" /></Column>
+                    <Column width="18%"><Text text="Warehouse" /></Column>
+                    <Column width="14%" hAlign="Center"><Text text="Available Quantity" /></Column>
+                    <Column width="14%" hAlign="Center"><Text text="Reserved Quantity" /></Column>
+                    <Column width="12%" hAlign="Center"><Text text="Reorder Level" /></Column>
+                    <Column width="14%" hAlign="Center"><Text text="Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <VBox>
+                                <Text text="{variant/product/title}" />
+                                <Text text="SKU: {variant/variantSku}" class="auraKpiSubtext" />
+                            </VBox>
+                            <VBox>
+                                <Text text="{warehouse/name}" />
+                                <Text text="Code: {warehouse/code}" class="auraKpiSubtext" />
+                            </VBox>
+                            <ObjectStatus text="{availableQuantity} units" state="{path: 'criticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Text text="{reservedQuantity} units" />
+                            <Text text="{reorderThreshold} units" />
+                            <ObjectStatus text="{stockStatus}" state="{path: 'criticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

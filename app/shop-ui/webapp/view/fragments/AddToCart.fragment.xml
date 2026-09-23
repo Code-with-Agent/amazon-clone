@@ -1,0 +1,81 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraBuyBox sapUiSmallMargin" renderType="Bare" width="300px">
+        <!-- In-Stock Section -->
+        <VBox visible="{= ${variants/0/offers/0/price} > 0 }" renderType="Bare">
+            <!-- Price in Buy Box -->
+            <Text text="{path: 'variants/0/offers/0/price', formatter: '.formatter.formatCurrency'}"
+                  class="auraBuyBoxPrice" />
+
+            <!-- Stock Status -->
+            <ObjectStatus text="{i18n>pdpStockIn}" state="Success" icon="sap-icon://sys-enter-2" class="auraStockStatus sapUiSmallMarginTop" />
+
+            <!-- Delivery details -->
+            <VBox class="sapUiTinyMarginTop sapUiSmallMarginBottom" renderType="Bare">
+                <HBox alignItems="Center">
+                    <core:Icon src="sap-icon://shipping-status" class="auraBuyBoxShipIcon sapUiTinyMarginEnd" />
+                    <Text text="{i18n>pdpFreeDelivery}" class="auraBuyBoxShipText" />
+                </HBox>
+                <Text text="{i18n>pdpFastestDelivery}" class="auraFastestDeliveryText sapUiTinyMarginTop" />
+                <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                    <core:Icon src="sap-icon://map-pin" class="auraDeliveryIcon sapUiTinyMarginEnd" />
+                    <Text text="Deliver to {ui>/deliveryCity} {ui>/deliveryPostalCode}" class="auraMutedText" />
+                </HBox>
+            </VBox>
+
+            <!-- Fulfilled by / Sold by -->
+            <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                <HBox justifyContent="SpaceBetween">
+                    <Text text="{i18n>pdpShipsFrom}" class="auraMutedLabel" />
+                    <Text text="Aura Marketplace" class="auraMutedValue" />
+                </HBox>
+                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+                    <Text text="{i18n>pdpSoldBy}" class="auraMutedLabel" />
+                    <Text text="{= ${variants/0/offers/0/seller/storeName} ? ${variants/0/offers/0/seller/storeName} : 'Aura Authorized Direct' }" class="auraMutedValue" />
+                </HBox>
+            </VBox>
+
+            <!-- Quantity Selector -->
+            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                <Label text="{i18n>pdpQuantity}" labelFor="pdpQtyInput" class="sapUiTinyMarginEnd" />
+                <StepInput id="pdpQtyInput" value="1" min="1" max="10" width="100px" />
+            </HBox>
+
+            <!-- Action Buttons -->
+            <Button text="{i18n>pdpAddToCart}"
+                    type="Emphasized"
+                    icon="sap-icon://cart-plus"
+                    press=".onAddToCart"
+                    width="100%"
+                    class="auraAddToCartBtn sapUiTinyMarginBottom" />
+
+            <Button text="{i18n>pdpBuyNow}"
+                    type="Attention"
+                    icon="sap-icon://money-bills"
+                    press=".onBuyNow"
+                    width="100%"
+                    class="auraBuyNowBtn sapUiSmallMarginBottom" />
+        </VBox>
+
+        <!-- Out of Stock / Unavailable Graceful Fallback -->
+        <VBox visible="{= !${variants/0/offers/0/price} || ${variants/0/offers/0/price} <= 0 }" renderType="Bare">
+            <ObjectStatus text="{i18n>pdpStockOut}" state="Error" icon="sap-icon://alert" class="sapUiSmallMarginBottom" />
+            <Text text="We don't know when or if this item will be back in stock." class="auraMutedText sapUiSmallMarginBottom" />
+            <Button text="Email Me When Available" type="Ghost" icon="sap-icon://email" press=".onNotifyWhenAvailable" width="100%" class="sapUiSmallMarginBottom" />
+        </VBox>
+
+        <!-- Wishlist -->
+        <Button text="{i18n>pdpAddToWishlist}"
+                type="Transparent"
+                icon="sap-icon://favorite"
+                press=".onAddToWishlist"
+                width="100%" />
+
+        <!-- Security guarantee -->
+        <HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+            <core:Icon src="sap-icon://locked" class="sapUiTinyMarginEnd" />
+            <Text text="Secure transaction &amp; buyer protection" class="auraSecurityNote" />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

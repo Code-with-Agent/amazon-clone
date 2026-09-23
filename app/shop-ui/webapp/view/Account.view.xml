@@ -1,0 +1,100 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Account"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="accountPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="{i18n>accountTitle}">
+                    <Link text="Home" press=".onNavHome" />
+                </Breadcrumbs>
+
+                <HBox alignItems="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+                    <core:Icon src="sap-icon://customer" size="2.5rem" color="#0f172a" class="sapUiSmallMarginEnd" />
+                    <VBox renderType="Bare">
+                        <Title text="{i18n>accountTitle}" level="H2" />
+                        <Text text="Signed in as {ui>/userDisplayName} ({ui>/userEmail})" class="auraMutedText" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Amazon-style Hub Grid (6 Action Tiles) -->
+            <HBox class="sapUiMediumMargin" wrap="Wrap" justifyContent="Start">
+                <!-- Orders -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavOrders">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://shipping-status" size="2rem" color="#ea580c" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>accountOrdersBoxTitle}" level="H4" titleStyle="H5" />
+                            <Text text="{i18n>accountOrdersBoxDesc}" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Addresses -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavAddresses">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://addresses" size="2rem" color="#059669" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>accountAddressesBoxTitle}" level="H4" titleStyle="H5" />
+                            <Text text="{i18n>accountAddressesBoxDesc}" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Payment Methods -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavPaymentHub">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://credit-card" size="2rem" color="#2563eb" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>accountPaymentBoxTitle}" level="H4" titleStyle="H5" />
+                            <Text text="{i18n>accountPaymentBoxDesc}" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Wishlist -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavWishlist">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://favorite" size="2rem" color="#e11d48" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>wishlistTitle}" level="H4" titleStyle="H5" />
+                            <Text text="View saved items and lists" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Login & Security -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavLoginSecurity">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://key" size="2rem" color="#7c3aed" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>accountSecurityBoxTitle}" level="H4" titleStyle="H5" />
+                            <Text text="{i18n>accountSecurityBoxDesc}" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Customer Service -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="320px" press=".onNavHelp">
+                    <HBox class="sapUiSmallMargin" alignItems="Center">
+                        <core:Icon src="sap-icon://headset" size="2rem" color="#f59e0b" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="Help &amp; Customer Care" level="H4" titleStyle="H5" />
+                            <Text text="Contact support, view FAQs, and browse topics" class="auraMutedText sapUiTinyMarginTop" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Sign Out Button -->
+            <HBox class="sapUiMediumMargin" justifyContent="Center">
+                <Button text="Sign Out" type="Negative" icon="sap-icon://log" press=".onSignOut" />
+            </HBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

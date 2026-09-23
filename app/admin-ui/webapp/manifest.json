@@ -1,0 +1,284 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "marketplace.admin",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/admin/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://retail-store"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "rootView": {
+      "viewName": "marketplace.admin.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "adminApp"
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {},
+        "sap.f": {},
+        "sap.uxap": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "marketplace.admin.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "adminState": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "marketplace.admin.view",
+        "controlId": "adminNavContainer",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "name": "home",
+          "pattern": "",
+          "target": "overview"
+        },
+        {
+          "name": "overview",
+          "pattern": "overview",
+          "target": "overview"
+        },
+        {
+          "name": "products",
+          "pattern": "products",
+          "target": "products"
+        },
+        {
+          "name": "productDetail",
+          "pattern": "product/:productId:",
+          "target": "productDetail"
+        },
+        {
+          "name": "orders",
+          "pattern": "orders",
+          "target": "orders"
+        },
+        {
+          "name": "orderDetail",
+          "pattern": "order/:orderId:",
+          "target": "orderDetail"
+        },
+        {
+          "name": "customers",
+          "pattern": "customers",
+          "target": "customers"
+        },
+        {
+          "name": "customerDetail",
+          "pattern": "customer/:customerId:",
+          "target": "customerDetail"
+        },
+        {
+          "name": "inventory",
+          "pattern": "inventory",
+          "target": "inventory"
+        },
+        {
+          "name": "sellers",
+          "pattern": "sellers",
+          "target": "sellers"
+        },
+        {
+          "name": "sellerDetail",
+          "pattern": "seller/:sellerId:",
+          "target": "sellerDetail"
+        },
+        {
+          "name": "promotions",
+          "pattern": "promotions",
+          "target": "promotions"
+        },
+        {
+          "name": "promotionDetail",
+          "pattern": "promotion/:promotionId:",
+          "target": "promotionDetail"
+        },
+        {
+          "name": "reviews",
+          "pattern": "reviews",
+          "target": "reviews"
+        },
+        {
+          "name": "reviewDetail",
+          "pattern": "review/:reviewId:",
+          "target": "reviewDetail"
+        },
+        {
+          "name": "payments",
+          "pattern": "payments",
+          "target": "payments"
+        },
+        {
+          "name": "paymentDetail",
+          "pattern": "payment/:paymentId:",
+          "target": "paymentDetail"
+        },
+        {
+          "name": "shipments",
+          "pattern": "shipments",
+          "target": "shipments"
+        },
+        {
+          "name": "shipmentDetail",
+          "pattern": "shipment/:shipmentId:",
+          "target": "shipmentDetail"
+        }
+      ],
+      "targets": {
+        "overview": {
+          "viewId": "overview",
+          "viewName": "Overview",
+          "viewLevel": 1
+        },
+        "products": {
+          "viewId": "products",
+          "viewName": "Products",
+          "viewLevel": 2
+        },
+        "productDetail": {
+          "viewId": "productDetail",
+          "viewName": "ProductDetail",
+          "viewLevel": 3
+        },
+        "orders": {
+          "viewId": "orders",
+          "viewName": "Orders",
+          "viewLevel": 2
+        },
+        "orderDetail": {
+          "viewId": "orderDetail",
+          "viewName": "OrderDetail",
+          "viewLevel": 3
+        },
+        "customers": {
+          "viewId": "customers",
+          "viewName": "Customers",
+          "viewLevel": 2
+        },
+        "customerDetail": {
+          "viewId": "customerDetail",
+          "viewName": "CustomerDetail",
+          "viewLevel": 3
+        },
+        "inventory": {
+          "viewId": "inventory",
+          "viewName": "Inventory",
+          "viewLevel": 2
+        },
+        "sellers": {
+          "viewId": "sellers",
+          "viewName": "Sellers",
+          "viewLevel": 2
+        },
+        "sellerDetail": {
+          "viewId": "sellerDetail",
+          "viewName": "SellerDetail",
+          "viewLevel": 3
+        },
+        "promotions": {
+          "viewId": "promotions",
+          "viewName": "Promotions",
+          "viewLevel": 2
+        },
+        "promotionDetail": {
+          "viewId": "promotionDetail",
+          "viewName": "PromotionDetail",
+          "viewLevel": 3
+        },
+        "reviews": {
+          "viewId": "reviews",
+          "viewName": "Reviews",
+          "viewLevel": 2
+        },
+        "reviewDetail": {
+          "viewId": "reviewDetail",
+          "viewName": "ReviewDetail",
+          "viewLevel": 3
+        },
+        "payments": {
+          "viewId": "payments",
+          "viewName": "Payments",
+          "viewLevel": 2
+        },
+        "paymentDetail": {
+          "viewId": "paymentDetail",
+          "viewName": "PaymentDetail",
+          "viewLevel": 3
+        },
+        "shipments": {
+          "viewId": "shipments",
+          "viewName": "Shipments",
+          "viewLevel": 2
+        },
+        "shipmentDetail": {
+          "viewId": "shipmentDetail",
+          "viewName": "ShipmentDetail",
+          "viewLevel": 3
+        }
+      }
+    }
+  }
+}

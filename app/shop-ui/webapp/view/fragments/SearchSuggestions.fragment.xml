@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ResponsivePopover
+        id="searchSuggestionsPopover"
+        title="Trending Searches"
+        placement="Bottom"
+        contentWidth="320px">
+        <List id="searchSuggestionsList" mode="None">
+            <StandardListItem
+                title="Apple MacBook Pro M3"
+                description="in Computers &amp; Laptops"
+                icon="sap-icon://search"
+                type="Active"
+                press=".onSuggestionItemPress" />
+            <StandardListItem
+                title="Sony WH-1000XM5"
+                description="in Audio &amp; Headphones"
+                icon="sap-icon://search"
+                type="Active"
+                press=".onSuggestionItemPress" />
+            <StandardListItem
+                title="iPhone 15 Pro Titanium"
+                description="in Smartphones"
+                icon="sap-icon://search"
+                type="Active"
+                press=".onSuggestionItemPress" />
+            <StandardListItem
+                title="Wireless Noise Cancelling Headphones"
+                description="in Electronics"
+                icon="sap-icon://search"
+                type="Active"
+                press=".onSuggestionItemPress" />
+        </List>
+        <beginButton>
+            <Button text="{i18n>btnClose}" press=".onCloseSuggestions" />
+        </beginButton>
+    </ResponsivePopover>
+</core:FragmentDefinition>

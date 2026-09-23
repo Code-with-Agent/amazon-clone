@@ -1,0 +1,137 @@
+{
+  "xsappname": "amazon-clone",
+  "tenant-mode": "dedicated",
+  "description": "Security configuration for Aura Enterprise Marketplace with SAP BTP XSUAA",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Customer",
+      "description": "Storefront customer shopper access"
+    },
+    {
+      "name": "$XSAPPNAME.Seller",
+      "description": "Merchant partner seller access"
+    },
+    {
+      "name": "$XSAPPNAME.ProductManager",
+      "description": "Product catalog and promotional campaign management access"
+    },
+    {
+      "name": "$XSAPPNAME.OrderManager",
+      "description": "Sales order lifecycle and logistics fulfillment access"
+    },
+    {
+      "name": "$XSAPPNAME.InventoryManager",
+      "description": "Warehouse inventory management and stock reconciliation access"
+    },
+    {
+      "name": "$XSAPPNAME.Administrator",
+      "description": "Superuser full administrative governance access"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "sellerId",
+      "description": "Merchant identifier for data isolation",
+      "valueType": "string"
+    },
+    {
+      "name": "customerId",
+      "description": "Customer identifier for data isolation",
+      "valueType": "string"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Customer",
+      "description": "Marketplace Shopper Role",
+      "scope-references": [
+        "$XSAPPNAME.Customer"
+      ],
+      "attribute-references": [
+        "customerId"
+      ]
+    },
+    {
+      "name": "Seller",
+      "description": "Marketplace Merchant Partner Role",
+      "scope-references": [
+        "$XSAPPNAME.Seller"
+      ],
+      "attribute-references": [
+        "sellerId"
+      ]
+    },
+    {
+      "name": "ProductManager",
+      "description": "Catalog & Promotions Manager Role",
+      "scope-references": [
+        "$XSAPPNAME.ProductManager"
+      ]
+    },
+    {
+      "name": "OrderManager",
+      "description": "Order Lifecycle & Logistics Manager Role",
+      "scope-references": [
+        "$XSAPPNAME.OrderManager"
+      ]
+    },
+    {
+      "name": "InventoryManager",
+      "description": "Inventory & Warehouse Manager Role",
+      "scope-references": [
+        "$XSAPPNAME.InventoryManager"
+      ]
+    },
+    {
+      "name": "Administrator",
+      "description": "Marketplace Administrator Role (Full Access)",
+      "scope-references": [
+        "$XSAPPNAME.Administrator"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "MarketplaceCustomer",
+      "description": "Access to customer storefront, cart, wishlist, and orders",
+      "role-template-references": [
+        "$XSAPPNAME.Customer"
+      ]
+    },
+    {
+      "name": "MarketplaceSeller",
+      "description": "Access to seller portal, merchant offers, and product stock",
+      "role-template-references": [
+        "$XSAPPNAME.Seller"
+      ]
+    },
+    {
+      "name": "MarketplaceProductManager",
+      "description": "Access to manage products, categories, variants, and promotions",
+      "role-template-references": [
+        "$XSAPPNAME.ProductManager"
+      ]
+    },
+    {
+      "name": "MarketplaceOrderManager",
+      "description": "Access to manage orders, shipments, deliveries, and returns",
+      "role-template-references": [
+        "$XSAPPNAME.OrderManager"
+      ]
+    },
+    {
+      "name": "MarketplaceInventoryManager",
+      "description": "Access to manage inventory, stock thresholds, and warehouses",
+      "role-template-references": [
+        "$XSAPPNAME.InventoryManager"
+      ]
+    },
+    {
+      "name": "MarketplaceAdministrator",
+      "description": "Full access to all marketplace administration services",
+      "role-template-references": [
+        "$XSAPPNAME.Administrator"
+      ]
+    }
+  ]
+}

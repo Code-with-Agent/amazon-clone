@@ -1,0 +1,81 @@
+/* Aura Admin Center Custom Styles */
+.auraAdminShell {
+    background-color: #f5f6f8;
+}
+
+.auraAdminHeader {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.auraAdminHeader .sapMBarLeft .sapMTitle,
+.auraAdminHeader .sapMBarLeft .sapMText {
+    color: #ffffff !important;
+}
+
+.auraAdminHeader .sapMBtnTransparent {
+    color: #e2e8f0 !important;
+}
+
+.auraAdminHeader .sapMBtnTransparent:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.auraNavTabBar {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Overview KPI Cards */
+.auraKpiCard {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.auraKpiCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    border-color: #3b82f6;
+}
+
+.auraKpiValue {
+    font-size: 2.25rem !important;
+    font-weight: 700 !important;
+    color: #0f172a;
+}
+
+.auraKpiTitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.auraKpiSubtext {
+    font-size: 0.825rem;
+    color: #94a3b8;
+}
+
+.auraBadgeSuccess {
+    background-color: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.auraBadgeWarning {
+    background-color: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fde68a;
+}
+
+.auraBadgeDanger {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}

@@ -1,0 +1,99 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Orders"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="ordersPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="{i18n>ordersTitle}">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>accountTitle}" press=".onNavAccount" />
+                </Breadcrumbs>
+                <Title text="{i18n>ordersTitle}" level="H2" class="sapUiSmallMarginTop" />
+            </VBox>
+
+            <!-- Order Filter Tabs -->
+            <IconTabBar id="ordersTabBar" select=".onFilterTabSelect" class="sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <items>
+                    <IconTabFilter key="ALL" text="{i18n>ordersFilterAll}" count="" />
+                    <IconTabFilter key="CONFIRMED" text="Active Orders" />
+                    <IconTabFilter key="DELIVERED" text="Delivered" />
+                    <IconTabFilter key="CANCELLED" text="{i18n>ordersFilterCancelled}" />
+                </items>
+            </IconTabBar>
+
+            <!-- Orders List -->
+            <VBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiLargeMarginBottom" renderType="Bare">
+                <List id="ordersMasterList"
+                      items="{path: 'order>/Orders', parameters: {$expand: 'items,shipments,payment', $orderby: 'createdAt desc'}}"
+                      noDataText="No orders found. Start shopping to create your first order!">
+                    <CustomListItem>
+                        <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" renderType="Bare">
+                            <!-- Order Header Ribbon -->
+                            <HBox class="auraTopBar sapUiSmallMarginBottom" justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
+                                <HBox wrap="Wrap" alignItems="Center">
+                                    <VBox class="sapUiMediumMarginEnd" renderType="Bare">
+                                        <Text text="ORDER PLACED" class="auraActionSubtext" />
+                                        <Text text="{path: 'order>createdAt', formatter: '.formatter.formatDate'}" class="auraActionMaintext" />
+                                    </VBox>
+                                    <VBox class="sapUiMediumMarginEnd" renderType="Bare">
+                                        <Text text="TOTAL" class="auraActionSubtext" />
+                                        <Text text="{path: 'order>grandTotal', formatter: '.formatter.formatCurrency'}" class="auraActionMaintext" />
+                                    </VBox>
+                                    <VBox class="sapUiMediumMarginEnd" renderType="Bare">
+                                        <Text text="STATUS" class="auraActionSubtext" />
+                                        <ObjectStatus text="{order>status}" state="{path: 'order>status', formatter: '.formatter.formatStatusState'}" inverted="true" />
+                                    </VBox>
+                                </HBox>
+
+                                <VBox alignItems="End" renderType="Bare">
+                                    <Text text="ORDER # {order>orderNumber}" class="auraActionMaintext" />
+                                    <HBox class="sapUiTinyMarginTop">
+                                        <Link text="View Order Details" press=".onViewOrderDetails" class="sapUiSmallMarginEnd" />
+                                        <Link text="{i18n>ordersInvoiceAction}" press=".onViewInvoice" />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Items in Order -->
+                            <VBox class="sapUiSmallMargin" renderType="Bare">
+                                <List items="{order>items}" mode="None" showSeparators="None">
+                                    <CustomListItem>
+                                        <core:Fragment fragmentName="marketplace.shop.view.fragments.OrderItem" type="XML" />
+                                    </CustomListItem>
+                                </List>
+                            </VBox>
+
+                            <!-- Actions Row (Track Package, Cancel Order, Return) -->
+                            <HBox justifyContent="End" class="sapUiSmallMargin" wrap="Wrap">
+                                <Button text="Track Package"
+                                        type="Ghost"
+                                        icon="sap-icon://shipping-status"
+                                        press=".onTrackPackage"
+                                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+
+                                <Button text="{i18n>ordersCancelAction}"
+                                        type="Transparent"
+                                        icon="sap-icon://sys-cancel"
+                                        visible="{= ${order>status} === 'CONFIRMED' || ${order>status} === 'PENDING_PAYMENT' }"
+                                        press=".onCancelOrderPress"
+                                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+
+                                <Button text="{i18n>ordersReturnAction}"
+                                        type="Transparent"
+                                        icon="sap-icon://undo"
+                                        visible="{= ${order>status} === 'DELIVERED' || ${order>status} === 'CONFIRMED' }"
+                                        press=".onReturnOrderPress"
+                                        class="sapUiTinyMarginBottom" />
+                            </HBox>
+                        </VBox>
+                    </CustomListItem>
+                </List>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

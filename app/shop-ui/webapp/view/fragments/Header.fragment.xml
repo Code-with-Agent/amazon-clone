@@ -1,0 +1,91 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraHeaderContainer" renderType="Bare">
+        <!-- Main Top Bar -->
+        <HBox class="auraTopBar" alignItems="Center" justifyContent="SpaceBetween" wrap="NoWrap">
+            <!-- Brand Logo -->
+            <HBox alignItems="Center" class="auraBrandContainer sapUiTinyMarginEnd">
+                <core:Icon src="sap-icon://retail-store" class="auraBrandIcon" />
+                <VBox class="sapUiTinyMarginBegin" renderType="Bare">
+                    <Link text="{i18n>brandName}" press=".onNavHome" class="auraBrandTitle" />
+                    <Text text="Marketplace" class="auraBrandSubtitle" />
+                </VBox>
+            </HBox>
+
+            <!-- Delivery Destination Pill -->
+            <HBox alignItems="Center" class="auraDeliveryPill sapUiSmallMarginBegin sapUiSmallMarginEnd" visible="{= !${device>/system/phone} }">
+                <core:Icon src="sap-icon://map-pin" class="auraDeliveryIcon sapUiTinyMarginEnd" />
+                <VBox renderType="Bare">
+                    <Text text="{i18n>headerDeliverTo}" class="auraDeliveryLabel" />
+                    <Text text="{ui>/deliveryCity} {ui>/deliveryPostalCode}" class="auraDeliveryValue" />
+                </VBox>
+            </HBox>
+
+            <!-- Mega Search Bar -->
+            <HBox alignItems="Center" class="auraSearchBar sapUiSmallMarginBegin sapUiSmallMarginEnd" fitContainer="true">
+                <Select id="headerCategorySelect"
+                        selectedKey="{ui>/selectedCategory}"
+                        class="auraCategorySelect"
+                        visible="{= !${device>/system/phone} }">
+                    <core:Item key="all" text="{i18n>headerAllCategories}" />
+                    <core:Item key="cat00000-0000-0000-0000-000000000001" text="{i18n>navElectronics}" />
+                    <core:Item key="cat00000-0000-0000-0000-000000000002" text="{i18n>navComputers}" />
+                    <core:Item key="cat00000-0000-0000-0000-000000000003" text="{i18n>navAudio}" />
+                    <core:Item key="cat00000-0000-0000-0000-000000000004" text="{i18n>navSmartphones}" />
+                </Select>
+                <SearchField id="headerSearchField"
+                             placeholder="{i18n>headerSearchPlaceholder}"
+                             value="{ui>/searchQuery}"
+                             search=".onSearchPress"
+                             width="100%"
+                             class="auraSearchField" />
+            </HBox>
+
+            <!-- Right Actions (Account, Orders, Cart) -->
+            <HBox alignItems="Center" class="auraHeaderNavActions" wrap="NoWrap">
+                <!-- User Account -->
+                <VBox class="auraNavActionItem sapUiSmallMarginBegin" renderType="Bare">
+                    <Text text="{i18n>headerHello} {ui>/userDisplayName}" class="auraActionSubtext" />
+                    <Link text="{i18n>headerAccountLists}" press=".onNavAccount" class="auraActionMaintext" />
+                </VBox>
+
+                <!-- Returns & Orders -->
+                <VBox class="auraNavActionItem sapUiSmallMarginBegin" renderType="Bare" visible="{= !${device>/system/phone} }">
+                    <Text text="Returns" class="auraActionSubtext" />
+                    <Link text="&amp; Orders" press=".onNavOrders" class="auraActionMaintext" />
+                </VBox>
+
+                <!-- Cart Button with Dynamic Badge -->
+                <Button id="headerCartBtn"
+                        icon="sap-icon://cart"
+                        text="{= ${device>/system/phone} ? '' : ${i18n>headerCart} }"
+                        type="Emphasized"
+                        press=".onNavCart"
+                        class="auraCartButton sapUiSmallMarginBegin">
+                    <customData>
+                        <BadgeCustomData xmlns="sap.m"
+                                         key="badge"
+                                         value="{ui>/cartCount}"
+                                         visible="{= ${ui>/cartCount} > 0 }" />
+                    </customData>
+                </Button>
+            </HBox>
+        </HBox>
+
+        <!-- Sub Navigation Bar (Categories & Shortcuts) -->
+        <HBox class="auraSubNavBar" alignItems="Center" wrap="NoWrap">
+            <Button icon="sap-icon://menu2" text="{i18n>navAll}" type="Transparent" press=".onNavHome" class="auraSubNavAllBtn" />
+            <ScrollContainer horizontal="true" vertical="false" class="auraSubNavScroll">
+                <HBox alignItems="Center">
+                    <Link text="{i18n>navComputers}" press=".onCategoryNavSelect" data:categoryKey="cat00000-0000-0000-0000-000000000002" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraSubNavLink" />
+                    <Link text="{i18n>navAudio}" press=".onCategoryNavSelect" data:categoryKey="cat00000-0000-0000-0000-000000000003" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraSubNavLink" />
+                    <Link text="{i18n>navSmartphones}" press=".onCategoryNavSelect" data:categoryKey="cat00000-0000-0000-0000-000000000004" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraSubNavLink" />
+                    <Link text="{i18n>navDeals}" press=".onNavHome" class="auraSubNavLink auraDealsLink" />
+                    <Link text="{i18n>navRegistry}" press=".onNavWishlist" class="auraSubNavLink" />
+                    <Link text="{i18n>navCustomerService}" press=".onNavHelp" class="auraSubNavLink" />
+                </HBox>
+            </ScrollContainer>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

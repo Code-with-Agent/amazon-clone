@@ -1,0 +1,204 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.ProductDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="productObjectPage" showTitleInHeaderContent="true" showEditHeaderButton="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{title}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectMarker type="Favorite" visible="{isFeatured}" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{title}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="SKU: {sku} | Brand: {brand}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Edit Draft" type="Emphasized" press=".onEditDraft" />
+                    <Button text="Discontinue" type="Reject" press=".onDiscontinue" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <!-- Header DataPoint: Price -->
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="BuyBox Price" class="auraKpiTitle" />
+                    <ObjectNumber number="{path: 'price', formatter: '.formatCurrency'}" state="Success" class="auraKpiValue" />
+                </VBox>
+                <!-- Header DataPoint: Stock -->
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Available Stock" class="auraKpiTitle" />
+                    <ObjectStatus text="{stock} units" state="{path: 'stockCriticality', formatter: '.formatCriticalityState'}" inverted="true" class="auraKpiValue" />
+                </VBox>
+                <!-- Header DataPoint: Rating -->
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Customer Rating" class="auraKpiTitle" />
+                    <RatingIndicator value="{averageRating}" maxValue="5" editable="false" iconSize="1.2rem" />
+                    <Text text="{averageRating} out of 5 ({reviewCount} reviews)" class="auraKpiSubtext" />
+                </VBox>
+                <!-- Header DataPoint: Status -->
+                <VBox>
+                    <Text text="Catalog Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{status}" state="{path: 'productStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <!-- 1. General Information -->
+            <uxap:ObjectPageSection title="General Information" id="secGeneralInformation">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Product Specifications">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="3">
+                            <Label text="Product SKU" /><Text text="{sku}" />
+                            <Label text="Product Name" /><Text text="{title}" />
+                            <Label text="Brand" /><Text text="{brand}" />
+                            <Label text="Category" /><Text text="{category/name}" />
+                            <Label text="Catalog Status" /><ObjectStatus text="{status}" state="{path: 'productStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Featured Product" /><Switch state="{isFeatured}" enabled="false" />
+                            <Label text="Full Description" /><Text text="{description}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 2. Pricing -->
+            <uxap:ObjectPageSection title="Pricing" id="secPricing">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Commercials &amp; Margins">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Current BuyBox Price" /><ObjectNumber number="{path: 'price', formatter: '.formatCurrency'}" state="Success" />
+                            <Label text="Currency" /><Text text="USD ($)" />
+                            <Label text="Standard Platform Fee" /><Text text="12.50%" />
+                            <Label text="Average Customer Rating" /><RatingIndicator value="{averageRating}" maxValue="5" editable="false" iconSize="1rem" />
+                            <Label text="Customer Reviews Count" /><Text text="{reviewCount} verified ratings" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 3. Inventory -->
+            <uxap:ObjectPageSection title="Inventory" id="secInventory">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Stock Allocation Across Warehouses">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Total Available Units" /><ObjectStatus text="{stock} units" state="{path: 'stockCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Catalog Purchasable" /><Switch state="{active}" enabled="false" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 4. Variants -->
+            <uxap:ObjectPageSection title="Variants" id="secVariants">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Product Variants">
+                        <Table items="{variants}">
+                            <columns>
+                                <Column><Text text="Variant SKU" /></Column>
+                                <Column><Text text="GTIN/EAN" /></Column>
+                                <Column><Text text="Attributes" /></Column>
+                                <Column><Text text="Weight (kg)" /></Column>
+                                <Column><Text text="Dimensions" /></Column>
+                                <Column><Text text="Active" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{variantSku}" />
+                                        <Text text="{gtinEan}" />
+                                        <Text text="{attributes}" />
+                                        <Text text="{weightKg}" />
+                                        <Text text="{dimensionsCm}" />
+                                        <Switch state="{isActive}" enabled="false" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 5. Images -->
+            <uxap:ObjectPageSection title="Images" id="secImages">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Media Gallery">
+                        <Table items="{images}">
+                            <columns>
+                                <Column><Text text="Preview" /></Column>
+                                <Column><Text text="Media URL" /></Column>
+                                <Column><Text text="Alt Text" /></Column>
+                                <Column><Text text="Display Order" /></Column>
+                                <Column><Text text="Hero Image" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Image src="{mediaUrl}" width="48px" height="48px" densityAware="false" />
+                                        <Link text="{mediaUrl}" target="_blank" />
+                                        <Text text="{altText}" />
+                                        <Text text="{displayOrder}" />
+                                        <Switch state="{isHero}" enabled="false" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 6. Offers -->
+            <uxap:ObjectPageSection title="Offers" id="secOffers">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Merchant BuyBox &amp; Marketplace Offers">
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Active BuyBox Winner Price: {path: 'price', formatter: '.formatCurrency'}" class="sapUiTinyMarginBottom" />
+                            <Button text="Inspect All Merchant Offers" icon="sap-icon://supplier" press=".onInspectSellers" />
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 7. Reviews -->
+            <uxap:ObjectPageSection title="Reviews" id="secReviews">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Customer Reviews &amp; Sentiment">
+                        <Table items="{reviews}">
+                            <columns>
+                                <Column><Text text="Rating" /></Column>
+                                <Column><Text text="Headline" /></Column>
+                                <Column><Text text="Comment" /></Column>
+                                <Column><Text text="Verified" /></Column>
+                                <Column><Text text="Helpful Votes" /></Column>
+                                <Column><Text text="Status" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <RatingIndicator value="{rating}" maxValue="5" editable="false" iconSize="0.8rem" />
+                                        <Text text="{headline}" />
+                                        <Text text="{comment}" />
+                                        <Switch state="{isVerifiedPurchase}" enabled="false" />
+                                        <Text text="{helpfulVotes}" />
+                                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

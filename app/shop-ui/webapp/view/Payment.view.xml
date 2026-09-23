@@ -1,0 +1,40 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Payment"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="paymentPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="Payment Authorization">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>ordersTitle}" press=".onNavOrders" />
+                </Breadcrumbs>
+                <Title text="Review &amp; Authorize Payment" level="H2" class="sapUiSmallMarginTop" />
+            </VBox>
+
+            <VBox class="sapUiMediumMargin" width="{= ${device>/system/phone} ? '100%' : '550px' }" renderType="Bare">
+                <Panel class="auraCheckoutPanel sapUiSmallMarginBottom">
+                    <headerToolbar>
+                        <Toolbar height="3rem">
+                            <core:Icon src="sap-icon://money-bills" color="#ea580c" class="sapUiTinyMarginEnd" />
+                            <Title text="Payment Details" level="H4" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <core:Fragment fragmentName="marketplace.shop.view.fragments.PaymentMethod" type="XML" />
+
+                            <HBox class="sapUiMediumMarginTop" justifyContent="End">
+                                <Button text="{i18n>btnCancel}" press=".onCancelPayment" class="sapUiSmallMarginEnd" />
+                                <Button text="Authorize &amp; Pay" type="Emphasized" icon="sap-icon://accept" press=".onAuthorizePayment" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+            </VBox>
+
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

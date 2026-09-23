@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraAddressCard sapUiSmallMargin" renderType="Bare" width="280px">
+        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginBottom">
+            <RadioButton groupName="shippingAddressGroup"
+                         selected="{isSelected}"
+                         select=".onSelectAddress"
+                         text="{recipientName}"
+                         class="auraAddressRadio" />
+            <ObjectStatus text="DEFAULT" state="Success" inverted="true" visible="{isDefault}" class="auraDefaultAddressBadge" />
+        </HBox>
+
+        <VBox class="sapUiTinyMarginBegin sapUiSmallMarginBottom" renderType="Bare">
+            <Text text="{street1}" class="auraAddressLine" />
+            <Text text="{street2}" visible="{= Boolean(${street2}) }" class="auraAddressLine" />
+            <Text text="{city}, {state} {postalCode}" class="auraAddressLine" />
+            <Text text="{country_code}" class="auraAddressLine" />
+            <Text text="Phone: {phoneNumber}" visible="{= Boolean(${phoneNumber}) }" class="auraAddressPhone sapUiTinyMarginTop" />
+        </VBox>
+
+        <HBox class="sapUiTinyMarginBegin">
+            <Link text="{i18n>btnEdit}" press=".onEditAddress" class="sapUiSmallMarginEnd" />
+            <Link text="{i18n>btnDelete}" press=".onDeleteAddress" class="auraDeleteLink" />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

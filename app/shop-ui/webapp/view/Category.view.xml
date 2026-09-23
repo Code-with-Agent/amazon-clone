@@ -1,0 +1,49 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Category"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="categoryPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- Category Header Banner -->
+            <VBox class="auraHeroBanner sapUiMediumMargin" id="categoryBannerBox">
+                <Breadcrumbs currentLocationText="{categoryModel>/name}">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="Categories" press=".onNavHome" />
+                </Breadcrumbs>
+                <Title text="{categoryModel>/name}" level="H1" class="auraHeroTitle sapUiSmallMarginTop" />
+                <Text text="{categoryModel>/description}" class="auraHeroSubtitle" />
+            </VBox>
+
+            <!-- Subcategory Navigation Pills -->
+            <VBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiSmallMarginBottom">
+                <Title text="Explore Subcategories" level="H4" class="sapUiSmallMarginBottom" />
+                <HBox wrap="Wrap" items="{path: '/Categories', parameters: {$filter: 'level eq 2'}}">
+                    <items>
+                        <Button text="{name}"
+                                type="Ghost"
+                                icon="sap-icon://navigation-right-arrow"
+                                press=".onSubcategoryPress"
+                                class="sapUiTinyMarginEnd sapUiTinyMarginBottom" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- Products in Category -->
+            <VBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiLargeMarginBottom">
+                <Title text="Products in Category" level="H3" titleStyle="H4" class="sapUiSmallMarginBottom" />
+                <HBox id="categoryProductsGrid"
+                      wrap="Wrap"
+                      justifyContent="Start"
+                      items="{path: '/Products', parameters: {$expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

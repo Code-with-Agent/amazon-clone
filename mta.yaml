@@ -1,0 +1,162 @@
+_schema-version: 3.3.0
+ID: amazon-clone
+version: 1.0.0
+description: "Aura Enterprise Marketplace - SAP BTP Cloud Foundry Multitarget Application"
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+        - npm run build:ui
+
+modules:
+  # ------------------------------------------------------------
+  # 1. CAP Node.js Backend Service
+  # ------------------------------------------------------------
+  - name: amazon-clone-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+      disk-quota: 1024M
+      memory: 512M
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: amazon-clone-db
+      - name: amazon-clone-auth
+      - name: amazon-clone-destination-service
+
+  # ------------------------------------------------------------
+  # 2. SAP HANA Database Deployer (HDI Container)
+  # ------------------------------------------------------------
+  - name: amazon-clone-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+    requires:
+      - name: amazon-clone-db
+
+  # ------------------------------------------------------------
+  # 3. HTML5 Application Repository Content Deployer
+  # ------------------------------------------------------------
+  - name: amazon-clone-app-deployer
+    type: com.sap.application.content
+    path: gen/app
+    requires:
+      - name: amazon-clone-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - marketplace-shop.zip
+          name: marketplace-shop
+          target-path: resources/
+        - artifacts:
+            - marketplace-admin.zip
+          name: marketplace-admin
+          target-path: resources/
+
+  # ------------------------------------------------------------
+  # 4. SAPUI5 Customer Shop Application
+  # ------------------------------------------------------------
+  - name: marketplace-shop
+    type: html5
+    path: app/shop-ui
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - node ../../scripts/build-ui.js shop-ui
+      supported-platforms: []
+
+  # ------------------------------------------------------------
+  # 5. SAP Fiori Elements Admin Application
+  # ------------------------------------------------------------
+  - name: marketplace-admin
+    type: html5
+    path: app/admin-ui
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - node ../../scripts/build-ui.js admin-ui
+      supported-platforms: []
+
+resources:
+  # ------------------------------------------------------------
+  # SAP BTP XSUAA Service Instance
+  # ------------------------------------------------------------
+  - name: amazon-clone-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: amazon-clone-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+
+  # ------------------------------------------------------------
+  # SAP HANA Cloud HDI Container
+  # ------------------------------------------------------------
+  - name: amazon-clone-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  # ------------------------------------------------------------
+  # SAP BTP HTML5 Application Repository (Host)
+  # ------------------------------------------------------------
+  - name: amazon-clone-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  # ------------------------------------------------------------
+  # SAP BTP Destination Service
+  # ------------------------------------------------------------
+  - name: amazon-clone-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: amazon-clone-srv-api
+                Description: Aura Marketplace CAP Backend Service
+                URL: ~{srv-api/srv-url}
+                Authentication: NoAuthentication
+                ProxyType: Internet
+                Type: HTTP
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+              - Name: ui5
+                Description: SAPUI5 CDN
+                URL: https://ui5.sap.com
+                Authentication: NoAuthentication
+                ProxyType: Internet
+                Type: HTTP
+    requires:
+      - name: srv-api

@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="confirmationDialog"
+        title="{dialog>/title}"
+        type="Message"
+        state="{dialog>/state}">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Text text="{dialog>/message}" />
+                <VBox visible="{= Boolean(${dialog>/showReasonInput}) }" class="sapUiSmallMarginTop">
+                    <Label text="Reason:" required="true" />
+                    <TextArea id="confirmationReasonInput" value="{dialog>/reason}" width="100%" rows="3" placeholder="Please specify the reason..." />
+                </VBox>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="{dialog>/confirmButtonText}" type="Emphasized" press=".onConfirmDialogAction" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>btnCancel}" press=".onCancelDialogAction" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

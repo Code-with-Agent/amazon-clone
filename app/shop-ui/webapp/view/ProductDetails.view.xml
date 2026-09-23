@@ -1,0 +1,376 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.ProductDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="pdpPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- Breadcrumbs -->
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="{title}">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{category/name}" press=".onNavCategory" />
+                </Breadcrumbs>
+            </VBox>
+
+            <!-- =========================================================
+                 PRIMARY PRODUCT SECTION (Gallery + Info + Buy Box)
+                 ========================================================= -->
+            <HBox class="sapUiMediumMargin" alignItems="Start" wrap="Wrap">
+                <!-- Column 1: Image Gallery Fragment -->
+                <VBox width="{= ${device>/system/phone} ? '100%' : '38%' }" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" renderType="Bare">
+                    <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductImageGallery" type="XML" />
+                </VBox>
+
+                <!-- Column 2: Product Core Information -->
+                <VBox width="{= ${device>/system/phone} ? '100%' : '38%' }" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" renderType="Bare">
+                    <!-- Brand Link -->
+                    <Link text="Visit the {brand} Store" press=".onBrandPress" class="auraCardBrand sapUiTinyMarginBottom" />
+
+                    <!-- Product Title -->
+                    <Title text="{title}" level="H2" wrapping="true" class="sapUiTinyMarginBottom" />
+
+                    <!-- Rating & Reviews Fragment -->
+                    <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductRating" type="XML" />
+
+                    <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                    <!-- Price Display Fragment -->
+                    <core:Fragment fragmentName="marketplace.shop.view.fragments.PriceDisplay" type="XML" />
+
+                    <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                    <!-- Key Feature Highlights -->
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <Title text="{i18n>pdpAboutItem}" level="H4" titleStyle="H5" class="sapUiTinyMarginBottom" />
+                        <Text text="{description}" class="sapUiTinyMarginBottom" />
+                        <List mode="None" showSeparators="None">
+                            <StandardListItem title="High performance architecture engineered for pro-grade reliability." icon="sap-icon://circle-task-2" />
+                            <StandardListItem title="Factory-sealed genuine manufacturer inventory with global warranty coverage." icon="sap-icon://circle-task-2" />
+                            <StandardListItem title="Eligible for FREE Express Delivery and 30-day hassle-free marketplace returns." icon="sap-icon://circle-task-2" />
+                            <StandardListItem title="Compliant with international safety, environmental, and energy standards." icon="sap-icon://circle-task-2" />
+                        </List>
+                    </VBox>
+
+                    <!-- Quick Attribute Summary Chips -->
+                    <HBox wrap="Wrap" class="sapUiTinyMarginTop sapUiSmallMarginBottom">
+                        <Text text="Condition: New / Factory Sealed" class="auraPromoPill sapUiTinyMarginEnd sapUiTinyMarginBottom" />
+                        <Text text="Fast Shipping Eligible" class="auraPromoPill sapUiTinyMarginEnd sapUiTinyMarginBottom" />
+                        <Text text="Buyer Protection Guaranteed" class="auraPromoPill sapUiTinyMarginBottom" />
+                    </HBox>
+                </VBox>
+
+                <!-- Column 3: Buy Box / Add to Cart Fragment -->
+                <VBox width="{= ${device>/system/phone} ? '100%' : '20%' }" renderType="Bare">
+                    <core:Fragment fragmentName="marketplace.shop.view.fragments.AddToCart" type="XML" />
+                </VBox>
+            </HBox>
+
+            <!-- =========================================================
+                 7. FREQUENTLY BOUGHT TOGETHER (Bundle Box)
+                 ========================================================= -->
+            <VBox class="auraBundleBox sapUiMediumMargin">
+                <Title text="Frequently Bought Together" level="H3" titleStyle="H4" class="sapUiSmallMarginBottom" />
+                <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom">
+                    <!-- Main Product Preview -->
+                    <HBox alignItems="Center" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Image src="{= ${images/0/mediaUrl} ? ${images/0/mediaUrl} : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200' }"
+                               width="90px" height="90px" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Text text="{title}" maxLines="1" class="auraActionMaintext" width="220px" />
+                            <Text text="{path: 'variants/0/offers/0/price', formatter: '.formatter.formatCurrency'}" class="auraCardPrice" />
+                        </VBox>
+                    </HBox>
+
+                    <Text text="+" class="auraBundlePlus" />
+
+                    <!-- Companion Item -->
+                    <HBox alignItems="Center" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Image src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=200"
+                               width="90px" height="90px" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Text text="Aura Premium Braided USB-C Fast Charger" class="auraActionMaintext" width="220px" />
+                            <Text text="$34.99" class="auraCardPrice" />
+                        </VBox>
+                    </HBox>
+
+                    <Text text="+" class="auraBundlePlus" />
+
+                    <!-- Protection Plan -->
+                    <HBox alignItems="Center" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <core:Icon src="sap-icon://shield" size="2.5rem" color="#059669" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Text text="2-Year Aura Care Extended Protection" class="auraActionMaintext" width="220px" />
+                            <Text text="$49.00" class="auraCardPrice" />
+                        </VBox>
+                    </HBox>
+                </HBox>
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap" class="sapUiSmallMarginTop">
+                    <HBox alignItems="Baseline">
+                        <Text text="Total Bundle Price:" class="auraSummaryLabel sapUiTinyMarginEnd" />
+                        <Text id="bundleTotalPriceText" text="$2,582.99" class="auraSummaryTotalValue" />
+                    </HBox>
+                    <Button text="Add All 3 to Cart" type="Emphasized" icon="sap-icon://cart-plus" press=".onAddBundleToCart" class="auraAddToCartBtn" />
+                </HBox>
+            </VBox>
+
+            <!-- =========================================================
+                 1. PRODUCT DESCRIPTION
+                 ========================================================= -->
+            <VBox class="auraCartSummaryBox sapUiMediumMargin">
+                <Title text="Product Description" level="H3" titleStyle="H4" class="sapUiSmallMarginBottom" />
+                <Text text="{description}" class="sapUiSmallMarginBottom auraMutedText" />
+                <Text text="Engineered for professionals and everyday tech enthusiasts alike, this product combines cutting-edge architecture with unmatched durability. Every component is rigorously tested to ensure whisper-quiet performance, exceptional thermal efficiency, and all-day battery endurance under intensive computing workloads." class="sapUiSmallMarginBottom" />
+                <Text text="The vivid, industry-leading display offers extreme dynamic range with deep blacks, vibrant contrast, and true-to-life colors. Whether editing 8K video timelines, analyzing complex enterprise data, or enjoying high-fidelity spatial audio, this device delivers a transformative digital experience." />
+            </VBox>
+
+            <!-- =========================================================
+                 2. TECHNICAL SPECIFICATIONS & 3. PRODUCT ATTRIBUTES
+                 ========================================================= -->
+            <VBox class="auraCartSummaryBox sapUiMediumMargin">
+                <Title text="Technical Specifications &amp; Attributes" level="H3" titleStyle="H4" class="sapUiSmallMarginBottom" />
+                <Table mode="None">
+                    <columns>
+                        <Column width="35%"><Text text="Attribute / Specification" class="auraActionMaintext" /></Column>
+                        <Column width="65%"><Text text="Value / Detail" class="auraActionMaintext" /></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Brand &amp; Manufacturer" />
+                                <Text text="{brand}" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Product SKU / Model Number" />
+                                <Text text="{sku}" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Variant SKU" />
+                                <Text text="{variants/0/variantSku}" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="GTIN / Universal Product Code (UPC)" />
+                                <Text text="{variants/0/gtinEan}" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Item Weight" />
+                                <Text text="{variants/0/weightKg} kg" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Dimensions (L x W x H)" />
+                                <Text text="{variants/0/dimensionsCm} cm" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Configuration Attributes" />
+                                <Text text="{variants/0/attributes}" />
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Condition &amp; Warranty" />
+                                <Text text="New / Factory Sealed with 1-Year Comprehensive Manufacturer Warranty" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+
+            <!-- =========================================================
+                 4. SELLER INFORMATION
+                 ========================================================= -->
+            <VBox class="auraSellerCard sapUiMediumMargin">
+                <Title text="Seller &amp; Merchant Information" level="H3" titleStyle="H4" class="sapUiSmallMarginBottom" />
+                <HBox justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://retail-store" size="2.5rem" color="#ea580c" class="sapUiSmallMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{= ${variants/0/offers/0/seller/storeName} ? ${variants/0/offers/0/seller/storeName} : 'Aura Authorized Direct Store' }" level="H4" />
+                            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                                <RatingIndicator value="{= ${variants/0/offers/0/seller/rating} ? ${variants/0/offers/0/seller/rating} : 4.9 }" maxValue="5" visualMode="Half" enabled="false" iconSize="0.875rem" />
+                                <Text text="{= ${variants/0/offers/0/seller/rating} ? ${variants/0/offers/0/seller/rating} : '4.9' } / 5.0 (98% positive lifetime feedback)" class="auraMutedText sapUiTinyMarginBegin" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+
+                    <HBox class="sapUiSmallMarginTop">
+                        <Button text="Visit Storefront" icon="sap-icon://chain-link" press=".onVisitSellerStore" class="sapUiSmallMarginEnd" />
+                        <Button text="Contact Seller" icon="sap-icon://email" press=".onContactSeller" />
+                    </HBox>
+                </HBox>
+
+                <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                <HBox wrap="Wrap">
+                    <VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom" renderType="Bare">
+                        <Text text="Ships From" class="auraMutedLabel" />
+                        <Text text="Aura Fulfillment Regional Warehouses" class="auraActionMaintext" />
+                    </VBox>
+                    <VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom" renderType="Bare">
+                        <Text text="Customer Response Time" class="auraMutedLabel" />
+                        <Text text="Under 2 Hours Average" class="auraActionMaintext" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginBottom" renderType="Bare">
+                        <Text text="Return Policy" class="auraMutedLabel" />
+                        <Text text="30-Day Money-Back Guarantee" class="auraActionMaintext" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- =========================================================
+                 5. CUSTOMER REVIEWS (With Lazy Loading)
+                 ========================================================= -->
+            <VBox id="reviewsSection" class="auraCartSummaryBox sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom" wrap="Wrap">
+                    <VBox renderType="Bare">
+                        <Title text="{i18n>pdpCustomerReviews}" level="H3" titleStyle="H4" />
+                        <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                            <RatingIndicator value="{averageRating}" maxValue="5" visualMode="Half" enabled="false" iconSize="1.25rem" />
+                            <Text text="{averageRating} out of 5 stars ({reviewCount} customer reviews)" class="sapUiTinyMarginBegin auraActionMaintext" />
+                        </HBox>
+                    </VBox>
+                    <Button text="{i18n>pdpWriteReview}" type="Emphasized" icon="sap-icon://write-new" press=".onOpenWriteReviewDialog" />
+                </HBox>
+
+                <!-- Rating Distribution Bars -->
+                <VBox class="sapUiSmallMarginBottom" width="{= ${device>/system/phone} ? '100%' : '350px' }" renderType="Bare">
+                    <HBox alignItems="Center" class="auraRatingBarRow">
+                        <Text text="5 star" class="auraRatingBarLabel" />
+                        <ProgressIndicator percentValue="85" displayValue="85%" state="Success" height="0.875rem" />
+                    </HBox>
+                    <HBox alignItems="Center" class="auraRatingBarRow">
+                        <Text text="4 star" class="auraRatingBarLabel" />
+                        <ProgressIndicator percentValue="10" displayValue="10%" state="Information" height="0.875rem" />
+                    </HBox>
+                    <HBox alignItems="Center" class="auraRatingBarRow">
+                        <Text text="3 star" class="auraRatingBarLabel" />
+                        <ProgressIndicator percentValue="3" displayValue="3%" state="None" height="0.875rem" />
+                    </HBox>
+                    <HBox alignItems="Center" class="auraRatingBarRow">
+                        <Text text="2 star" class="auraRatingBarLabel" />
+                        <ProgressIndicator percentValue="1" displayValue="1%" state="Warning" height="0.875rem" />
+                    </HBox>
+                    <HBox alignItems="Center" class="auraRatingBarRow">
+                        <Text text="1 star" class="auraRatingBarLabel" />
+                        <ProgressIndicator percentValue="1" displayValue="1%" state="Error" height="0.875rem" />
+                    </HBox>
+                </VBox>
+
+                <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                <!-- Lazy-Loaded Reviews List -->
+                <List id="pdpReviewsList"
+                      items="{path: 'reviews'}"
+                      growing="true"
+                      growingThreshold="4"
+                      growingScrollToLoad="true"
+                      noDataText="No customer reviews submitted yet. Be the first to share your experience!">
+                    <CustomListItem>
+                        <VBox class="sapUiSmallMargin" renderType="Bare">
+                            <HBox alignItems="Center">
+                                <core:Icon src="sap-icon://customer" class="sapUiTinyMarginEnd" />
+                                <Text text="{authorName}" class="auraCardBrand" />
+                            </HBox>
+                            <HBox alignItems="Center" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                                <RatingIndicator value="{rating}" maxValue="5" enabled="false" iconSize="0.875rem" />
+                                <Text text="{headline}" class="auraActionMaintext sapUiSmallMarginBegin" />
+                            </HBox>
+                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                <ObjectStatus text="{i18n>pdpVerifiedPurchase}" state="Success" inverted="true" class="sapUiTinyMarginEnd" />
+                                <Text text="Reviewed on {path: 'createdAt', formatter: '.formatter.formatDate'}" class="auraMutedText" />
+                            </HBox>
+                            <Text text="{comment}" class="sapUiTinyMarginBottom" />
+                            <HBox alignItems="Center">
+                                <Button text="{i18n>pdpWasThisHelpful} ({helpfulVotes})" type="Transparent" icon="sap-icon://thumb-up" press=".onMarkReviewHelpful" />
+                            </HBox>
+                        </VBox>
+                    </CustomListItem>
+                </List>
+            </VBox>
+
+            <!-- =========================================================
+                 6. QUESTIONS & ANSWERS
+                 ========================================================= -->
+            <VBox class="auraQABox sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom" wrap="Wrap">
+                    <VBox renderType="Bare">
+                        <Title text="Customer Questions &amp; Answers" level="H3" titleStyle="H4" />
+                        <Text text="Find quick answers from verified buyers and Aura product specialists" class="auraMutedText" />
+                    </VBox>
+                    <Button text="Ask the Community" icon="sap-icon://discussion-2" press=".onAskQuestion" />
+                </HBox>
+
+                <!-- Search Q&A Field -->
+                <SearchField placeholder="Have a question? Search for answers..." search=".onSearchQA" width="100%" class="sapUiSmallMarginBottom" />
+
+                <!-- FAQ Panels -->
+                <Panel expandable="true" expanded="true" class="sapUiTinyMarginBottom">
+                    <headerToolbar>
+                        <Toolbar height="2.5rem">
+                            <Text text="Q: Does this product include global manufacturer warranty coverage?" class="auraQAQuestion" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Text text="A: Yes, all units sold on Aura Marketplace are 100% genuine and include 1-year official manufacturer warranty coverage valid worldwide." class="auraQAAnswer sapUiSmallMargin" />
+                    </content>
+                </Panel>
+
+                <Panel expandable="true" expanded="false" class="sapUiTinyMarginBottom">
+                    <headerToolbar>
+                        <Toolbar height="2.5rem">
+                            <Text text="Q: What cables and accessories are included in the box?" class="auraQAQuestion" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Text text="A: The retail box includes the main device, USB-C fast charging cable, power adapter, and welcome documentation with setup guide." class="auraQAAnswer sapUiSmallMargin" />
+                    </content>
+                </Panel>
+
+                <Panel expandable="true" expanded="false">
+                    <headerToolbar>
+                        <Toolbar height="2.5rem">
+                            <Text text="Q: Is express next-day delivery available for my location?" class="auraQAQuestion" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Text text="A: Orders completed before 4:00 PM local time are dispatched the same day with next-day express carrier delivery." class="auraQAAnswer sapUiSmallMargin" />
+                    </content>
+                </Panel>
+            </VBox>
+
+            <!-- =========================================================
+                 8. RELATED PRODUCTS
+                 ========================================================= -->
+            <VBox class="sapUiMediumMargin">
+                <HBox class="auraSectionHeader" justifyContent="SpaceBetween" alignItems="Center">
+                    <VBox renderType="Bare">
+                        <Title text="{i18n>pdpRelatedProducts}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                        <Text text="Customers who viewed this item also considered these options" class="auraSectionSubtitle" />
+                    </VBox>
+                    <Link text="See all related" press=".onSeeAllRelated" />
+                </HBox>
+
+                <HBox wrap="Wrap" items="{path: '/Products', length: 4, parameters: {$expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

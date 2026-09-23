@@ -1,0 +1,195 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Overview"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m">
+    <Page id="overviewPage" title="Executive Marketplace Operations" showHeader="false" enableScrolling="true" class="sapUiContentPadding">
+        <content>
+            <!-- Dashboard Header Banner -->
+            <VBox class="sapUiSmallMarginBottom">
+                <HBox justifyContent="SpaceBetween" alignItems="Center">
+                    <VBox>
+                        <Title text="Executive Operations &amp; Marketplace Health" level="H2" class="sapUiTinyMarginBottom" />
+                        <Text text="Real-time operational metrics across catalog, order lifecycle, fulfillment, merchant compliance, and ledger." class="auraKpiSubtext" />
+                    </VBox>
+                    <HBox alignItems="Center">
+                        <Button text="Refresh Data" icon="sap-icon://refresh" type="Emphasized" press=".onRefreshData" class="sapUiSmallMarginEnd" />
+                        <ObjectStatus text="SYSTEM HEALTHY" state="Success" inverted="true" />
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <!-- 9 Domain Interactive Overview KPI Cards Grid -->
+            <layout:Grid defaultSpan="XL4 L4 M6 S12" class="sapUiSmallMarginBottom">
+                <!-- 1. Products Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="CATALOG &amp; PRODUCTS" class="auraKpiTitle" />
+                            <Text text="8 Active SKUs" class="auraKpiValue" />
+                            <Text text="100% In Stock | Top Brand: Apple" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://product" size="2.5rem" color="#3b82f6" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Manage Catalog" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateProducts" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 2. Orders Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="SALES ORDERS" class="auraKpiTitle" />
+                            <Text text="3 Orders" class="auraKpiValue" />
+                            <Text text="2 Processing | $5,646.99 GMV" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://sales-order" size="2.5rem" color="#10b981" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Manage Orders" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateOrders" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 3. Customers Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="CUSTOMERS" class="auraKpiTitle" />
+                            <Text text="3 Accounts" class="auraKpiValue" />
+                            <Text text="100% Active | Verified Buyers" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://customer" size="2.5rem" color="#8b5cf6" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Manage Customers" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateCustomers" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 4. Inventory Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="INVENTORY &amp; STOCK" class="auraKpiTitle" />
+                            <Text text="640 Units" class="auraKpiValue" />
+                            <Text text="2 Warehouses | Optimal Health" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://inventory" size="2.5rem" color="#f59e0b" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="View Stock Health" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateInventory" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 5. Sellers Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="MERCHANT PARTNERS" class="auraKpiTitle" />
+                            <Text text="3 Sellers" class="auraKpiValue" />
+                            <Text text="1 Pending Approval Action" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://supplier" size="2.5rem" color="#ec4899" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Review Sellers" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateSellers" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 6. Promotions Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="PROMOTIONS &amp; COUPONS" class="auraKpiTitle" />
+                            <Text text="3 Campaigns" class="auraKpiValue" />
+                            <Text text="SAVE10, WELCOME25 Active" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://tag" size="2.5rem" color="#06b6d4" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Manage Campaigns" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigatePromotions" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 7. Reviews Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="CUSTOMER REVIEWS" class="auraKpiTitle" />
+                            <Text text="3 Reviews" class="auraKpiValue" />
+                            <Text text="1 Pending Moderation Queue" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://favorite" size="2.5rem" color="#e11d48" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Moderate Reviews" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateReviews" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 8. Payments Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="PAYMENT PROCESSING" class="auraKpiTitle" />
+                            <Text text="$5,646.99" class="auraKpiValue" />
+                            <Text text="100% Capture Success Rate" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://payment-approval" size="2.5rem" color="#0284c7" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Payment Ledger" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigatePayments" />
+                    </Toolbar>
+                </VBox>
+
+                <!-- 9. Shipments Card -->
+                <VBox class="auraKpiCard sapUiSmallMargin" renderType="Bare">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                        <VBox>
+                            <Text text="LOGISTICS &amp; SHIPMENTS" class="auraKpiTitle" />
+                            <Text text="2 Dispatches" class="auraKpiValue" />
+                            <Text text="FedEx &amp; UPS Express Active" class="auraKpiSubtext" />
+                        </VBox>
+                        <core:Icon src="sap-icon://shipping-status" size="2.5rem" color="#6366f1" />
+                    </HBox>
+                    <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <Button text="Track Shipments" icon="sap-icon://navigation-right-arrow" type="Transparent" press=".onNavigateShipments" />
+                    </Toolbar>
+                </VBox>
+            </layout:Grid>
+
+            <!-- Quick Action Operations Table -->
+            <VBox class="sapUiMediumMarginTop">
+                <Title text="Recent High-Priority Operational Dispatches &amp; Tasks" level="H3" class="sapUiSmallMarginBottom" />
+                <Table items="{/Shipments}" growing="true" growingThreshold="5">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Active Consignments" level="H4" />
+                            <ToolbarSpacer />
+                            <Button text="Fulfill New Dispatch" icon="sap-icon://shipping-status" type="Emphasized" press=".onNavigateShipments" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column><Text text="Tracking Number" /></Column>
+                        <Column><Text text="Carrier" /></Column>
+                        <Column><Text text="Order" /></Column>
+                        <Column><Text text="Status" /></Column>
+                        <Column><Text text="Dispatched" /></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <ObjectIdentifier title="{trackingNumber}" />
+                                <Text text="{carrier}" />
+                                <Link text="{order_ID}" press=".onNavigateOrders" />
+                                <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                                <Text text="{path: 'shippedAt', formatter: '.formatDateTime'}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

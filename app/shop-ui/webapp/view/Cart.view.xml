@@ -1,0 +1,196 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Cart"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="cartPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- Cart Page Breadcrumbs & Header -->
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="{i18n>cartTitle}">
+                    <Link text="Home" press=".onNavHome" />
+                </Breadcrumbs>
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                    <Title text="{i18n>cartTitle}" level="H2" />
+                    <Button text="Clear Cart" type="Transparent" icon="sap-icon://delete" press=".onClearCart" />
+                </HBox>
+            </VBox>
+
+            <!-- Main Cart Layout (Cart Items + Order Summary Sidebar) -->
+            <HBox class="sapUiMediumMargin" alignItems="Start" wrap="Wrap">
+                <!-- Cart Items Section -->
+                <VBox class="auraCartItemsWrapper sapUiMediumMarginEnd" width="{= ${device>/system/phone} ? '100%' : '65%' }" renderType="Bare">
+                    <!-- Active Cart Items List -->
+                    <List id="cartItemsList"
+                          items="{path: 'cart>/CartItems', parameters: {$filter: 'isSavedForLater eq false', $expand: 'product($expand=images),variant,offer'}}"
+                          noDataText="{i18n>cartEmptyTitle}">
+                        <CustomListItem>
+                            <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" renderType="Bare">
+                                <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" alignItems="Start" wrap="Wrap">
+                                    <!-- Product Thumbnail & Details -->
+                                    <HBox alignItems="Start" width="{= ${device>/system/phone} ? '100%' : '70%' }">
+                                        <Image src="{= ${cart>product/images/0/mediaUrl} ? ${cart>product/images/0/mediaUrl} : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200' }"
+                                               densityAware="false"
+                                               width="110px"
+                                               height="110px"
+                                               class="auraOrderItemImage sapUiSmallMarginEnd" />
+                                        <VBox renderType="Bare">
+                                            <!-- Product Brand & Title -->
+                                            <Text text="{cart>product/brand}" class="auraCardBrand" />
+                                            <Title text="{= ${cart>product/title} ? ${cart>product/title} : 'Aura Marketplace Certified Product' }"
+                                                   level="H4"
+                                                   titleStyle="H5"
+                                                   wrapping="true"
+                                                   class="auraOrderItemTitle" />
+
+                                            <!-- Variant Attributes -->
+                                            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                                                <Text text="Variant: {= ${cart>variant/attributes} ? ${cart>variant/attributes} : ${cart>variant/variantSku} }" class="auraMutedText" />
+                                            </HBox>
+
+                                            <!-- In Stock & Delivery Note -->
+                                            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                                                <ObjectStatus text="{i18n>pdpStockIn}" state="Success" icon="sap-icon://sys-enter-2" class="auraStockStatusMini sapUiSmallMarginEnd" />
+                                                <Text text="FREE Next-Day Delivery eligible" class="auraCardDeliveryNote" />
+                                            </HBox>
+
+                                            <!-- Quantity Controls & Item Actions -->
+                                            <HBox alignItems="Center" class="sapUiSmallMarginTop" wrap="Wrap">
+                                                <Label text="{i18n>cartQty}" class="sapUiTinyMarginEnd" />
+                                                <StepInput value="{cart>quantity}"
+                                                           min="1"
+                                                           max="10"
+                                                           width="110px"
+                                                           change=".onQuantityChange" />
+                                                <Button text="{i18n>cartDelete}"
+                                                        type="Transparent"
+                                                        icon="sap-icon://delete"
+                                                        press=".onDeleteItem"
+                                                        class="sapUiSmallMarginBegin" />
+                                                <Button text="{i18n>cartSaveForLater}"
+                                                        type="Transparent"
+                                                        icon="sap-icon://save"
+                                                        press=".onSaveForLater"
+                                                        class="sapUiTinyMarginBegin" />
+                                            </HBox>
+                                        </VBox>
+                                    </HBox>
+
+                                    <!-- Item Pricing Breakdown (Unit Price, Original Price, Discount & Extended Total) -->
+                                    <VBox alignItems="End" width="{= ${device>/system/phone} ? '100%' : '28%' }" class="sapUiTinyMarginTop" renderType="Bare">
+                                        <Text text="{path: 'cart>extendedPrice', formatter: '.formatter.formatCurrency'}" class="auraSummaryTotalValue" />
+                                        
+                                        <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                                            <Text text="{path: 'cart>unitPrice', formatter: '.formatter.formatCurrency'} ea." class="auraMutedText sapUiTinyMarginEnd" />
+                                            <Text text="{path: 'cart>offer/originalPrice', formatter: '.formatter.formatCurrency'}"
+                                                  visible="{= ${cart>offer/originalPrice} > ${cart>unitPrice} }"
+                                                  class="auraPriceOriginal" />
+                                        </HBox>
+
+                                        <ObjectStatus
+                                            text="{parts: [{path: 'cart>offer/originalPrice'}, {path: 'cart>unitPrice'}], formatter: '.formatter.formatDiscountBadge'}"
+                                            state="Success"
+                                            inverted="true"
+                                            visible="{= ${cart>offer/originalPrice} > ${cart>unitPrice} }"
+                                            class="auraDiscountBadge sapUiTinyMarginTop" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </CustomListItem>
+                    </List>
+
+                    <!-- Coupon Code Input Box -->
+                    <VBox class="auraCartSummaryBox sapUiSmallMarginTop sapUiSmallMarginBottom" renderType="Bare">
+                        <Title text="{i18n>cartCouponTitle}" level="H5" class="sapUiTinyMarginBottom" />
+                        <Text text="Try codes 'SAVE10' for 10% off or 'WELCOME25' for $25 off eligible orders." class="auraMutedText sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center">
+                            <Input id="couponCodeInput" placeholder="{i18n>cartCouponPlaceholder}" width="260px" class="sapUiSmallMarginEnd" />
+                            <Button text="{i18n>cartApplyCoupon}" type="Emphasized" press=".onApplyCoupon" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Saved for Later List -->
+                    <VBox class="sapUiMediumMarginTop" renderType="Bare">
+                        <Title text="Saved for Later (Wishlist Items)" level="H4" class="sapUiSmallMarginBottom" />
+                        <List id="savedForLaterList"
+                              items="{path: 'cart>/CartItems', parameters: {$filter: 'isSavedForLater eq true', $expand: 'product,variant,offer'}}"
+                              noDataText="No items saved for later">
+                            <CustomListItem>
+                                <HBox class="auraCartSummaryBox sapUiSmallMargin" justifyContent="SpaceBetween" alignItems="Center">
+                                    <HBox alignItems="Center">
+                                        <Image src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150"
+                                               width="70px"
+                                               height="70px"
+                                               class="sapUiSmallMarginEnd" />
+                                        <VBox renderType="Bare">
+                                            <Text text="{= ${cart>product/title} ? ${cart>product/title} : 'Saved Product' }" class="auraActionMaintext" />
+                                            <Text text="{path: 'cart>unitPrice', formatter: '.formatter.formatCurrency'}" class="auraCardPrice sapUiTinyMarginTop" />
+                                        </VBox>
+                                    </HBox>
+                                    <HBox>
+                                        <Button text="Move to Cart" type="Emphasized" icon="sap-icon://cart-plus" press=".onMoveToCart" class="sapUiSmallMarginEnd" />
+                                        <Button text="{i18n>cartDelete}" type="Transparent" icon="sap-icon://delete" press=".onDeleteItem" />
+                                    </HBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </VBox>
+                </VBox>
+
+                <!-- Order Financial Summary Sidebar -->
+                <VBox width="{= ${device>/system/phone} ? '100%' : '32%' }" class="auraCartSummaryBox" renderType="Bare">
+                    <Title text="{i18n>checkoutOrderSummary}" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+
+                    <!-- Subtotal -->
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="{i18n>cartSubtotal}:" class="auraSummaryLabel" />
+                        <Text text="{path: 'cart>subtotalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                    </HBox>
+
+                    <!-- Shipping -->
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="{i18n>checkoutShippingHandling}" class="auraSummaryLabel" />
+                        <Text text="{= Number(${cart>shippingEstimate}) === 0 ? 'FREE' : ${path: 'cart>shippingEstimate', formatter: '.formatter.formatCurrency'} }"
+                              class="auraSummaryValue" />
+                    </HBox>
+
+                    <!-- Discount Applied -->
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom" visible="{= Number(${cart>discountAmount}) > 0 }">
+                        <Text text="{i18n>checkoutDiscountTotal}" class="auraDiscountLabel" />
+                        <Text text="-{path: 'cart>discountAmount', formatter: '.formatter.formatCurrency'}" class="auraDiscountValue" />
+                    </HBox>
+
+                    <!-- Estimated Tax -->
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="{i18n>checkoutEstimatedTax}" class="auraSummaryLabel" />
+                        <Text text="{path: 'cart>taxEstimate', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                    </HBox>
+
+                    <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                    <!-- Grand Total -->
+                    <HBox justifyContent="SpaceBetween" alignItems="Baseline" class="sapUiSmallMarginBottom">
+                        <Text text="{i18n>checkoutOrderTotal}" class="auraSummaryTotalLabel" />
+                        <Text text="{path: 'cart>totalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryTotalValue" />
+                    </HBox>
+
+                    <!-- Proceed to Checkout Button -->
+                    <Button text="{i18n>cartProceedToCheckout}"
+                            type="Emphasized"
+                            icon="sap-icon://cart-approval"
+                            press=".onProceedToCheckout"
+                            width="100%"
+                            class="auraProceedCheckoutBtn" />
+
+                    <HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+                        <core:Icon src="sap-icon://shield" class="sapUiTinyMarginEnd" />
+                        <Text text="Safe &amp; encrypted checkout" class="auraSecurityNote" />
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

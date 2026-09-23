@@ -1,0 +1,61 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="loginPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiLargeMarginTop sapUiLargeMarginBottom" alignItems="Center" justifyContent="Center">
+                <!-- Brand Header -->
+                <HBox alignItems="Center" class="auraBrandContainer sapUiMediumMarginBottom" press=".onNavHome">
+                    <core:Icon src="sap-icon://retail-store" class="auraBrandIcon" />
+                    <VBox class="sapUiTinyMarginBegin" renderType="Bare">
+                        <Title text="{i18n>brandName}" class="auraBrandTitle" />
+                        <Text text="Marketplace" class="auraBrandSubtitle" />
+                    </VBox>
+                </HBox>
+
+                <!-- Login Box -->
+                <VBox class="auraCartSummaryBox sapUiMediumMarginBottom" width="{= ${device>/system/phone} ? '90%' : '420px' }" renderType="Bare">
+                    <Title text="{i18n>headerSignIn}" level="H2" class="sapUiSmallMarginBottom" />
+
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <Label text="Email or mobile phone number" required="true" labelFor="loginEmailInput" />
+                        <Input id="loginEmailInput" value="{ui>/userEmail}" width="100%" placeholder="e.g. alice.smith@example.com" />
+                    </VBox>
+
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                            <Label text="Password" required="true" labelFor="loginPasswordInput" />
+                            <Link text="Forgot your password?" press=".onForgotPass" />
+                        </HBox>
+                        <Input id="loginPasswordInput" type="Password" value="••••••••" width="100%" />
+                    </VBox>
+
+                    <Button text="{i18n>headerSignIn}"
+                            type="Emphasized"
+                            press=".onSignIn"
+                            width="100%"
+                            class="auraProceedCheckoutBtn sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                    <Text text="By continuing, you agree to Aura's Conditions of Use and Privacy Notice." class="auraSecurityNote sapUiSmallMarginBottom" />
+
+                    <HBox class="auraSummaryDivider sapUiMediumMarginTop sapUiMediumMarginBottom" />
+
+                    <!-- Demo Persona Selector -->
+                    <Title text="Developer Demo Personas" level="H5" class="sapUiTinyMarginBottom" />
+                    <Text text="Quick-switch user context to simulate different customer shopping states:" class="auraMutedText sapUiTinyMarginBottom" />
+
+                    <Select id="demoPersonaSelect" change=".onSelectDemoPersona" width="100%">
+                        <core:Item key="alice" text="Alice Smith (Customer 001 - Prime Member)" />
+                        <core:Item key="bob" text="Bob Jones (Customer 002 - Tech Enthusiast)" />
+                        <core:Item key="carol" text="Carol Davis (Customer 003 - Audio Pro)" />
+                    </Select>
+                </VBox>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

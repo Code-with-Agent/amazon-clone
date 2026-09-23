@@ -1,0 +1,29 @@
+node_modules/
+target/
+_out/
+gen/
+dist/
+**/dist/
+
+.cdsrc-private.json
+default-*.json
+*.sqlite*
+*.db
+*.log
+
+# MTA
+mta_archives/
+*_mta_build_tmp
+*.mtar
+
+# Binaries & Temporary files
+unpacked_bin/
+*.exe
+scratch/
+
+# Other
+.DS_Store
+Thumbs.db
+
+# @cap-js/cds-typer
+@cds-models

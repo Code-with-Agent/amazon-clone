@@ -1,0 +1,32 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <HBox class="auraOrderItemRow sapUiSmallMarginBottom" justifyContent="SpaceBetween" alignItems="Start" renderType="Bare">
+        <!-- Image & Description -->
+        <HBox alignItems="Start">
+            <Image src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200"
+                   densityAware="false"
+                   width="90px"
+                   height="90px"
+                   class="auraOrderItemImage sapUiSmallMarginEnd" />
+            <VBox renderType="Bare">
+                <Text text="{productName}" class="auraOrderItemTitle" />
+                <Text text="SKU: {skuSnapshot}" class="auraOrderItemSku sapUiTinyMarginTop" />
+                <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                    <Text text="Qty: {quantity}" class="auraOrderItemQty sapUiSmallMarginEnd" />
+                    <Text text="{path: 'unitPrice', formatter: '.formatter.formatCurrency'} each" class="auraOrderItemUnit" />
+                </HBox>
+                <HBox class="sapUiSmallMarginTop">
+                    <Button text="{i18n>ordersBuyAgain}" type="Ghost" icon="sap-icon://synchronize" press=".onBuyAgainPress" class="sapUiTinyMarginEnd" />
+                    <Button text="{i18n>ordersReturnAction}" type="Transparent" icon="sap-icon://undo" press=".onReturnItemPress" class="sapUiTinyMarginEnd" />
+                    <Button text="{i18n>pdpWriteReview}" type="Transparent" icon="sap-icon://comment" press=".onWriteReviewPress" />
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <!-- Total Price -->
+        <VBox alignItems="End" renderType="Bare">
+            <Text text="{path: 'extendedPrice', formatter: '.formatter.formatCurrency'}" class="auraOrderItemTotal" />
+        </VBox>
+    </HBox>
+</core:FragmentDefinition>

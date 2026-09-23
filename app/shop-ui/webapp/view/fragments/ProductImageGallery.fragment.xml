@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraImageGallery" alignItems="Center">
+        <!-- Main Hero Image -->
+        <HBox class="auraHeroImageWrapper" justifyContent="Center" alignItems="Center">
+            <Image id="pdpMainImage"
+                   src="{= ${images/0/mediaUrl} ? ${images/0/mediaUrl} : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800' }"
+                   alt="{images/0/altText}"
+                   densityAware="false"
+                   class="auraHeroImage" />
+        </HBox>
+
+        <!-- Thumbnail Strip -->
+        <HBox id="pdpThumbnailsStrip"
+              items="{path: 'images'}"
+              justifyContent="Center"
+              class="auraThumbnailsStrip sapUiSmallMarginTop">
+            <items>
+                <HBox class="auraThumbnailWrapper sapUiTinyMarginBegin sapUiTinyMarginEnd" press=".onThumbnailPress">
+                    <Image src="{mediaUrl}"
+                           alt="{altText}"
+                           densityAware="false"
+                           width="64px"
+                           height="64px"
+                           class="auraThumbnailImage" />
+                </HBox>
+            </items>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

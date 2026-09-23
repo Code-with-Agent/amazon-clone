@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Enterprise Marketplace - Preview Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            min-height: 100vh;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #dcfce7;
+            color: #15803d;
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            border-color: #cbd5e1;
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            margin-bottom: 16px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .card-features li {
+            font-size: 0.875rem;
+            color: #475569;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-features li::before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            background: var(--accent);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .services-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .services-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .service-pill {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-pill:hover {
+            background: #eff6ff;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .service-pill span {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 0.875rem;
+        }
+
+        .users-table th, .users-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .users-table th {
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                CAP Server Live (Port 4004)
+            </div>
+            <h1>Aura Enterprise Marketplace</h1>
+            <p>SAP Cloud Application Programming Model &amp; SAPUI5 / Fiori Elements Preview Portal</p>
+        </div>
+
+        <div class="grid">
+            <!-- Customer Storefront -->
+            <div class="card">
+                <div>
+                    <span class="card-tag">Customer Facing</span>
+                    <h2>Storefront (Shop UI)</h2>
+                    <p>Modern enterprise e-commerce customer shopping experience built with SAPUI5 Freestyle MVC.</p>
+                    <ul class="card-features">
+                        <li>Hero promotional carousel &amp; deals</li>
+                        <li>Search, filtering &amp; category navigation</li>
+                        <li>Product details with image gallery &amp; reviews</li>
+                        <li>Active cart &amp; multi-step checkout wizard</li>
+                        <li>Order confirmation, history &amp; cancellations</li>
+                    </ul>
+                </div>
+                <a href="/shop-ui/webapp/index.html" class="btn" target="_blank">Launch Storefront UI &rarr;</a>
+            </div>
+
+            <!-- Backoffice Admin -->
+            <div class="card">
+                <div>
+                    <span class="card-tag">Internal Business</span>
+                    <h2>Admin (Fiori Elements)</h2>
+                    <p>Enterprise master data governance and logistics platform built with SAP Fiori Elements and OData V4 annotations.</p>
+                    <ul class="card-features">
+                        <li>Product &amp; Category master data</li>
+                        <li>Order lifecycle &amp; shipment tracking</li>
+                        <li>Multi-warehouse stock allocation</li>
+                        <li>Customer governance &amp; seller approvals</li>
+                        <li>Review moderation &amp; promotional coupons</li>
+                    </ul>
+                </div>
+                <div>
+                    <a href="/admin-ui/webapp/index.html" class="btn" style="width: 100%;" target="_blank">Launch Admin UI &rarr;</a>
+                    <a href="/admin-ui/webapp/flpSandbox.html" class="btn btn-secondary" style="width: 100%;" target="_blank">Fiori Launchpad Sandbox &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- OData V4 Services -->
+        <div class="services-section">
+            <h3>CAP OData V4 Endpoints</h3>
+            <div class="services-grid">
+                <a href="/odata/v4/catalog/" class="service-pill" target="_blank">
+                    CatalogService
+                    <span>/odata/v4/catalog</span>
+                </a>
+                <a href="/odata/v4/cart/" class="service-pill" target="_blank">
+                    CartService
+                    <span>/odata/v4/cart</span>
+                </a>
+                <a href="/odata/v4/order/" class="service-pill" target="_blank">
+                    OrderService
+                    <span>/odata/v4/order</span>
+                </a>
+                <a href="/odata/v4/customer/" class="service-pill" target="_blank">
+                    CustomerService
+                    <span>/odata/v4/customer</span>
+                </a>
+                <a href="/odata/v4/inventory/" class="service-pill" target="_blank">
+                    InventoryService
+                    <span>/odata/v4/inventory</span>
+                </a>
+                <a href="/odata/v4/payment/" class="service-pill" target="_blank">
+                    PaymentService
+                    <span>/odata/v4/payment</span>
+                </a>
+                <a href="/odata/v4/admin/" class="service-pill" target="_blank">
+                    AdminService
+                    <span>/odata/v4/admin</span>
+                </a>
+            </div>
+
+            <h3 style="margin-top: 32px;">Mock Authentication Users (Local Dev)</h3>
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Role Assigned</th>
+                        <th>Persona / Context</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>alice</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>Customer</code></td>
+                        <td>Storefront shopper Alice Smith (<code>cust-001</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>bob_customer</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>Customer</code></td>
+                        <td>Storefront shopper John Doe (<code>cust-002</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>seller_tech</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>Seller</code></td>
+                        <td>TechZone merchant partner (<code>seller-001</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>carol_prod</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>ProductManager</code></td>
+                        <td>Product catalog &amp; campaigns manager</td>
+                    </tr>
+                    <tr>
+                        <td><strong>dave_order</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>OrderManager</code></td>
+                        <td>Sales orders &amp; shipments fulfillment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>erin_inv</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>InventoryManager</code></td>
+                        <td>Warehouse stock logistics &amp; audit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>admin</strong></td>
+                        <td><em>(empty)</em></td>
+                        <td><code>Administrator</code></td>
+                        <td>Superuser administrator with full system access</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+{
+  "name": "amazon-clone",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@cap-js/hana": "^3",
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "^1.0.2",
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10",
+    "@sap/eslint-plugin-cds": "^4.2.5",
+    "chai": "^6.2.2",
+    "eslint": "^10.11.0",
+    "mocha": "^12.0.2"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "build": "cds build --production && npm run build:ui",
+    "build:ui": "node scripts/build-ui.js shop-ui && node scripts/build-ui.js admin-ui",
+    "watch": "cds watch",
+    "test": "mocha test/**/*.test.js --timeout 15000 --exit",
+    "lint": "cds lint"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "alice": {
+            "roles": [
+              "Customer"
+            ],
+            "attr": {
+              "customerId": "cust0000-0000-0000-0000-000000000001",
+              "id": "cust-001"
+            }
+          },
+          "bob_customer": {
+            "roles": [
+              "Customer"
+            ],
+            "attr": {
+              "customerId": "cust0000-0000-0000-0000-000000000002",
+              "id": "cust-002"
+            }
+          },
+          "seller_tech": {
+            "roles": [
+              "Seller"
+            ],
+            "attr": {
+              "sellerId": "sel00000-0000-0000-0000-000000000001"
+            }
+          },
+          "carol_prod": {
+            "roles": [
+              "ProductManager"
+            ]
+          },
+          "dave_order": {
+            "roles": [
+              "OrderManager"
+            ]
+          },
+          "erin_inv": {
+            "roles": [
+              "InventoryManager"
+            ]
+          },
+          "admin": {
+            "roles": [
+              "Administrator",
+              "Customer",
+              "Seller",
+              "ProductManager",
+              "OrderManager",
+              "InventoryManager"
+            ],
+            "attr": {
+              "id": "cust-001"
+            }
+          }
+        }
+      },
+      "[development]": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        }
+      },
+      "[production]": {
+        "db": {
+          "kind": "hana"
+        },
+        "auth": {
+          "kind": "xsuaa"
+        }
+      }
+    }
+  },
+  "private": true
+}

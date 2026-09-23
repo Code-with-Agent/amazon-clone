@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Customers"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="customersListPage" title="Customer Management" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <Table id="customersTable"
+                   items="{/Customers}"
+                   growing="true"
+                   growingThreshold="20"
+                   itemPress=".onCustomerPress">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Registered Customers" level="H3" />
+                        <ToolbarSpacer />
+                        <SearchField width="250px" placeholder="Search by Name or Email..." search=".onSearch" />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="25%"><Text text="Customer" /></Column>
+                    <Column width="25%"><Text text="Email" /></Column>
+                    <Column width="18%"><Text text="Phone" /></Column>
+                    <Column width="18%"><Text text="Registration Date" /></Column>
+                    <Column width="14%" hAlign="Center"><Text text="Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onCustomerPress">
+                        <cells>
+                            <ObjectIdentifier title="{firstName} {lastName}" text="ID: {externalUserId}" />
+                            <Text text="{email}" />
+                            <Text text="{phoneNumber}" />
+                            <Text text="{path: 'createdAt', formatter: '.formatDate'}" />
+                            <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

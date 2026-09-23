@@ -1,0 +1,9 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <HBox alignItems="Center" class="auraRatingContainer">
+        <Text text="{path: 'averageRating', formatter: '.formatter.formatRatingStars'}" class="auraRatingNumber sapUiTinyMarginEnd" />
+        <RatingIndicator value="{averageRating}" maxValue="5" visualMode="Half" enabled="false" iconSize="1rem" class="sapUiTinyMarginEnd" />
+        <Link text="{reviewCount} ratings" press=".onScrollToReviews" class="auraRatingCountLink" />
+    </HBox>
+</core:FragmentDefinition>

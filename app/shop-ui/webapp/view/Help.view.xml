@@ -1,0 +1,77 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Help"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="helpPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="Help &amp; Customer Care">
+                    <Link text="Home" press=".onNavHome" />
+                </Breadcrumbs>
+                <Title text="Hello. What can we help you with?" level="H2" class="sapUiSmallMarginTop" />
+            </VBox>
+
+            <!-- Quick Solution Panels -->
+            <VBox class="sapUiMediumMargin" renderType="Bare">
+                <Panel expandable="true" expanded="true" headerText="Where's my stuff?" class="auraCheckoutPanel sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Track packages and view order updates in real time." class="sapUiTinyMarginBottom" />
+                            <Link text="Go to Your Orders to track delivery progress &gt;" press=".onNavOrders" />
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <Panel expandable="true" expanded="true" headerText="Returns &amp; Replacements" class="auraCheckoutPanel sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Return eligible items within 30 days of delivery for a full refund." class="sapUiTinyMarginBottom" />
+                            <Link text="Start a return in Your Orders &gt;" press=".onNavOrders" />
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <Panel expandable="true" expanded="false" headerText="Payment, Charges, and Gift Cards" class="auraCheckoutPanel sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Manage payment methods, coupons, and billing addresses." class="sapUiTinyMarginBottom" />
+                            <Link text="Manage payment settings in Your Account &gt;" press=".onNavAccount" />
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <Panel expandable="true" expanded="false" headerText="Aura Buyer Protection &amp; Guarantees" class="auraCheckoutPanel sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Every purchase made on Aura Marketplace is backed by our full money-back guarantee, real-time inventory reservation, and secure payment processing." />
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Contact Support Form -->
+                <Panel headerText="Contact Customer Care" class="auraCheckoutPanel sapUiMediumMarginTop">
+                    <content>
+                        <VBox class="sapUiSmallMargin" width="{= ${device>/system/phone} ? '100%' : '500px' }">
+                            <Label text="Issue Category" required="true" />
+                            <Select width="100%">
+                                <core:Item text="An order I placed" />
+                                <core:Item text="Payment / Billing question" />
+                                <core:Item text="Account security" />
+                                <core:Item text="Feedback or general inquiry" />
+                            </Select>
+
+                            <Label text="Message Details" required="true" class="sapUiSmallMarginTop" />
+                            <TextArea id="helpMessageInput" rows="4" width="100%" placeholder="Please describe how we can assist you..." />
+
+                            <Button text="Send Message" type="Emphasized" icon="sap-icon://email" press=".onSendMessage" class="sapUiMediumMarginTop" />
+                        </VBox>
+                    </content>
+                </Panel>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

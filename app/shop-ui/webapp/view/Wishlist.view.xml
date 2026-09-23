@@ -1,0 +1,59 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Wishlist"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="wishlistPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="{i18n>wishlistTitle}">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>accountTitle}" press=".onNavAccount" />
+                </Breadcrumbs>
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+                    <Title text="{i18n>wishlistTitle}" level="H2" />
+                    <Button text="{i18n>wishlistAddAllToCart}" type="Emphasized" icon="sap-icon://cart-plus" press=".onAddAllToCart" />
+                </HBox>
+            </VBox>
+
+            <!-- Wishlist Items Grid / List -->
+            <VBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiLargeMarginBottom" renderType="Bare">
+                <List id="wishlistItemsList"
+                      items="{path: 'customer>/WishlistItems', parameters: {$expand: 'product'}}"
+                      noDataText="{i18n>wishlistEmpty}">
+                    <CustomListItem>
+                        <HBox class="auraOrderItemRow sapUiSmallMargin" justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
+                            <HBox alignItems="Center">
+                                <Image src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200"
+                                       width="80px"
+                                       height="80px"
+                                       class="sapUiSmallMarginEnd" />
+                                <VBox renderType="Bare">
+                                    <Link text="{customer>product/title}" press=".onProductLinkPress" class="auraOrderItemTitle" />
+                                    <Text text="Added to your saved wishlist" class="auraMutedText sapUiTinyMarginTop" />
+                                </VBox>
+                            </HBox>
+
+                            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                                <Button text="Move to Cart"
+                                        type="Emphasized"
+                                        icon="sap-icon://cart-plus"
+                                        press=".onMoveWishlistItemToCart"
+                                        class="sapUiSmallMarginEnd" />
+
+                                <Button text="{i18n>btnDelete}"
+                                        type="Transparent"
+                                        icon="sap-icon://delete"
+                                        press=".onRemoveWishlistItem" />
+                            </HBox>
+                        </HBox>
+                    </CustomListItem>
+                </List>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

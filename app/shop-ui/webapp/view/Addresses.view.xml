@@ -1,0 +1,59 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Addresses"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="addressesPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="Your Addresses">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>accountTitle}" press=".onNavAccount" />
+                </Breadcrumbs>
+                <Title text="Your Addresses" level="H2" class="sapUiSmallMarginTop" />
+            </VBox>
+
+            <!-- Address Cards Grid -->
+            <HBox class="sapUiMediumMargin" wrap="Wrap" alignItems="Stretch">
+                <!-- Add Address Tile -->
+                <VBox class="auraProductCard sapUiSmallMargin" width="300px" justifyContent="Center" alignItems="Center" press=".onOpenAddAddressDialog">
+                    <core:Icon src="sap-icon://add" size="2.5rem" color="#ea580c" class="sapUiSmallMarginBottom" />
+                    <Title text="Add Address" level="H4" titleStyle="H5" />
+                    <Text text="Add a new shipping destination" class="auraMutedText sapUiTinyMarginTop" />
+                </VBox>
+
+                <!-- Saved Addresses -->
+                <HBox items="{path: 'customer>/Addresses'}" wrap="Wrap">
+                    <items>
+                        <VBox class="auraAddressCard sapUiSmallMargin" width="300px">
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                                <Title text="{customer>recipientName}" level="H5" />
+                                <ObjectStatus text="DEFAULT" state="Success" inverted="true" visible="{customer>isDefault}" />
+                            </HBox>
+                            <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                                <Text text="{customer>street1}" class="auraAddressLine" />
+                                <Text text="{customer>street2}" visible="{= Boolean(${customer>street2}) }" class="auraAddressLine" />
+                                <Text text="{customer>city}, {customer>state} {customer>postalCode}" class="auraAddressLine" />
+                                <Text text="{customer>country_code}" class="auraAddressLine" />
+                                <Text text="Phone: {customer>phoneNumber}" visible="{= Boolean(${customer>phoneNumber}) }" class="auraAddressPhone sapUiTinyMarginTop" />
+                            </VBox>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                                <HBox>
+                                    <Link text="Edit" press=".onEditAddress" class="sapUiSmallMarginEnd" />
+                                    <Link text="Remove" press=".onRemoveAddress" class="auraDeleteLink" />
+                                </HBox>
+                                <Button text="Set as Default"
+                                        type="Transparent"
+                                        visible="{= !${customer>isDefault} }"
+                                        press=".onSetDefaultAddress" />
+                            </HBox>
+                        </VBox>
+                    </items>
+                </HBox>
+            </HBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

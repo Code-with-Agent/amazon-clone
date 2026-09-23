@@ -1,0 +1,3 @@
+ID,name,discountType,discountValue,minOrderValue,startDate,endDate,isActive
+promo000-0000-0000-0000-000000000001,Fall Tech Sale 10% Off,PERCENTAGE,10.00,50.00,2024-01-01T00:00:00Z,2030-12-31T23:59:59Z,true
+promo000-0000-0000-0000-000000000002,Welcome Customer $25 Off,FIXED_AMOUNT,25.00,100.00,2024-01-01T00:00:00Z,2030-12-31T23:59:59Z,true

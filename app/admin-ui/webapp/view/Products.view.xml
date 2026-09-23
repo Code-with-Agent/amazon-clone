@@ -1,0 +1,56 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Products"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <Page id="productsListPage" title="Product Management" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <!-- Dynamic Table with standard Fiori List Report layout -->
+            <Table id="productsTable"
+                   items="{path: '/Products', parameters: {$expand: 'category'}}"
+                   growing="true"
+                   growingThreshold="20"
+                   mode="None"
+                   itemPress=".onProductPress">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Products" level="H3" />
+                        <ToolbarSpacer />
+                        <SearchField width="250px" placeholder="Search by SKU, Brand, Title..." search=".onSearch" />
+                        <Button icon="sap-icon://filter" type="Transparent" press=".onFilterPress" tooltip="Filter" />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                        <Button text="Create Product" icon="sap-icon://add" type="Emphasized" press=".onCreateProduct" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="24%"><Text text="Product Name" /></Column>
+                    <Column width="14%"><Text text="SKU" /></Column>
+                    <Column width="12%"><Text text="Category" /></Column>
+                    <Column width="10%"><Text text="Brand" /></Column>
+                    <Column width="10%" hAlign="End"><Text text="Price" /></Column>
+                    <Column width="10%" hAlign="Center"><Text text="Stock" /></Column>
+                    <Column width="10%" hAlign="Center"><Text text="Rating" /></Column>
+                    <Column width="10%" hAlign="Center"><Text text="Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onProductPress">
+                        <cells>
+                            <VBox>
+                                <Text text="{title}" class="sapUiTinyMarginBottom" />
+                                <Text text="{brand}" class="auraKpiSubtext" />
+                            </VBox>
+                            <ObjectIdentifier title="{sku}" />
+                            <Text text="{category/name}" />
+                            <Text text="{brand}" />
+                            <ObjectNumber number="{path: 'price', formatter: '.formatCurrency'}" />
+                            <ObjectStatus text="{stock} units" state="{path: 'stockCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <RatingIndicator value="{averageRating}" maxValue="5" editable="false" iconSize="0.9rem" tooltip="{averageRating} ({reviewCount} reviews)" />
+                            <ObjectStatus text="{status}" state="{path: 'productStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

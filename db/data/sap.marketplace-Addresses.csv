@@ -1,0 +1,5 @@
+ID,customer_ID,type,isDefault,fullName,streetName,apartmentSuite,city,stateProvince,postalCode,country_code,phone,deliveryInstructions
+a0000000-0000-0000-0000-000000000001,c0000000-0000-0000-0000-000000000001,SHIPPING,true,Alice Smith,123 Market St,Apt 4B,Seattle,WA,98101,USA,+1-555-0101,Leave at front desk
+a0000000-0000-0000-0000-000000000002,c0000000-0000-0000-0000-000000000001,BILLING,false,Alice Smith,123 Market St,Apt 4B,Seattle,WA,98101,USA,+1-555-0101,Billing address
+a0000000-0000-0000-0000-000000000003,c0000000-0000-0000-0000-000000000002,SHIPPING,true,John Doe,456 Oak Avenue,,Austin,TX,78701,USA,+1-555-0102,Ring bell twice
+a0000000-0000-0000-0000-000000000004,,WAREHOUSE,false,Logistics Hub 1,789 Fulfillment Blvd,,Edison,NJ,08817,USA,+1-555-0199,Loading Dock 3

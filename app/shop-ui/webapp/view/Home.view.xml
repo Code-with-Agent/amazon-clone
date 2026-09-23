@@ -1,0 +1,210 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="homePage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- 3. Quick Category Navigation Bar (Chips & Shortcuts) -->
+            <VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop sapUiTinyMarginBottom" renderType="Bare">
+                <ScrollContainer horizontal="true" vertical="false" width="100%">
+                    <HBox alignItems="Center" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                        <Button text="All Categories" icon="sap-icon://menu2" type="Emphasized" press=".onExploreCategories" class="sapUiTinyMarginEnd" />
+                        <Button text="Laptops &amp; Computers" icon="sap-icon://laptop" type="Ghost" press=".onCategoryPressKey" data:catId="cat00000-0000-0000-0000-000000000002" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiTinyMarginEnd" />
+                        <Button text="Audio &amp; Headphones" icon="sap-icon://headset" type="Ghost" press=".onCategoryPressKey" data:catId="cat00000-0000-0000-0000-000000000003" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiTinyMarginEnd" />
+                        <Button text="Smartphones" icon="sap-icon://iphone" type="Ghost" press=".onCategoryPressKey" data:catId="cat00000-0000-0000-0000-000000000004" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiTinyMarginEnd" />
+                        <Button text="Tablets &amp; E-Readers" icon="sap-icon://ipad" type="Ghost" press=".onCategoryPressKey" data:catId="cat00000-0000-0000-0000-000000000005" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiTinyMarginEnd" />
+                        <Button text="Smartwatches &amp; Wearables" icon="sap-icon://measure" type="Ghost" press=".onCategoryPressKey" data:catId="cat00000-0000-0000-0000-000000000006" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiTinyMarginEnd" />
+                        <Button text="Today's Deals" icon="sap-icon://badge" type="Attention" press=".onShopDeals" />
+                    </HBox>
+                </ScrollContainer>
+            </VBox>
+
+            <!-- 4. Hero Promotional Section -->
+            <VBox class="auraHeroBanner sapUiMediumMargin">
+                <HBox class="sapUiSmallMarginBottom">
+                    <Text text="⚡ FLASH SALE · UP TO 40% OFF SELECT TECH" class="auraHeroPromoTag" />
+                </HBox>
+                <Title text="{i18n>homeHeroTitle}" level="H1" class="auraHeroTitle" />
+                <Text text="{i18n>homeHeroSubtitle}" class="auraHeroSubtitle" />
+                <HBox class="sapUiSmallMarginTop" wrap="Wrap">
+                    <Button text="{i18n>homeShopNow}"
+                            type="Emphasized"
+                            icon="sap-icon://megamenu"
+                            press=".onShopDeals"
+                            class="auraBtnPrimary sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+                    <Button text="Explore All Categories"
+                            type="Ghost"
+                            icon="sap-icon://grid"
+                            press=".onExploreCategories"
+                            class="sapUiTinyMarginBottom" />
+                </HBox>
+            </VBox>
+
+            <!-- 5. Shop by Category -->
+            <VBox class="sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="auraSectionHeader">
+                    <VBox renderType="Bare">
+                        <Title text="{i18n>homeShopByCategory}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                        <Text text="Explore our curated marketplace departments" class="auraSectionSubtitle" />
+                    </VBox>
+                    <Link text="{i18n>homeSeeAll}" press=".onSeeAllCategories" />
+                </HBox>
+                <HBox wrap="Wrap" justifyContent="Start" items="{path: '/Categories', parameters: {$filter: 'level eq 2', $orderby: 'displayOrder asc'}}">
+                    <items>
+                        <VBox class="auraCategoryCard sapUiSmallMargin" width="260px">
+                            <Image src="{imageUrl}" height="140px" width="100%" mode="Background" densityAware="false" class="auraCategoryCardImage" />
+                            <VBox class="sapUiSmallMargin">
+                                <Title text="{name}" level="H5" />
+                                <Text text="{description}" maxLines="2" class="auraMutedText sapUiTinyMarginTop" />
+                                <Link text="Shop category &gt;" press=".onCategoryPress" class="sapUiTinyMarginTop" />
+                            </VBox>
+                        </VBox>
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- 6. Featured Products -->
+            <VBox class="sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="auraSectionHeader">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://favorite" color="#ea580c" size="1.25rem" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>homeFeaturedProducts}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                            <Text text="Handpicked premium technology and top-rated devices" class="auraSectionSubtitle" />
+                        </VBox>
+                    </HBox>
+                    <Link text="{i18n>homeSeeAll}" press=".onSeeAllFeatured" />
+                </HBox>
+                <HBox wrap="Wrap" justifyContent="Start" items="{path: '/Products', length: 4, parameters: {$filter: 'isFeatured eq true', $expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- 7. Deals of the Day -->
+            <VBox class="sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="auraSectionHeader" wrap="Wrap">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://badge" color="#dc2626" size="1.4rem" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                            <Title text="{i18n>homeTrendingDeals}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                            <Text text="Limited quantity deals refreshed daily" class="auraSectionSubtitle" />
+                        </VBox>
+                        <Text text="⚡ Ends in 06h 45m 18s" class="auraDealCountdownBadge sapUiTinyMarginTop" />
+                    </HBox>
+                    <Link text="{i18n>homeSeeAll}" press=".onSeeAllDeals" />
+                </HBox>
+                <HBox wrap="Wrap" justifyContent="Start" items="{path: '/Products', startIndex: 4, length: 4, parameters: {$expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- 8. Recommended Products -->
+            <VBox class="sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="auraSectionHeader">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://thumb-up" color="#2563eb" size="1.25rem" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare">
+                            <Title text="{i18n>homeRecommendedForYou}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                            <Text text="Personalized recommendations based on customer buying trends" class="auraSectionSubtitle" />
+                        </VBox>
+                    </HBox>
+                    <Link text="Explore more picks" press=".onExploreCategories" />
+                </HBox>
+                <HBox wrap="Wrap" justifyContent="Start" items="{path: '/Products', startIndex: 1, length: 4, parameters: {$expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- 9. Recently Viewed Items -->
+            <VBox class="sapUiMediumMargin">
+                <HBox alignItems="Center" class="auraSectionHeader">
+                    <core:Icon src="sap-icon://history" color="#6366f1" size="1.25rem" class="sapUiTinyMarginEnd" />
+                    <VBox renderType="Bare">
+                        <Title text="{i18n>homeRecentlyViewed}" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                        <Text text="Continue browsing where you left off" class="auraSectionSubtitle" />
+                    </VBox>
+                </HBox>
+
+                <!-- Recently Viewed Carousel / Items -->
+                <VBox visible="{= ${ui>/recentlyViewed}.length > 0 }" renderType="Bare">
+                    <HBox wrap="Wrap" items="{ui>/recentlyViewed}">
+                        <items>
+                            <VBox class="auraProductCard sapUiSmallMargin" width="220px">
+                                <Image src="{ui>mediaUrl}" height="130px" mode="Background" densityAware="false" class="auraCardImage" />
+                                <VBox class="sapUiSmallMargin">
+                                    <Title text="{ui>title}" wrapping="true" level="H6" />
+                                    <Text text="{path: 'ui>price', formatter: '.formatter.formatCurrency'}" class="auraCardPrice sapUiTinyMarginTop" />
+                                    <Button text="View Item" type="Ghost" press=".onRecentlyViewedPress" width="100%" class="sapUiTinyMarginTop" />
+                                </VBox>
+                            </VBox>
+                        </items>
+                    </HBox>
+                </VBox>
+
+                <!-- Placeholder if no items viewed yet -->
+                <VBox visible="{= ${ui>/recentlyViewed}.length === 0 }" class="auraCartSummaryBox sapUiSmallMarginTop" alignItems="Center">
+                    <Text text="You haven't viewed any products yet in this session. Start exploring our featured categories!" class="auraMutedText sapUiSmallMarginBottom" />
+                    <Button text="Browse Best Sellers" type="Emphasized" press=".onShopDeals" />
+                </VBox>
+            </VBox>
+
+            <!-- 10. Best Sellers -->
+            <VBox class="sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="auraSectionHeader" wrap="Wrap">
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://lead" color="#f59e0b" size="1.4rem" class="sapUiTinyMarginEnd" />
+                        <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                            <Title text="Best Sellers in Marketplace" level="H3" titleStyle="H4" class="auraSectionTitle" />
+                            <Text text="Our most popular products based on total sales &amp; 5-star customer reviews" class="auraSectionSubtitle" />
+                        </VBox>
+                        <Text text="#1 BEST SELLER" class="auraBestSellerTag sapUiTinyMarginTop" />
+                    </HBox>
+                    <Link text="See all best sellers" press=".onSeeAllBestSellers" />
+                </HBox>
+                <HBox wrap="Wrap" justifyContent="Start" items="{path: '/Products', length: 4, parameters: {$orderby: 'averageRating desc', $expand: 'variants($expand=offers),images'}}">
+                    <items>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                    </items>
+                </HBox>
+            </VBox>
+
+            <!-- 11. Promotional Banner (Aura Prime / Next-Day Delivery & Cashback) -->
+            <VBox class="auraPromoBanner sapUiMediumMargin">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
+                    <VBox class="sapUiMediumMarginEnd sapUiSmallMarginBottom" renderType="Bare">
+                        <HBox class="sapUiSmallMarginBottom">
+                            <Text text="⚡ EXCLUSIVE MEMBERSHIP" class="auraHeroPromoTag" />
+                        </HBox>
+                        <Title text="Join Aura Prime &amp; Unlock Free Next-Day Delivery" level="H2" class="auraPromoTitle" />
+                        <Text text="Enjoy fast, free shipping on millions of eligible items, 5% cash back with the Aura Rewards Card, 30-day hassle-free returns, and early access to lightning deals." class="auraPromoSubtitle sapUiSmallMarginTop" />
+                        
+                        <HBox class="sapUiMediumMarginTop" wrap="Wrap">
+                            <Text text="✓ FREE Express Shipping" class="auraPromoPill sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+                            <Text text="✓ 5% Cashback Rewards" class="auraPromoPill sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+                            <Text text="✓ 30-Day Hassle-Free Returns" class="auraPromoPill sapUiTinyMarginBottom" />
+                        </HBox>
+                    </VBox>
+
+                    <VBox alignItems="Center" renderType="Bare">
+                        <Button text="Start Your 30-Day Free Trial"
+                                type="Emphasized"
+                                icon="sap-icon://accept"
+                                press=".onJoinPrime"
+                                class="auraBtnPrimary sapUiSmallMarginBottom" />
+                        <Link text="Learn more about Aura Prime perks" press=".onNavHelp" class="auraActionSubtext" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- 12. Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

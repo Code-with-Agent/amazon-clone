@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Marketplace - Enterprise E-Commerce Storefront</title>
+    
+    <script id="sap-ui-bootstrap"
+        src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-resourceroots='{
+            "marketplace.shop": "./"
+        }'
+        data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-frameOptions="trusted">
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="sapUiBody" id="content">
+    <div data-sap-ui-component 
+         data-name="marketplace.shop" 
+         data-id="rootComponent" 
+         data-settings='{"id" : "marketplaceShop"}'
+         style="height: 100%;">
+    </div>
+</body>
+</html>

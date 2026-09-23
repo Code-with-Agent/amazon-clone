@@ -1,0 +1,67 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.PromotionDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="promotionObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{name}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{= ${isActive} ? 'ACTIVE' : 'INACTIVE' }" state="{= ${isActive} ? 'Success' : 'None' }" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{name}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Campaign Code: {code} | {description}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Discount Value" class="auraKpiTitle" />
+                    <Text text="{discountValue} ({discountType})" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Redemptions" class="auraKpiTitle" />
+                    <Text text="{usageCount} / {usageLimit} used" class="auraKpiSubtext" />
+                </VBox>
+                <VBox>
+                    <Text text="Active Status" class="auraKpiTitle" />
+                    <Switch state="{isActive}" enabled="false" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Promotion Details" id="secPromoInfo">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Campaign Rules">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Campaign Code" /><Text text="{code}" />
+                            <Label text="Name" /><Text text="{name}" />
+                            <Label text="Description" /><Text text="{description}" />
+                            <Label text="Discount Type" /><Text text="{discountType}" />
+                            <Label text="Discount Value" /><Text text="{discountValue}" />
+                            <Label text="Minimum Order Amount" /><ObjectNumber number="{path: 'minimumOrderAmount', formatter: '.formatCurrency'}" />
+                            <Label text="Campaign Start" /><Text text="{path: 'startDate', formatter: '.formatDateTime'}" />
+                            <Label text="Campaign End" /><Text text="{path: 'endDate', formatter: '.formatDateTime'}" />
+                            <Label text="Max Uses" /><Text text="{usageLimit}" />
+                            <Label text="Current Redemptions" /><Text text="{usageCount}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

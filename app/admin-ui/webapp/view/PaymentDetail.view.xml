@@ -1,0 +1,65 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.PaymentDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="paymentObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{transactionReference}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{transactionReference}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Order: {order/orderNumber} | Provider: {paymentProvider}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Captured Amount" class="auraKpiTitle" />
+                    <ObjectNumber number="{path: 'amount', formatter: '.formatCurrency'}" state="Success" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Payment Instrument" class="auraKpiTitle" />
+                    <Text text="{paymentMethod}" class="auraKpiSubtext" />
+                </VBox>
+                <VBox>
+                    <Text text="Gateway Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Payment Details" id="secPayDetails">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Settlement Record">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Transaction Reference" /><Text text="{transactionReference}" />
+                            <Label text="Associated Order" /><Text text="{order/orderNumber}" />
+                            <Label text="Payment Method" /><Text text="{paymentMethod}" />
+                            <Label text="Provider" /><Text text="{paymentProvider}" />
+                            <Label text="Gross Amount" /><ObjectNumber number="{path: 'amount', formatter: '.formatCurrency'}" />
+                            <Label text="Currency" /><Text text="{currency_code}" />
+                            <Label text="Settlement Status" /><ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Raw Gateway Response" /><Text text="{rawGatewayResponse}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

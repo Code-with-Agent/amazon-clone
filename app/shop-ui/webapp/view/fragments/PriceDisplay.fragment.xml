@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraPriceDisplayBlock" renderType="Bare">
+        <HBox alignItems="Baseline" wrap="Wrap">
+            <!-- Current Price -->
+            <Text text="{path: 'variants/0/offers/0/price', formatter: '.formatter.formatCurrency'}"
+                  class="auraPriceMain" />
+
+            <!-- Original Price -->
+            <Text text="{path: 'variants/0/offers/0/originalPrice', formatter: '.formatter.formatCurrency'}"
+                  visible="{= ${variants/0/offers/0/originalPrice} > ${variants/0/offers/0/price} }"
+                  class="auraPriceOriginal sapUiSmallMarginBegin" />
+
+            <!-- Discount Badge -->
+            <ObjectStatus
+                text="{parts: [{path: 'variants/0/offers/0/originalPrice'}, {path: 'variants/0/offers/0/price'}], formatter: '.formatter.formatDiscountBadge'}"
+                state="Success"
+                inverted="true"
+                visible="{= ${variants/0/offers/0/originalPrice} > ${variants/0/offers/0/price} }"
+                class="auraDiscountBadge sapUiSmallMarginBegin" />
+        </HBox>
+        <Text text="Inclusive of all taxes" class="auraTaxInclusiveNote sapUiTinyMarginTop" />
+    </VBox>
+</core:FragmentDefinition>

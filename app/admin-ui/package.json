@@ -1,0 +1,16 @@
+{
+  "name": "admin-ui",
+  "version": "1.0.0",
+  "description": "Aura Marketplace - Fiori Elements Administration Application",
+  "keywords": [
+    "ui5",
+    "fiori-elements",
+    "sapui5",
+    "admin",
+    "marketplace"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "build": "node ../../scripts/build-ui.js admin-ui"
+  }
+}

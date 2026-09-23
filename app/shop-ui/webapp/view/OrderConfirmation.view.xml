@@ -1,0 +1,96 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.OrderConfirmation"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="orderConfirmationPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMargin" alignItems="Center">
+                <!-- Success Header Card -->
+                <VBox class="auraCartSummaryBox sapUiMediumMarginBottom" width="{= ${device>/system/phone} ? '100%' : '750px' }" alignItems="Center">
+                    <core:Icon src="sap-icon://sys-enter-2" size="4.5rem" color="#059669" class="sapUiSmallMarginBottom" />
+
+                    <Title text="{i18n>orderSuccessTitle}" level="H1" class="sapUiTinyMarginBottom" />
+                    <Text text="{i18n>orderSuccessSubtitle}" class="auraMutedText sapUiMediumMarginBottom" />
+
+                    <!-- Key Metrics Ribbon (Order Number, Date, Total, Payment Status) -->
+                    <HBox class="auraTopBar sapUiSmallMarginBottom" width="100%" justifyContent="SpaceAround" alignItems="Center" wrap="Wrap">
+                        <!-- 1. Order Number -->
+                        <VBox class="sapUiTinyMargin" renderType="Bare">
+                            <Text text="ORDER NUMBER" class="auraActionSubtext" />
+                            <Text text="{= ${order>orderNumber} ? ${order>orderNumber} : ${orderConfirm>/orderNumber} }" class="auraActionMaintext" />
+                        </VBox>
+
+                        <!-- 2. Order Date -->
+                        <VBox class="sapUiTinyMargin" renderType="Bare">
+                            <Text text="ORDER DATE" class="auraActionSubtext" />
+                            <Text text="{= ${order>createdAt} ? ${path: 'order>createdAt', formatter: '.formatter.formatDate'} : ${orderConfirm>/orderDate} }" class="auraActionMaintext" />
+                        </VBox>
+
+                        <!-- 3. Total -->
+                        <VBox class="sapUiTinyMargin" renderType="Bare">
+                            <Text text="TOTAL" class="auraActionSubtext" />
+                            <Text text="{= ${order>totalAmount} ? ${path: 'order>totalAmount', formatter: '.formatter.formatCurrency'} : ${orderConfirm>/totalAmount} }" class="auraActionMaintext" />
+                        </VBox>
+
+                        <!-- 4. Payment Status -->
+                        <VBox class="sapUiTinyMargin" renderType="Bare">
+                            <Text text="PAYMENT STATUS" class="auraActionSubtext" />
+                            <ObjectStatus text="{= ${order>paymentStatus} ? ${order>paymentStatus} : 'PAID' }" state="Success" inverted="true" />
+                        </VBox>
+                    </HBox>
+
+                    <!-- 7. Estimated Delivery Banner -->
+                    <HBox alignItems="Center" class="auraDeliveryPill sapUiSmallMarginTop sapUiSmallMarginBottom">
+                        <core:Icon src="sap-icon://shipping-status" class="auraFastShipIcon sapUiTinyMarginEnd" />
+                        <Text text="Estimated Delivery: Tomorrow by 8:00 PM via Aura Express Courier" class="auraCardDeliveryNote" />
+                    </HBox>
+
+                    <!-- 5. Shipping Address Card -->
+                    <VBox class="auraAddressCard sapUiSmallMarginTop sapUiSmallMarginBottom" width="100%" renderType="Bare">
+                        <Title text="Shipping Destination" level="H5" class="sapUiTinyMarginBottom" />
+                        <Text text="{orderConfirm>/shippingRecipient}" class="auraActionMaintext" />
+                        <Text text="{orderConfirm>/shippingAddress}" class="auraAddressLine" />
+                        <Text text="United States" class="auraAddressLine" />
+                    </VBox>
+
+                    <!-- 6. Ordered Items Snapshot -->
+                    <VBox width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBottom" renderType="Bare">
+                        <Title text="Items in This Shipment" level="H5" class="sapUiSmallMarginBottom" />
+                        <List items="{orderConfirm>/items}">
+                            <CustomListItem>
+                                <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" alignItems="Center">
+                                    <HBox alignItems="Center">
+                                        <core:Icon src="sap-icon://product" class="sapUiSmallMarginEnd" />
+                                        <VBox renderType="Bare">
+                                            <Text text="{orderConfirm>title}" class="auraActionMaintext" />
+                                            <Text text="Qty: {orderConfirm>quantity}" class="auraMutedText sapUiTinyMarginTop" />
+                                        </VBox>
+                                    </HBox>
+                                    <Text text="{path: 'orderConfirm>price', formatter: '.formatter.formatCurrency'}" class="auraCardPrice" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </VBox>
+
+                    <!-- 8. Continue Shopping & 9. View Order CTAs -->
+                    <HBox class="sapUiMediumMarginTop" wrap="Wrap" justifyContent="Center">
+                        <Button text="View Order Details"
+                                type="Emphasized"
+                                icon="sap-icon://document-text"
+                                press=".onViewOrder"
+                                class="sapUiSmallMarginEnd sapUiTinyMarginBottom" />
+
+                        <Button text="Continue Shopping"
+                                type="Ghost"
+                                icon="sap-icon://cart-2"
+                                press=".onContinueShopping"
+                                class="sapUiTinyMarginBottom" />
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

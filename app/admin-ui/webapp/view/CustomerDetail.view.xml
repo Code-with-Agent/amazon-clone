@@ -1,0 +1,167 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.CustomerDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="customerObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{firstName} {lastName}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{firstName} {lastName}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Email: {email} | External User ID: {externalUserId}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Suspend Account" type="Reject" press=".onSuspendCustomer" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Account Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Registered Since" class="auraKpiTitle" />
+                    <Text text="{path: 'createdAt', formatter: '.formatDate'}" class="auraKpiSubtext" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Email Verified" class="auraKpiTitle" />
+                    <Switch state="{isEmailVerified}" enabled="false" customTextOn="Yes" customTextOff="No" />
+                </VBox>
+                <VBox>
+                    <Text text="Locale / Currency" class="auraKpiTitle" />
+                    <Text text="{preferredLanguage} ({preferredCurrency_code})" class="auraKpiSubtext" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <!-- 1. Personal Information -->
+            <uxap:ObjectPageSection title="Personal Information" id="secPersonalInfo">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Customer Profile">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="First Name" /><Text text="{firstName}" />
+                            <Label text="Last Name" /><Text text="{lastName}" />
+                            <Label text="Email" /><Text text="{email}" />
+                            <Label text="Phone Number" /><Text text="{phoneNumber}" />
+                            <Label text="Account Status" /><ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Preferred Currency" /><Text text="{preferredCurrency_code}" />
+                            <Label text="Preferred Language" /><Text text="{preferredLanguage}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 2. Addresses -->
+            <uxap:ObjectPageSection title="Addresses" id="secAddresses">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Saved Shipping &amp; Billing Addresses">
+                        <Table items="{addresses}">
+                            <columns>
+                                <Column><Text text="Type" /></Column>
+                                <Column><Text text="Full Name" /></Column>
+                                <Column><Text text="Street" /></Column>
+                                <Column><Text text="City" /></Column>
+                                <Column><Text text="State" /></Column>
+                                <Column><Text text="Postal Code" /></Column>
+                                <Column><Text text="Default" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectStatus text="{type}" state="Information" inverted="true" />
+                                        <Text text="{fullName}" />
+                                        <Text text="{streetName} {apartmentSuite}" />
+                                        <Text text="{city}" />
+                                        <Text text="{stateProvince}" />
+                                        <Text text="{postalCode}" />
+                                        <Switch state="{isDefault}" enabled="false" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 3. Orders -->
+            <uxap:ObjectPageSection title="Orders" id="secOrders">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Purchasing History">
+                        <Table items="{orders}">
+                            <columns>
+                                <Column><Text text="Order Number" /></Column>
+                                <Column><Text text="Date" /></Column>
+                                <Column hAlign="End"><Text text="Amount" /></Column>
+                                <Column hAlign="Center"><Text text="Status" /></Column>
+                                <Column hAlign="Center"><Text text="Payment" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{orderNumber}" />
+                                        <Text text="{path: 'createdAt', formatter: '.formatDate'}" />
+                                        <ObjectNumber number="{path: 'totalAmount', formatter: '.formatCurrency'}" state="Success" />
+                                        <ObjectStatus text="{status}" state="Information" inverted="true" />
+                                        <ObjectStatus text="{paymentStatus}" state="Success" inverted="true" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 4. Reviews -->
+            <uxap:ObjectPageSection title="Reviews" id="secReviews">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Submitted Product Reviews">
+                        <Table items="{reviews}">
+                            <columns>
+                                <Column><Text text="Rating" /></Column>
+                                <Column><Text text="Headline" /></Column>
+                                <Column><Text text="Helpful Votes" /></Column>
+                                <Column><Text text="Status" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <RatingIndicator value="{rating}" maxValue="5" editable="false" iconSize="0.8rem" />
+                                        <Text text="{headline}" />
+                                        <Text text="{helpfulVotes}" />
+                                        <ObjectStatus text="{status}" state="Information" inverted="true" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- 5. Wishlist -->
+            <uxap:ObjectPageSection title="Wishlist" id="secWishlist">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Customer Wishlist">
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Customer has active saved wishlist with item bookmarks." />
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

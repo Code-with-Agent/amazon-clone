@@ -1,0 +1,302 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "marketplace.shop",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "catalogService": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      },
+      "cartService": {
+        "uri": "/odata/v4/cart/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      },
+      "orderService": {
+        "uri": "/odata/v4/order/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      },
+      "customerService": {
+        "uri": "/odata/v4/customer/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "marketplace.shop.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "appRoot"
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "marketplace.shop.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "catalogService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": false,
+          "earlyRequests": true
+        }
+      },
+      "cart": {
+        "dataSource": "cartService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": false,
+          "updateGroupId": "$direct"
+        }
+      },
+      "order": {
+        "dataSource": "orderService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": false,
+          "updateGroupId": "$direct"
+        }
+      },
+      "customer": {
+        "dataSource": "customerService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": false
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "marketplace.shop.view",
+        "controlId": "appControl",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "name": "homeRoot",
+          "pattern": "",
+          "target": "home"
+        },
+        {
+          "name": "home",
+          "pattern": "home",
+          "target": "home"
+        },
+        {
+          "name": "search",
+          "pattern": "search:?query:",
+          "target": "searchResults"
+        },
+        {
+          "name": "category",
+          "pattern": "category/:categoryId:",
+          "target": "category"
+        },
+        {
+          "name": "product",
+          "pattern": "product/:productId:",
+          "target": "productDetails"
+        },
+        {
+          "name": "cart",
+          "pattern": "cart",
+          "target": "cart"
+        },
+        {
+          "name": "checkout",
+          "pattern": "checkout",
+          "target": "checkout"
+        },
+        {
+          "name": "payment",
+          "pattern": "payment/:orderId:",
+          "target": "payment"
+        },
+        {
+          "name": "orderConfirmation",
+          "pattern": "order-confirmation/:orderId:",
+          "target": "orderConfirmation"
+        },
+        {
+          "name": "orders",
+          "pattern": "orders",
+          "target": "orders"
+        },
+        {
+          "name": "orderDetail",
+          "pattern": "order-detail/:orderId:",
+          "target": "orderDetails"
+        },
+        {
+          "name": "account",
+          "pattern": "account",
+          "target": "account"
+        },
+        {
+          "name": "addresses",
+          "pattern": "addresses",
+          "target": "addresses"
+        },
+        {
+          "name": "wishlist",
+          "pattern": "wishlist",
+          "target": "wishlist"
+        },
+        {
+          "name": "reviews",
+          "pattern": "reviews/:productId:",
+          "target": "reviews"
+        },
+        {
+          "name": "help",
+          "pattern": "help",
+          "target": "help"
+        },
+        {
+          "name": "login",
+          "pattern": "login",
+          "target": "login"
+        }
+      ],
+      "targets": {
+        "home": {
+          "viewId": "home",
+          "viewName": "Home",
+          "viewLevel": 1
+        },
+        "searchResults": {
+          "viewId": "searchResults",
+          "viewName": "SearchResults",
+          "viewLevel": 2
+        },
+        "category": {
+          "viewId": "category",
+          "viewName": "Category",
+          "viewLevel": 2
+        },
+        "productDetails": {
+          "viewId": "productDetails",
+          "viewName": "ProductDetails",
+          "viewLevel": 3
+        },
+        "cart": {
+          "viewId": "cart",
+          "viewName": "Cart",
+          "viewLevel": 2
+        },
+        "checkout": {
+          "viewId": "checkout",
+          "viewName": "Checkout",
+          "viewLevel": 3
+        },
+        "payment": {
+          "viewId": "payment",
+          "viewName": "Payment",
+          "viewLevel": 4
+        },
+        "orderConfirmation": {
+          "viewId": "orderConfirmation",
+          "viewName": "OrderConfirmation",
+          "viewLevel": 4
+        },
+        "orders": {
+          "viewId": "orders",
+          "viewName": "Orders",
+          "viewLevel": 2
+        },
+        "orderDetails": {
+          "viewId": "orderDetails",
+          "viewName": "OrderDetails",
+          "viewLevel": 3
+        },
+        "account": {
+          "viewId": "account",
+          "viewName": "Account",
+          "viewLevel": 2
+        },
+        "addresses": {
+          "viewId": "addresses",
+          "viewName": "Addresses",
+          "viewLevel": 3
+        },
+        "wishlist": {
+          "viewId": "wishlist",
+          "viewName": "Wishlist",
+          "viewLevel": 2
+        },
+        "reviews": {
+          "viewId": "reviews",
+          "viewName": "Reviews",
+          "viewLevel": 3
+        },
+        "help": {
+          "viewId": "help",
+          "viewName": "Help",
+          "viewLevel": 2
+        },
+        "login": {
+          "viewId": "login",
+          "viewName": "Login",
+          "viewLevel": 2
+        }
+      }
+    }
+  }
+}

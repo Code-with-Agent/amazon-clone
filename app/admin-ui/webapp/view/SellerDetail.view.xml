@@ -1,0 +1,66 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.SellerDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="sellerObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{storeName}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{storeName}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Legal Entity: {legalEntity} | Contact: {contactEmail}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Approve Seller" type="Emphasized" icon="sap-icon://accept" press=".onApproveSeller" visible="{= ${status} !== 'APPROVED' }" />
+                    <Button text="Suspend Partner" type="Reject" press=".onSuspendSeller" visible="{= ${status} === 'APPROVED' }" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Seller Rating" class="auraKpiTitle" />
+                    <RatingIndicator value="{rating}" maxValue="5" editable="false" iconSize="1.2rem" />
+                    <Text text="{rating} out of 5 stars" class="auraKpiSubtext" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Commission Rate" class="auraKpiTitle" />
+                    <Text text="{commissionRate}%" class="auraKpiValue" />
+                </VBox>
+                <VBox>
+                    <Text text="Compliance Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Merchant Information" id="secSellerInfo">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Corporate Registration">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Store Front Name" /><Text text="{storeName}" />
+                            <Label text="Legal Corporate Name" /><Text text="{legalEntity}" />
+                            <Label text="Tax Identification (EIN/VAT)" /><Text text="{taxId}" />
+                            <Label text="Corporate Contact Email" /><Text text="{contactEmail}" />
+                            <Label text="Agreed Commission Fee" /><Text text="{commissionRate}%" />
+                            <Label text="Onboarding Status" /><ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

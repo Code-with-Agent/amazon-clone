@@ -1,0 +1,59 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraFooterContainer" renderType="Bare">
+        <!-- Back to Top Button -->
+        <HBox class="auraBackToTopBar" justifyContent="Center">
+            <Button text="Back to top" type="Transparent" press=".onScrollToTop" class="auraBackToTopBtn" width="100%" />
+        </HBox>
+
+        <!-- Multi-Column Links -->
+        <HBox class="auraFooterColumns sapUiMediumMarginTop sapUiMediumMarginBottom" justifyContent="SpaceAround" wrap="Wrap">
+            <!-- Column 1 -->
+            <VBox class="auraFooterCol sapUiSmallMargin" renderType="Bare">
+                <Text text="Get to Know Us" class="auraFooterHeading" />
+                <Link text="About Aura Marketplace" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Careers at Aura" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Sustainability &amp; Green Tech" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Investor Relations" press=".onNavHelp" class="auraFooterLink" />
+            </VBox>
+
+            <!-- Column 2 -->
+            <VBox class="auraFooterCol sapUiSmallMargin" renderType="Bare">
+                <Text text="Make Money with Us" class="auraFooterHeading" />
+                <Link text="Sell on Aura Marketplace" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Supply to Aura" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Become an Affiliate" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Advertise Your Products" press=".onNavHelp" class="auraFooterLink" />
+            </VBox>
+
+            <!-- Column 3 -->
+            <VBox class="auraFooterCol sapUiSmallMargin" renderType="Bare">
+                <Text text="Aura Payment Products" class="auraFooterHeading" />
+                <Link text="Aura Enterprise Card" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Shop with Points" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Reload Your Balance" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Multi-Currency Checkout" press=".onNavHelp" class="auraFooterLink" />
+            </VBox>
+
+            <!-- Column 4 -->
+            <VBox class="auraFooterCol sapUiSmallMargin" renderType="Bare">
+                <Text text="Let Us Help You" class="auraFooterHeading" />
+                <Link text="Your Account" press=".onNavAccount" class="auraFooterLink" />
+                <Link text="Your Orders" press=".onNavOrders" class="auraFooterLink" />
+                <Link text="Shipping Rates &amp; Policies" press=".onNavHelp" class="auraFooterLink" />
+                <Link text="Returns &amp; Replacements" press=".onNavOrders" class="auraFooterLink" />
+                <Link text="Help &amp; Customer Care" press=".onNavHelp" class="auraFooterLink" />
+            </VBox>
+        </HBox>
+
+        <!-- Bottom Copyright & Brand Bar -->
+        <VBox class="auraFooterBottomBar" alignItems="Center" renderType="Bare">
+            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                <core:Icon src="sap-icon://retail-store" class="auraBrandIcon sapUiTinyMarginEnd" />
+                <Text text="AURA MARKETPLACE" class="auraFooterBrand" />
+            </HBox>
+            <Text text="© 2026 Aura Marketplace, Inc. Built on SAP Cloud Application Programming Model &amp; SAPUI5. All rights reserved." class="auraCopyrightText" />
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>

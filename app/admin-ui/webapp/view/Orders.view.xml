@@ -1,0 +1,49 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.Orders"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="ordersListPage" title="Order Management" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <Table id="ordersTable"
+                   items="{path: '/Orders', parameters: {$expand: 'customer,shippingAddress'}}"
+                   growing="true"
+                   growingThreshold="20"
+                   itemPress=".onOrderPress">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Sales Orders" level="H3" />
+                        <ToolbarSpacer />
+                        <SearchField width="250px" placeholder="Search Order # or Customer..." search=".onSearch" />
+                        <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="18%"><Text text="Order Number" /></Column>
+                    <Column width="20%"><Text text="Customer" /></Column>
+                    <Column width="14%"><Text text="Date" /></Column>
+                    <Column width="12%" hAlign="End"><Text text="Amount" /></Column>
+                    <Column width="12%" hAlign="Center"><Text text="Payment Status" /></Column>
+                    <Column width="12%" hAlign="Center"><Text text="Shipping Status" /></Column>
+                    <Column width="12%" hAlign="Center"><Text text="Order Status" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onOrderPress">
+                        <cells>
+                            <ObjectIdentifier title="{orderNumber}" />
+                            <VBox>
+                                <Text text="{customer/firstName} {customer/lastName}" />
+                                <Text text="{customer/email}" class="auraKpiSubtext" />
+                            </VBox>
+                            <Text text="{path: 'createdAt', formatter: '.formatDate'}" />
+                            <ObjectNumber number="{path: 'totalAmount', formatter: '.formatCurrency'}" state="Success" />
+                            <ObjectStatus text="{paymentStatus}" state="{path: 'paymentStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <ObjectStatus text="{fulfillmentStatus}" state="{path: 'fulfillmentCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <ObjectStatus text="{status}" state="{path: 'orderStatusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

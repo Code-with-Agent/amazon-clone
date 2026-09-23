@@ -1,0 +1,3 @@
+ID,externalSellerId,storeName,legalEntity,taxId,contactEmail,rating,status,commissionRate
+s0000000-0000-0000-0000-000000000001,seller-001,Apple Authorized Store,Apple Sales International,US-12345678,store@apple-authorized.com,4.95,APPROVED,10.00
+s0000000-0000-0000-0000-000000000002,seller-002,TechDirect Prime,TechDirect Global LLC,US-87654321,sales@techdirect.com,4.80,APPROVED,12.50

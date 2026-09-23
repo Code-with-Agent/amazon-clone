@@ -1,0 +1,52 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <App id="adminAppControl">
+        <Page id="adminShellPage" showHeader="true" enableScrolling="false">
+            <customHeader>
+                <Bar class="auraAdminHeader">
+                    <contentLeft>
+                        <core:Icon src="sap-icon://retail-store" size="1.6rem" color="#38bdf8" class="sapUiTinyMarginBegin sapUiTinyMarginEnd" />
+                        <Title text="Aura Enterprise" level="H3" titleStyle="H4" class="sapUiTinyMarginEnd" />
+                        <Text text="| Business Operations &amp; Administration" class="auraKpiTitle" />
+                    </contentLeft>
+                    <contentRight>
+                        <ObjectStatus text="DEV: ODATA V4" state="Information" inverted="true" class="sapUiTinyMarginEnd" />
+                        <Button icon="sap-icon://bell" type="Transparent" tooltip="Notifications">
+                            <customData>
+                                <core:CustomData key="badge" value="4" writeToDom="true" />
+                            </customData>
+                        </Button>
+                        <Button icon="sap-icon://customer" text="Admin Lead" type="Transparent" />
+                        <Button icon="sap-icon://action-settings" type="Transparent" tooltip="Settings" />
+                    </contentRight>
+                </Bar>
+            </customHeader>
+
+            <subHeader>
+                <Toolbar class="auraNavTabBar" height="3rem">
+                    <IconTabBar id="adminNavTabBar" select=".onNavTabSelect" selectedKey="{adminState>/activeTab}" headerMode="Inline">
+                        <items>
+                            <IconTabFilter key="overview" text="Overview" icon="sap-icon://bbyd-dashboard" />
+                            <IconTabFilter key="products" text="Products" icon="sap-icon://product" />
+                            <IconTabFilter key="orders" text="Orders" icon="sap-icon://sales-order" />
+                            <IconTabFilter key="customers" text="Customers" icon="sap-icon://customer" />
+                            <IconTabFilter key="inventory" text="Inventory" icon="sap-icon://inventory" />
+                            <IconTabFilter key="sellers" text="Sellers" icon="sap-icon://supplier" />
+                            <IconTabFilter key="promotions" text="Promotions" icon="sap-icon://tag" />
+                            <IconTabFilter key="reviews" text="Reviews" icon="sap-icon://favorite" />
+                            <IconTabFilter key="payments" text="Payments" icon="sap-icon://payment-approval" />
+                            <IconTabFilter key="shipments" text="Shipments" icon="sap-icon://shipping-status" />
+                        </items>
+                    </IconTabBar>
+                </Toolbar>
+            </subHeader>
+
+            <content>
+                <NavContainer id="adminNavContainer" autoFocus="false" />
+            </content>
+        </Page>
+    </App>
+</mvc:View>

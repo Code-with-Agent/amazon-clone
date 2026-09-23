@@ -1,0 +1,84 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.SearchResults"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="searchResultsPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- Breadcrumb & Results Header Bar -->
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="Search Results">
+                    <Link text="Home" press=".onNavHome" />
+                </Breadcrumbs>
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom" wrap="Wrap">
+                    <VBox renderType="Bare">
+                        <Title id="searchResultsTitle" text="Results for '{searchResults>/query}'" level="H3" />
+                        <Text id="searchResultsCount" text="Showing available products" class="auraMutedText" />
+                    </VBox>
+
+                    <!-- Sorting Dropdown -->
+                    <HBox alignItems="Center">
+                        <Label text="Sort by:" class="sapUiTinyMarginEnd" labelFor="searchSortSelect" />
+                        <Select id="searchSortSelect" change=".onSortChange" width="200px">
+                            <core:Item key="featured" text="{i18n>searchSortPopularity}" />
+                            <core:Item key="priceAsc" text="{i18n>searchSortPriceAsc}" />
+                            <core:Item key="priceDesc" text="{i18n>searchSortPriceDesc}" />
+                            <core:Item key="rating" text="{i18n>searchSortRating}" />
+                        </Select>
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <!-- Main Split Layout (Filters Sidebar + Products Grid) -->
+            <HBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd" alignItems="Start">
+                <!-- Sidebar Filters -->
+                <VBox class="auraFilterSidebar sapUiSmallMarginEnd" width="240px" renderType="Bare" visible="{= !${device>/system/phone} }">
+                    <Title text="Filters" level="H4" class="sapUiSmallMarginBottom" />
+
+                    <!-- Brand Filter -->
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <Text text="{i18n>searchFilterBrand}" class="auraFilterHeader" />
+                        <CheckBox text="Apple" select=".onFilterChange" data:filterKey="brand" data:filterVal="Apple" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" />
+                        <CheckBox text="Sony" select=".onFilterChange" data:filterKey="brand" data:filterVal="Sony" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" />
+                        <CheckBox text="Dell" select=".onFilterChange" data:filterKey="brand" data:filterVal="Dell" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" />
+                    </VBox>
+
+                    <!-- Rating Filter -->
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <Text text="{i18n>searchFilterRating}" class="auraFilterHeader" />
+                        <HBox alignItems="Center" class="sapUiTinyMarginTop" press=".onRatingFilter" data:minRating="4" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+                            <RatingIndicator value="4" maxValue="5" enabled="false" iconSize="0.875rem" />
+                            <Text text="&amp; Up" class="sapUiTinyMarginBegin auraFilterLinkText" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Price Filter -->
+                    <VBox class="sapUiSmallMarginBottom" renderType="Bare">
+                        <Text text="{i18n>searchFilterPrice}" class="auraFilterHeader" />
+                        <Link text="Under $500" press=".onPriceFilter" data:maxPrice="500" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraFilterLinkText" />
+                        <Link text="$500 to $1,000" press=".onPriceFilter" data:minPrice="500" data:maxPrice="1000" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraFilterLinkText" />
+                        <Link text="$1,000 &amp; Above" press=".onPriceFilter" data:minPrice="1000" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="auraFilterLinkText" />
+                    </VBox>
+
+                    <Button text="Reset Filters" type="Transparent" icon="sap-icon://clear-filter" press=".onResetFilters" />
+                </VBox>
+
+                <!-- Products Grid -->
+                <VBox class="auraProductsResultGrid" fitContainer="true" renderType="Bare">
+                    <HBox id="searchResultsProductsGrid"
+                          wrap="Wrap"
+                          justifyContent="Start"
+                          items="{path: '/Products', parameters: {$expand: 'variants($expand=offers),images'}}">
+                        <items>
+                            <core:Fragment fragmentName="marketplace.shop.view.fragments.ProductCard" type="XML" />
+                        </items>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

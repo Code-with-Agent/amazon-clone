@@ -1,0 +1,67 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.ShipmentDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="shipmentObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{trackingNumber}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{trackingNumber}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Carrier: {carrier} | Order: {order/orderNumber}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Mark In-Transit" type="Default" press=".onSetInTransit" />
+                    <Button text="Mark Delivered" type="Emphasized" press=".onSetDelivered" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Carrier Partner" class="auraKpiTitle" />
+                    <Text text="{carrier}" class="auraKpiValue" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Fulfillment Status" class="auraKpiTitle" />
+                    <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" class="auraKpiValue" />
+                </VBox>
+                <VBox>
+                    <Text text="Shipped At" class="auraKpiTitle" />
+                    <Text text="{path: 'shippedAt', formatter: '.formatDateTime'}" class="auraKpiSubtext" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Consignment Details" id="secShipmentDetails">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Dispatch Logistics">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="2">
+                            <Label text="Tracking Number" /><Text text="{trackingNumber}" />
+                            <Label text="Carrier Service" /><Text text="{carrier}" />
+                            <Label text="Associated Sales Order" /><Text text="{order/orderNumber}" />
+                            <Label text="Fulfillment Warehouse" /><Text text="{warehouse/name}" />
+                            <Label text="Tracking URL" /><Link text="{trackingUrl}" href="{trackingUrl}" target="_blank" />
+                            <Label text="Status" /><ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Shipped Timestamp" /><Text text="{path: 'shippedAt', formatter: '.formatDateTime'}" />
+                            <Label text="Delivered Timestamp" /><Text text="{path: 'deliveredAt', formatter: '.formatDateTime'}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

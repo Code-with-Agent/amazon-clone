@@ -1,0 +1,4 @@
+ID,externalUserId,firstName,lastName,email,phoneNumber,status,isEmailVerified,preferredCurrency_code,preferredLanguage
+c0000000-0000-0000-0000-000000000001,cust-001,Alice,Smith,alice.smith@example.com,+1-555-0101,ACTIVE,true,USD,en
+c0000000-0000-0000-0000-000000000002,cust-002,John,Doe,john.doe@example.com,+1-555-0102,ACTIVE,true,USD,en
+c0000000-0000-0000-0000-000000000003,seller-001,Bob,Seller,bob.merchant@example.com,+1-555-0103,ACTIVE,true,USD,en

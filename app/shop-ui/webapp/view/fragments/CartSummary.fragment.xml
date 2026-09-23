@@ -1,0 +1,53 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraCartSummaryBox sapUiSmallMargin" renderType="Bare" width="340px">
+        <Title text="{i18n>checkoutOrderSummary}" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+
+        <!-- Subtotal -->
+        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+            <Text text="{i18n>cartSubtotal}:" class="auraSummaryLabel" />
+            <Text text="{path: 'cart>subtotalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+        </HBox>
+
+        <!-- Shipping -->
+        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+            <Text text="{i18n>checkoutShippingHandling}" class="auraSummaryLabel" />
+            <Text text="{= Number(${cart>shippingEstimate}) === 0 ? 'FREE' : ${path: 'cart>shippingEstimate', formatter: '.formatter.formatCurrency'} }"
+                  class="auraSummaryValue" />
+        </HBox>
+
+        <!-- Discount -->
+        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom" visible="{= Number(${cart>discountAmount}) > 0 }">
+            <Text text="{i18n>checkoutDiscountTotal}" class="auraDiscountLabel" />
+            <Text text="-{path: 'cart>discountAmount', formatter: '.formatter.formatCurrency'}" class="auraDiscountValue" />
+        </HBox>
+
+        <!-- Estimated Tax -->
+        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+            <Text text="{i18n>checkoutEstimatedTax}" class="auraSummaryLabel" />
+            <Text text="{path: 'cart>taxEstimate', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+        </HBox>
+
+        <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+        <!-- Total -->
+        <HBox justifyContent="SpaceBetween" alignItems="Baseline" class="sapUiSmallMarginBottom">
+            <Text text="{i18n>checkoutOrderTotal}" class="auraSummaryTotalLabel" />
+            <Text text="{path: 'cart>totalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryTotalValue" />
+        </HBox>
+
+        <!-- Proceed to Checkout Button -->
+        <Button text="{i18n>cartProceedToCheckout}"
+                type="Emphasized"
+                icon="sap-icon://cart-approval"
+                press=".onProceedToCheckout"
+                width="100%"
+                class="auraProceedCheckoutBtn" />
+
+        <HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+            <core:Icon src="sap-icon://shield" class="sapUiTinyMarginEnd" />
+            <Text text="Safe &amp; encrypted checkout" class="auraSecurityNote" />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

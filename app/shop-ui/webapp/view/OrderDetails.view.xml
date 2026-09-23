@@ -1,0 +1,104 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.OrderDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="orderDetailsPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+                <Breadcrumbs currentLocationText="Order Details">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>ordersTitle}" press=".onNavOrders" />
+                </Breadcrumbs>
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop" wrap="Wrap">
+                    <VBox renderType="Bare">
+                        <Title text="Order Details" level="H2" />
+                        <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                            <Text text="Ordered on {path: 'order>createdAt', formatter: '.formatter.formatDate'}" class="auraMutedText sapUiSmallMarginEnd" />
+                            <Text text="Order #{order>orderNumber}" class="auraActionMaintext" />
+                        </HBox>
+                    </VBox>
+                    <HBox class="sapUiTinyMarginTop">
+                        <Button text="View Invoice" icon="sap-icon://document-text" press=".onViewInvoice" class="sapUiSmallMarginEnd" />
+                        <Button text="{i18n>ordersCancelAction}"
+                                type="Negative"
+                                icon="sap-icon://sys-cancel"
+                                visible="{= ${order>status} === 'CONFIRMED' || ${order>status} === 'PENDING_PAYMENT' }"
+                                press=".onCancelOrder" />
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <!-- Delivery Progress Indicator -->
+            <VBox class="auraCartSummaryBox sapUiMediumMargin" renderType="Bare">
+                <Title text="Shipping &amp; Delivery Progress" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+                <HBox alignItems="Center" class="sapUiSmallMarginBottom" wrap="Wrap">
+                    <ObjectStatus text="{order>status}" state="{path: 'order>status', formatter: '.formatter.formatStatusState'}" inverted="true" class="sapUiSmallMarginEnd" />
+                    <Text text="Estimated delivery: 2 business days" class="auraCardDeliveryNote" />
+                </HBox>
+                <ProgressIndicator percentValue="65" displayValue="In Transit" state="Information" height="1.25rem" />
+            </VBox>
+
+            <!-- 3-Column Info Cards (Shipping Address, Payment Method, Order Summary) -->
+            <HBox class="sapUiMediumMargin" justifyContent="SpaceBetween" wrap="Wrap">
+                <!-- Shipping Address -->
+                <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" width="{= ${device>/system/phone} ? '100%' : '31%' }" renderType="Bare">
+                    <Title text="Shipping Address" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+                    <Text text="{order>customer/firstName} {order>customer/lastName}" class="auraActionMaintext" />
+                    <Text text="123 Pike Street" class="auraAddressLine sapUiTinyMarginTop" />
+                    <Text text="Seattle, WA 98101" class="auraAddressLine" />
+                    <Text text="United States" class="auraAddressLine" />
+                </VBox>
+
+                <!-- Payment Method -->
+                <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" width="{= ${device>/system/phone} ? '100%' : '31%' }" renderType="Bare">
+                    <Title text="Payment Method" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <core:Icon src="sap-icon://credit-card" class="sapUiSmallMarginEnd" />
+                        <Text text="Credit Card ending in 4242" class="auraActionMaintext" />
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Text text="Payment Status:" class="auraMutedText sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{order>paymentStatus}" state="{path: 'order>paymentStatus', formatter: '.formatter.formatStatusState'}" />
+                    </HBox>
+                </VBox>
+
+                <!-- Order Summary Breakdown -->
+                <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" width="{= ${device>/system/phone} ? '100%' : '31%' }" renderType="Bare">
+                    <Title text="{i18n>checkoutOrderSummary}" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="Items Subtotal:" class="auraSummaryLabel" />
+                        <Text text="{path: 'order>subtotalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                    </HBox>
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="Shipping &amp; Handling:" class="auraSummaryLabel" />
+                        <Text text="{path: 'order>shippingAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                    </HBox>
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                        <Text text="Estimated Tax:" class="auraSummaryLabel" />
+                        <Text text="{path: 'order>taxAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                    </HBox>
+                    <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+                    <HBox justifyContent="SpaceBetween" alignItems="Baseline">
+                        <Text text="Grand Total:" class="auraSummaryTotalLabel" />
+                        <Text text="{path: 'order>grandTotal', formatter: '.formatter.formatCurrency'}" class="auraSummaryTotalValue" />
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Line Items in Order -->
+            <VBox class="auraCartSummaryBox sapUiMediumMargin" renderType="Bare">
+                <Title text="Items Ordered" level="H4" titleStyle="H5" class="sapUiSmallMarginBottom" />
+                <List items="{order>items}">
+                    <CustomListItem>
+                        <core:Fragment fragmentName="marketplace.shop.view.fragments.OrderItem" type="XML" />
+                    </CustomListItem>
+                </List>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

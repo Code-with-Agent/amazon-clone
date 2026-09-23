@@ -1,0 +1,70 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraProductCard sapUiSmallMargin"
+          renderType="Bare"
+          width="270px">
+        <!-- 1. Product Image -->
+        <HBox justifyContent="Center" alignItems="Center" class="auraCardImageContainer">
+            <Image src="{= ${images/0/mediaUrl} ? ${images/0/mediaUrl} : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500' }"
+                   densityAware="false"
+                   mode="Background"
+                   width="100%"
+                   height="200px"
+                   press=".onProductCardPress"
+                   class="auraCardImage" />
+        </HBox>
+
+        <!-- Product Details Container -->
+        <VBox class="sapUiSmallMargin" renderType="Bare">
+            <!-- 3. Brand -->
+            <Text text="{brand}" class="auraCardBrand" />
+
+            <!-- 2. Product Title -->
+            <Link text="{title}"
+                  press=".onProductCardPress"
+                  wrapping="true"
+                  class="auraCardTitle" />
+
+            <!-- 4. Rating & 5. Review Count -->
+            <HBox alignItems="Center" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                <RatingIndicator value="{averageRating}" maxValue="5" visualMode="Half" enabled="false" iconSize="0.875rem" />
+                <Text text="({reviewCount})" class="auraCardReviewCount sapUiTinyMarginBegin" />
+            </HBox>
+
+            <!-- 6. Current Price, 7. Original Price & 8. Discount Badge -->
+            <HBox alignItems="Baseline" wrap="Wrap" class="sapUiTinyMarginTop">
+                <Text text="{path: 'variants/0/offers/0/price', formatter: '.formatter.formatCurrency'}"
+                      class="auraCardPrice" />
+                <Text text="{path: 'variants/0/offers/0/originalPrice', formatter: '.formatter.formatCurrency'}"
+                      visible="{parts: [{path: 'variants/0/offers/0/originalPrice'}, {path: 'variants/0/offers/0/price'}], formatter: '.formatter.hasDiscount'}"
+                      class="auraCardOriginalPrice sapUiTinyMarginBegin" />
+                <ObjectStatus
+                    text="{parts: [{path: 'variants/0/offers/0/originalPrice'}, {path: 'variants/0/offers/0/price'}], formatter: '.formatter.formatDiscountBadge'}"
+                    state="Success"
+                    inverted="true"
+                    visible="{parts: [{path: 'variants/0/offers/0/originalPrice'}, {path: 'variants/0/offers/0/price'}], formatter: '.formatter.hasDiscount'}"
+                    class="auraDiscountBadge sapUiTinyMarginBegin" />
+            </HBox>
+
+            <!-- 9. Availability Status -->
+            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                <ObjectStatus text="In Stock" state="Success" icon="sap-icon://sys-enter-2" class="auraStockStatusMini" />
+            </HBox>
+
+            <!-- 10. Delivery Information -->
+            <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                <core:Icon src="sap-icon://shipping-status" class="auraFastShipIcon sapUiTinyMarginEnd" />
+                <Text text="FREE Next-Day Express" class="auraCardDeliveryNote" />
+            </HBox>
+
+            <!-- 11. Add to Cart Button -->
+            <Button text="{i18n>pdpAddToCart}"
+                    type="Emphasized"
+                    icon="sap-icon://cart-plus"
+                    press=".onQuickAddToCart"
+                    width="100%"
+                    class="auraCardAddBtn sapUiSmallMarginTop" />
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,8 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <VBox class="auraLoadingStateBox sapUiLargeMargin" alignItems="Center" justifyContent="Center" visible="{ui>/busy}">
+        <BusyIndicator size="2.5rem" class="sapUiMediumMarginBottom" />
+        <Text text="{i18n>loadingText}" class="auraLoadingText" />
+    </VBox>
+</core:FragmentDefinition>

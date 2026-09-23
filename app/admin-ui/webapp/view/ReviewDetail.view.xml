@@ -1,0 +1,66 @@
+<mvc:View
+    controllerName="marketplace.admin.controller.ReviewDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout id="reviewObjectPage" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{headline}" level="H2" class="sapUiTinyMarginEnd" />
+                        <ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                    </HBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{headline}" level="H3" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="Product: {product/title} | Reviewer: {customer/email}" class="auraKpiSubtext" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button text="Approve Review" type="Emphasized" icon="sap-icon://accept" press=".onApproveReview" />
+                    <Button text="Reject Review" type="Reject" icon="sap-icon://decline" press=".onRejectReview" />
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBack" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceAround" width="100%">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Star Rating" class="auraKpiTitle" />
+                    <RatingIndicator value="{rating}" maxValue="5" editable="false" iconSize="1.2rem" />
+                    <Text text="{rating} Stars" class="auraKpiSubtext" />
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="Helpful Votes" class="auraKpiTitle" />
+                    <Text text="{helpfulVotes} users found helpful" class="auraKpiValue" />
+                </VBox>
+                <VBox>
+                    <Text text="Verified Purchase" class="auraKpiTitle" />
+                    <Switch state="{isVerifiedPurchase}" enabled="false" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Review Details" id="secReviewText">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Customer Review Commentary">
+                        <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="1" columnsL="2">
+                            <Label text="Headline" /><Text text="{headline}" />
+                            <Label text="Rating" /><RatingIndicator value="{rating}" maxValue="5" editable="false" />
+                            <Label text="Comment Body" /><Text text="{comment}" />
+                            <Label text="Moderation Status" /><ObjectStatus text="{status}" state="{path: 'statusCriticality', formatter: '.formatCriticalityState'}" inverted="true" />
+                            <Label text="Product Reviewed" /><Text text="{product/title}" />
+                            <Label text="Customer Email" /><Text text="{customer/email}" />
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

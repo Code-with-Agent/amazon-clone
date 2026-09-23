@@ -1,0 +1,214 @@
+<mvc:View
+    controllerName="marketplace.shop.controller.Checkout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="checkoutPage" showHeader="false" enableScrolling="true" class="auraPage">
+        <content>
+            <!-- Checkout Header -->
+            <VBox class="sapUiMediumMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiSmallMarginBottom">
+                <Breadcrumbs currentLocationText="{i18n>checkoutTitle}">
+                    <Link text="Home" press=".onNavHome" />
+                    <Link text="{i18n>cartTitle}" press=".onNavCart" />
+                </Breadcrumbs>
+                <HBox alignItems="Center" class="sapUiSmallMarginTop">
+                    <core:Icon src="sap-icon://locked" color="#059669" size="1.75rem" class="sapUiTinyMarginEnd" />
+                    <Title text="{i18n>checkoutTitle}" level="H2" />
+                </HBox>
+            </VBox>
+
+            <!-- Multi-Step Checkout Wizard -->
+            <VBox class="sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiLargeMarginBottom" renderType="Bare">
+                <Wizard id="checkoutWizard" complete=".onWizardCompleted" class="auraCheckoutWizard" finishButtonText="Place Your Order">
+                    <!-- =========================================================
+                         STEP 1: SHIPPING ADDRESS
+                         ========================================================= -->
+                    <WizardStep id="stepShippingAddress"
+                                title="Shipping Address"
+                                validated="false"
+                                activate=".onStepAddressActivate">
+                        <VBox class="sapUiSmallMargin">
+                            <Title text="Select Delivery Destination" level="H4" class="sapUiSmallMarginBottom" />
+                            <Text text="Please select the delivery address for your items or add a new shipping destination." class="auraMutedText sapUiSmallMarginBottom" />
+
+                            <HBox wrap="Wrap" items="{path: 'customer>/Addresses'}">
+                                <items>
+                                    <VBox class="auraAddressCard sapUiSmallMargin" width="300px">
+                                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                                            <RadioButton groupName="checkoutShipGroup"
+                                                         text="{customer>recipientName}"
+                                                         selected="{= ${customer>isDefault} ? true : false }"
+                                                         select=".onSelectShippingAddress" />
+                                            <ObjectStatus text="DEFAULT" state="Success" inverted="true" visible="{customer>isDefault}" />
+                                        </HBox>
+                                        <VBox class="sapUiTinyMarginBegin sapUiSmallMarginTop" renderType="Bare">
+                                            <Text text="{customer>street1}" class="auraAddressLine" />
+                                            <Text text="{customer>city}, {customer>state} {customer>postalCode}" class="auraAddressLine" />
+                                            <Text text="{customer>country_code}" class="auraAddressLine" />
+                                            <Text text="Phone: {customer>phoneNumber}" visible="{= Boolean(${customer>phoneNumber}) }" class="auraAddressPhone sapUiTinyMarginTop" />
+                                        </VBox>
+                                    </VBox>
+                                </items>
+                            </HBox>
+
+                            <HBox class="sapUiSmallMarginTop">
+                                <Button text="Add New Address" icon="sap-icon://add" press=".onAddNewAddress" class="sapUiSmallMarginEnd" />
+                                <Button id="btnValidateStep1" text="Deliver to this Address &gt;" type="Emphasized" press=".onConfirmAddressStep" />
+                            </HBox>
+                        </VBox>
+                    </WizardStep>
+
+                    <!-- =========================================================
+                         STEP 2: DELIVERY METHOD
+                         ========================================================= -->
+                    <WizardStep id="stepDeliveryMethod"
+                                title="Delivery Method"
+                                validated="false"
+                                activate=".onStepDeliveryActivate">
+                        <VBox class="sapUiSmallMargin">
+                            <Title text="Choose Your Delivery Speed" level="H4" class="sapUiSmallMarginBottom" />
+                            <Text text="Guaranteed delivery timeframes calculated for your selected destination." class="auraMutedText sapUiSmallMarginBottom" />
+
+                            <RadioButtonGroup id="deliverySpeedRadioGroup" select=".onDeliveryMethodSelect">
+                                <RadioButton text="Standard Shipping (3-5 business days) - FREE" selected="true" key="STANDARD" />
+                                <RadioButton text="Expedited Delivery (2 business days) - $9.99" key="EXPEDITED" />
+                                <RadioButton text="Priority Next-Day Express Delivery - $19.99" key="NEXT_DAY" />
+                            </RadioButtonGroup>
+
+                            <HBox class="sapUiMediumMarginTop">
+                                <Button id="btnValidateStep2" text="Continue to Payment &gt;" type="Emphasized" press=".onConfirmDeliveryStep" />
+                            </HBox>
+                        </VBox>
+                    </WizardStep>
+
+                    <!-- =========================================================
+                         STEP 3: PAYMENT METHOD
+                         ========================================================= -->
+                    <WizardStep id="stepPaymentMethod"
+                                title="Payment Method"
+                                validated="false"
+                                activate=".onStepPaymentActivate">
+                        <VBox class="sapUiSmallMargin">
+                            <Title text="Select Payment Method" level="H4" class="sapUiSmallMarginBottom" />
+                            <Text text="Mock payment gateway enabled. Real credentials are never collected or stored." class="auraMutedText sapUiSmallMarginBottom" />
+
+                            <core:Fragment fragmentName="marketplace.shop.view.fragments.PaymentMethod" type="XML" />
+
+                            <HBox class="sapUiMediumMarginTop">
+                                <Button id="btnValidateStep3" text="Use this Payment Method &gt;" type="Emphasized" press=".onConfirmPaymentStep" />
+                            </HBox>
+                        </VBox>
+                    </WizardStep>
+
+                    <!-- =========================================================
+                         STEP 4: ORDER REVIEW
+                         ========================================================= -->
+                    <WizardStep id="stepOrderReview"
+                                title="Order Review"
+                                validated="false"
+                                activate=".onStepReviewActivate">
+                        <VBox class="sapUiSmallMargin">
+                            <Title text="Review Items &amp; Shipping" level="H4" class="sapUiSmallMarginBottom" />
+
+                            <!-- Review Grid (Address, Delivery & Payment Snapshot) -->
+                            <HBox class="sapUiSmallMarginBottom" wrap="Wrap" justifyContent="SpaceBetween">
+                                <VBox class="auraCartSummaryBox sapUiTinyMarginBottom" width="{= ${device>/system/phone} ? '100%' : '32%' }" renderType="Bare">
+                                    <Title text="Shipping Address" level="H5" />
+                                    <Text id="reviewAddressText" text="123 Pike Street, Seattle, WA 98101" class="auraMutedText sapUiTinyMarginTop" />
+                                </VBox>
+                                <VBox class="auraCartSummaryBox sapUiTinyMarginBottom" width="{= ${device>/system/phone} ? '100%' : '32%' }" renderType="Bare">
+                                    <Title text="Delivery Speed" level="H5" />
+                                    <Text id="reviewDeliveryText" text="Standard Shipping (FREE)" class="auraMutedText sapUiTinyMarginTop" />
+                                </VBox>
+                                <VBox class="auraCartSummaryBox sapUiTinyMarginBottom" width="{= ${device>/system/phone} ? '100%' : '32%' }" renderType="Bare">
+                                    <Title text="Payment Method" level="H5" />
+                                    <Text id="reviewPaymentText" text="Credit Card (Mock Payment)" class="auraMutedText sapUiTinyMarginTop" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Items in Order Snapshot -->
+                            <Title text="Items to be Dispatched" level="H5" class="sapUiSmallMarginTop sapUiSmallMarginBottom" />
+                            <List items="{path: 'cart>/CartItems', parameters: {$filter: 'isSavedForLater eq false', $expand: 'product,variant'}}">
+                                <CustomListItem>
+                                    <HBox class="sapUiSmallMargin" justifyContent="SpaceBetween" alignItems="Center">
+                                        <HBox alignItems="Center">
+                                            <core:Icon src="sap-icon://product" class="sapUiSmallMarginEnd" />
+                                            <VBox renderType="Bare">
+                                                <Text text="{= ${cart>product/title} ? ${cart>product/title} : 'Marketplace Item' }" class="auraActionMaintext" />
+                                                <Text text="Qty: {cart>quantity}" class="auraMutedText sapUiTinyMarginTop" />
+                                            </VBox>
+                                        </HBox>
+                                        <Text text="{path: 'cart>extendedPrice', formatter: '.formatter.formatCurrency'}" class="auraCardPrice" />
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+
+                            <!-- Financial Summary Breakdown -->
+                            <VBox class="auraCartSummaryBox sapUiSmallMarginTop" width="{= ${device>/system/phone} ? '100%' : '360px' }" renderType="Bare">
+                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                    <Text text="Items Subtotal:" class="auraSummaryLabel" />
+                                    <Text text="{path: 'cart>subtotalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                                </HBox>
+                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                    <Text text="Shipping:" class="auraSummaryLabel" />
+                                    <Text text="{= Number(${cart>shippingEstimate}) === 0 ? 'FREE' : ${path: 'cart>shippingEstimate', formatter: '.formatter.formatCurrency'} }" class="auraSummaryValue" />
+                                </HBox>
+                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom" visible="{= Number(${cart>discountAmount}) > 0 }">
+                                    <Text text="Promotions Applied:" class="auraDiscountLabel" />
+                                    <Text text="-{path: 'cart>discountAmount', formatter: '.formatter.formatCurrency'}" class="auraDiscountValue" />
+                                </HBox>
+                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                    <Text text="Estimated Tax:" class="auraSummaryLabel" />
+                                    <Text text="{path: 'cart>taxEstimate', formatter: '.formatter.formatCurrency'}" class="auraSummaryValue" />
+                                </HBox>
+                                <HBox class="auraSummaryDivider sapUiSmallMarginTop sapUiSmallMarginBottom" />
+                                <HBox justifyContent="SpaceBetween" alignItems="Baseline">
+                                    <Text text="Order Total:" class="auraSummaryTotalLabel" />
+                                    <Text text="{path: 'cart>totalAmount', formatter: '.formatter.formatCurrency'}" class="auraSummaryTotalValue" />
+                                </HBox>
+                            </VBox>
+
+                            <HBox class="sapUiMediumMarginTop">
+                                <Button id="btnValidateStep4" text="Proceed to Final Confirmation &gt;" type="Emphasized" press=".onConfirmReviewStep" />
+                            </HBox>
+                        </VBox>
+                    </WizardStep>
+
+                    <!-- =========================================================
+                         STEP 5: CONFIRMATION & ORDER SUBMISSION
+                         ========================================================= -->
+                    <WizardStep id="stepConfirmation"
+                                title="Confirmation"
+                                validated="true">
+                        <VBox class="sapUiSmallMargin" alignItems="Start">
+                            <Title text="Final Order Authorization" level="H4" class="sapUiSmallMarginBottom" />
+                            <Text text="Clicking 'Place Order &amp; Pay Now' executes the 18-step atomic checkout pipeline: inventory validation, warehouse reservation holds, snapshot capture, and payment authorization." class="auraMutedText sapUiSmallMarginBottom" />
+
+                            <!-- Developer Simulation Switch -->
+                            <VBox class="auraCartSummaryBox sapUiSmallMarginBottom" width="{= ${device>/system/phone} ? '100%' : '450px' }" renderType="Bare">
+                                <Title text="CAP Payment Gateway Simulation Mode" level="H5" class="sapUiTinyMarginBottom" />
+                                <RadioButtonGroup id="simulationOutcomeGroup" columns="2">
+                                    <RadioButton text="Simulate Payment Success" selected="true" key="SUCCESS" />
+                                    <RadioButton text="Simulate Payment Failure" key="FAIL" />
+                                </RadioButtonGroup>
+                                <Text text="Selecting 'Simulate Failure' tests rollback of inventory reservations and payment rejection handling." class="auraSecurityNote sapUiTinyMarginTop" />
+                            </VBox>
+
+                            <!-- Big Place Order Button -->
+                            <Button id="btnFinalPlaceOrder"
+                                    text="Place Order &amp; Pay Now"
+                                    type="Emphasized"
+                                    icon="sap-icon://money-bills"
+                                    press=".onPlaceOrderFinal"
+                                    class="auraProceedCheckoutBtn sapUiMediumMarginTop"
+                                    width="{= ${device>/system/phone} ? '100%' : '320px' }" />
+                        </VBox>
+                    </WizardStep>
+                </Wizard>
+            </VBox>
+
+            <!-- Footer -->
+            <core:Fragment fragmentName="marketplace.shop.view.fragments.Footer" type="XML" />
+        </content>
+    </Page>
+</mvc:View>
