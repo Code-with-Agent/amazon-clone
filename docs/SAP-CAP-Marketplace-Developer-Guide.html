@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAP CAP & Enterprise Marketplace - Complete Developer Guide</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-right {
+                content: counter(page);
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 9pt;
+                color: #64748B;
+            }
+            @bottom-left {
+                content: "SAP CAP Enterprise Marketplace — Developer Guide";
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 9pt;
+                color: #64748B;
+            }
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.6;
+            color: #1E293B;
+            background-color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+        }
+        .cover-page {
+            page-break-after: always;
+            padding-top: 60px;
+            text-align: center;
+        }
+        .cover-badge {
+            display: inline-block;
+            background-color: #0070F2;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 11pt;
+            padding: 6px 18px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+        .cover-title {
+            font-size: 26pt;
+            font-weight: 800;
+            color: #0F172A;
+            line-height: 1.25;
+            margin-bottom: 15px;
+        }
+        .cover-subtitle {
+            font-size: 13pt;
+            font-weight: 400;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.5;
+        }
+        .cover-meta-box {
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 24px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+            font-size: 10pt;
+        }
+        .cover-meta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .cover-meta-row:last-child {
+            border-bottom: none;
+        }
+        .cover-meta-label {
+            font-weight: 600;
+            color: #64748B;
+        }
+        .cover-meta-val {
+            font-weight: 700;
+            color: #0F172A;
+        }
+        .chapter-title {
+            font-size: 18pt;
+            color: #0070F2;
+            border-bottom: 2px solid #0070F2;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+        h2 {
+            font-size: 14pt;
+            color: #0F172A;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 4px;
+        }
+        h3 {
+            font-size: 12pt;
+            color: #1E293B;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+        p {
+            margin: 0 0 12px 0;
+        }
+        .code-block {
+            background-color: #0F172A;
+            color: #F8FAFC;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 14px 0;
+            page-break-inside: avoid;
+            border: 1px solid #334155;
+        }
+        .inline-code {
+            background-color: #F1F5F9;
+            color: #D946EF;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9.5pt;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #E2E8F0;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+        .data-table th {
+            background-color: #F1F5F9;
+            color: #0F172A;
+            text-align: left;
+            padding: 8px 12px;
+            font-weight: 700;
+            border: 1px solid #CBD5E1;
+        }
+        .data-table td {
+            padding: 8px 12px;
+            border: 1px solid #E2E8F0;
+            vertical-align: top;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #F8FAFC;
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 10pt;
+            page-break-inside: avoid;
+        }
+        .alert-note {
+            background-color: #EFF6FF;
+            border-left: 4px solid #3B82F6;
+            color: #1E40AF;
+        }
+        .alert-warning {
+            background-color: #FFFBEB;
+            border-left: 4px solid #F59E0B;
+            color: #92400E;
+        }
+        .alert-danger {
+            background-color: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            color: #991B1B;
+        }
+        .alert-tip {
+            background-color: #F0FDF4;
+            border-left: 4px solid #10B981;
+            color: #065F46;
+        }
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: #E2E8F0;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover-page">
+    <div class="cover-badge">Enterprise Engineering Blueprint</div>
+    <div class="cover-title">SAP Cloud Application Programming Model (CAP)<br/>& Enterprise Marketplace</div>
+    <div class="cover-subtitle">Complete Junior Developer Handbook, Architectural Reference & Code Walkthrough</div>
+
+    <div class="cover-meta-box">
+        <div class="cover-meta-row"><span class="cover-meta-label">Project:</span><span class="cover-meta-val">Aura Enterprise Marketplace (Amazon Clone)</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Architecture:</span><span class="cover-meta-val">SAP CAP (Node.js), OData V4, SAPUI5, Fiori Elements</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Security Standard:</span><span class="cover-meta-val">SAP BTP XSUAA (OAuth 2.0 / JWT)</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Packaging Standard:</span><span class="cover-meta-val">Cloud Foundry Multitarget Application (MTA)</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Test Coverage:</span><span class="cover-meta-val">136 Tests Passing Across 9 Test Suites (100%)</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Target Audience:</span><span class="cover-meta-val">Junior & Intermediate Full-Stack SAP Developers</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Generated Date:</span><span class="cover-meta-val">September 24, 2026</span></div>
+    </div>
+</div>
+
+<div class="document-body">
+
+<h2>Comprehensive Junior Developer Learning Guide, Architecture Blueprint & Code Reference Manual</h2>
+
+<p>* <strong>Application:</strong> Aura Enterprise Marketplace (Amazon Clone)</p>
+<p>* <strong>Technology Stack:</strong> SAP CAP (Node.js), OData V4, SAPUI5 Freestyle, SAP Fiori Elements, SAP BTP XSUAA, SAP HANA & MTA</p>
+<p>* <strong>Target Audience:</strong> Junior Developers, SAP Full-Stack Engineers, Solution Architects</p>
+<p>* <strong>Repository:</strong> https://github.com/Code-with-Agent/amazon-clone.git</p>
+<p>* <strong>Generated:</strong> September 24, 2026</p>
+
+<hr class="section-divider" />
+
+<h2>Document Table of Contents</h2>
+<p>1. <strong>Chapter 1:</strong> Introduction to SAP CAP & Project Architecture</p>
+<p>2. <strong>Chapter 2:</strong> Core Data Services (CDS) Modeling Deep Dive</p>
+<p>3. <strong>Chapter 3:</strong> Service Definition & OData V4 Exposure</p>
+<p>4. <strong>Chapter 4:</strong> Event Handlers & Business Logic Implementation</p>
+<p>5. <strong>Chapter 5:</strong> Security, Authentication & Authorization (XSUAA)</p>
+<p>6. <strong>Chapter 6:</strong> Storefront Frontend (SAPUI5 Freestyle)</p>
+<p>7. <strong>Chapter 7:</strong> Backoffice Frontend (SAP Fiori Elements)</p>
+<p>8. <strong>Chapter 8:</strong> Multitarget Application (MTA) & Cloud Deployment</p>
+<p>9. <strong>Chapter 9:</strong> Enterprise Automated Testing & Quality Assurance</p>
+<p>10. <strong>Chapter 10:</strong> Junior Developer Playbook & Common Pitfalls</p>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">Chapter 1: Introduction to SAP CAP & Project Architecture</h1>
+
+<h2>1.1 Executive Summary & Mission</h2>
+<p>Welcome to the engineering documentation and learning guide for the <strong>Aura Enterprise Marketplace</strong> (Amazon Clone). This application is a production-grade, multi-tenant ready, full-stack enterprise e-commerce platform built natively with the <strong>SAP Cloud Application Programming Model (CAP)</strong>, <strong>OData V4</strong>, <strong>SAPUI5 Freestyle</strong>, <strong>SAP Fiori Elements</strong>, and <strong>SAP BTP XSUAA</strong>.</p>
+
+<p>As a junior developer joining our engineering team, you may be familiar with general web frameworks such as Node.js/Express, React, or Python/Django. SAP CAP introduces an enterprise-grade paradigm known as <strong>Domain-Driven, Metadata-Driven Development</strong>. Rather than manually writing hundreds of boilerplate REST controllers, SQL migrations, and UI binding plumbing, CAP allows us to define our domain models once in <strong>Core Data Services (CDS)</strong>, and the framework automatically generates database tables, OData V4 services, and UI annotations.</p>
+
+<p>This guide is designed as both an architectural reference for this specific application and a comprehensive tutorial on SAP CAP. Every core concept is explained in detail with direct references to the actual code in our repository.</p>
+
+<hr class="section-divider" />
+
+<h2>1.2 What is the SAP Cloud Application Programming Model (CAP)?</h2>
+
+<p>The <strong>SAP Cloud Application Programming Model (CAP)</strong> is an opinionated framework of languages, libraries, and tools for building enterprise-grade cloud services and applications. It is officially supported by SAP in two flavors: <strong>Node.js</strong> (JavaScript/TypeScript) and <strong>Java</strong>. Our application is built with <strong>Node.js (v20+)</strong> using ECMAScript modules (<code class="inline-code">"type": "module"</code>).</p>
+
+<h3>Why SAP CAP?</h3>
+<p>In traditional full-stack development, building an enterprise marketplace requires:</p>
+<p>1. Writing database schemas (PostgreSQL / MySQL / Oracle DDL).</p>
+<p>2. Writing database migrations for schema evolution.</p>
+<p>3. Writing ORM models (Prisma, TypeORM, Hibernate) with duplicate field definitions.</p>
+<p>4. Writing REST controllers and handling pagination (<code class="inline-code">$top</code>, <code class="inline-code">$skip</code>), filtering, sorting, and nested expansions manually.</p>
+<p>5. Implementing authentication, JWT parsing, and role-based authorization in custom middleware.</p>
+<p>6. Writing custom frontend data-fetching hooks and state management.</p>
+
+<p><strong>CAP eliminates this redundant boilerplate through 4 Core Pillars:</strong></p>
+
+<p>1. <strong>Domain-Driven Design (DDD):</strong> Everything starts with the domain model in <code class="inline-code">db/schema.cds</code>. Business entities, relationships, validations, and constraints are declared in human-readable CDS syntax.</p>
+<p>2. <strong>Platform & Database Agnostic:</strong> In local development, our app runs on <strong>SQLite</strong> for ultra-fast startup with zero cloud dependencies. In production on SAP BTP, the exact same code runs on <strong>SAP HANA Cloud</strong> without changing a single line of application logic.</p>
+<p>3. <strong>Golden Paths & Out-of-the-Box Enterprise Features:</strong></p>
+<p>   * Automatic OData V4 protocol support (batch processing, <code class="inline-code">$expand</code>, <code class="inline-code">$filter</code>, <code class="inline-code">$select</code>, <code class="inline-code">$orderby</code>, <code class="inline-code">$count</code>).</p>
+<p>   * Built-in transaction management (<code class="inline-code">cds.tx</code>).</p>
+<p>   * Built-in authentication & authorization via SAP BTP XSUAA.</p>
+<p>   * Built-in draft handling (for complex UI editing).</p>
+<p>   * Built-in audit logging and temporal data handling.</p>
+<p>4. <strong>Metadata-Driven UI (Fiori Elements):</strong> CAP compiles CDS annotations directly into OData V4 annotations that render rich Fiori Elements user interfaces without writing a single line of frontend JavaScript.</p>
+
+<hr class="section-divider" />
+
+<h2>1.3 Project Directory Structure Breakdown</h2>
+
+<p>Let us examine the exact file structure of our repository:</p>
+
+<pre class="code-block language-"><code>amazon-clone/
+├── .vscode/               # Recommended IDE extensions, launch configs &amp; tasks
+├── app/                   # Frontend Applications
+│   ├── admin-ui/          # Backoffice Management App (SAP Fiori Elements)
+│   │   ├── annotations.cds # CDS UI annotations driving List Reports &amp; Object Pages
+│   │   ├── package.json   # UI5 dependencies &amp; scripts
+│   │   └── webapp/        # Fiori Elements manifest, Component, and custom extensions
+│   ├── shop-ui/           # Customer Storefront (SAPUI5 Freestyle)
+│   │   ├── webapp/        # XML views, Controllers, Fragments, Formatters, CSS
+│   │   ├── package.json   # UI5 tooling configuration
+│   │   └── ui5.yaml       # SAPUI5 build tooling descriptor
+│   ├── index.html         # Launchpad entry point for local preview
+│   └── services.cds       # Aggregation file importing all UI annotations
+├── db/                    # Database Domain Layer
+│   ├── data/              # Initial seed data (.csv files per entity)
+│   └── schema.cds         # Core domain model definitions (CDS)
+├── docs/                  # Engineering Guides, API reference, Architecture docs
+├── srv/                   # Business Services &amp; Custom Handlers Layer
+│   ├── admin-service.cds  # Backoffice admin service definition
+│   ├── admin-service.js   # Backoffice admin business logic
+│   ├── cart-service.cds   # Shopping cart service definition
+│   ├── cart-service.js    # Cart calculation, items manipulation &amp; coupon logic
+│   ├── catalog-service.cds# Public catalog service definition
+│   ├── catalog-service.js # Catalog search, filtering, and recommendations
+│   ├── customer-service.cds # Customer profile, addresses &amp; wishlist definition
+│   ├── customer-service.js # Customer authorization &amp; profile handlers
+│   ├── inventory-service.cds # Warehouse inventory service definition
+│   ├── inventory-service.js # Inventory reservations &amp; stock syncing
+│   ├── order-service.cds  # Order management service definition
+│   ├── order-service.js   # 18-step checkout orchestration &amp; cancellations
+│   ├── payment-service.cds # Payment processing service definition
+│   ├── payment-service.js # Payment gateway simulation &amp; refunds
+│   └── server.js          # Custom CAP server bootstrap (CORS, Swagger, Mock Auth)
+├── test/                  # Automated Test Suite (136 tests across 9 suites)
+├── scripts/               # Automation scripts (UI packaging, MTA building)
+├── mta.yaml               # SAP BTP Cloud Foundry Multitarget Application descriptor
+├── xs-security.json       # XSUAA security configuration (Scopes &amp; Role Templates)
+├── package.json           # Node.js dependencies, npm scripts, CAP configurations
+└── eslint.config.mjs      # Code style &amp; CDS linter configuration
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>1.4 How the CAP Compiler Works Under the Hood</h2>
+
+<p>When you execute <code class="inline-code">cds watch</code> or <code class="inline-code">cds build</code>, the CAP compiler executes three key transformations:</p>
+
+<pre class="code-block language-"><code>                     +--------------------+
+                     |    db/schema.cds   |
+                     |   (Domain Model)   |
+                     +---------+----------+
+                               |
+                               v
+                     +--------------------+
+                     |  CDS Compiler (@sap/cds)
+                     +---------+----------+
+                               |
+            +------------------+------------------+
+            |                                     |
+            v                                     v
+  +--------------------+               +--------------------+
+  |      SQL DDL       |               |    CSN / EDMX      |
+  | (SQLite / HANA)    |               |  (OData Metadata)  |
+  +--------------------+               +--------------------+
+            |                                     |
+            v                                     v
+  +--------------------+               +--------------------+
+  | Database Tables,   |               | REST / OData V4    |
+  | Views, Foreign Keys|               | Endpoints &amp; Schema |
+  +--------------------+               +--------------------+
+</code></pre>
+
+<p>1. <strong>Schema to SQL Translation:</strong> <code class="inline-code">db/schema.cds</code> is compiled into relational database tables and foreign key constraints. In SQLite, it creates SQLite DDL; in SAP HANA, it creates CDS artifacts deployed via the HDI Deployer (<code class="inline-code">.hdbcds</code> / <code class="inline-code">.hdbtable</code>).</p>
+<p>2. <strong>Projections to Views:</strong> Service entities defined in <code class="inline-code">srv/*.cds</code> are compiled into SQL database views (e.g. <code class="inline-code">CatalogService_Products</code> view) or query rewrites.</p>
+<p>3. <strong>Services to OData V4:</strong> Each <code class="inline-code">service</code> in CDS automatically becomes a fully functional OData V4 HTTP endpoint serving <code class="inline-code">$metadata</code> (EDMX XML schema) and JSON payloads.</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 2: Core Data Services (CDS) Modeling Deep Dive</h1>
+
+<h2>2.1 The Philosophy of CDS Modeling (<code class="inline-code">db/schema.cds</code>)</h2>
+<p>In SAP CAP, your entire business reality is defined in <strong>Core Data Services (CDS)</strong>. Think of CDS as a high-level, human-readable domain definition language that combines:</p>
+<p>* Relational database DDL (tables, primary keys, foreign keys, unique constraints).</p>
+<p>* Type systems (strings, decimals, booleans, enums).</p>
+<p>* Object-oriented aspects (reusable traits, mixins).</p>
+<p>* Entity relationship graphs (associations and compositions).</p>
+
+<p>Let us open <code class="inline-code">db/schema.cds</code> and analyze how our marketplace data model was constructed.</p>
+
+<hr class="section-divider" />
+
+<h2>2.2 Standard Aspects from <code class="inline-code">@sap/cds/common</code></h2>
+
+<p>At the top of <code class="inline-code">db/schema.cds</code>, you will find:</p>
+
+<pre class="code-block language-cds"><code>using { cuid, managed } from '@sap/cds/common';
+</code></pre>
+
+<p>CAP provides pre-built, standardized building blocks called <strong>Aspects</strong>. Reusing these aspects is a core CAP best practice:</p>
+
+<h3>1. <code class="inline-code">cuid</code> (Canonical Unique Identifier)</h3>
+<p>When you define an entity with <code class="inline-code">: cuid</code>:</p>
+<pre class="code-block language-cds"><code>entity Products : cuid, managed { ... }
+</code></pre>
+<p>CAP automatically generates a primary key property:</p>
+<pre class="code-block language-cds"><code>key ID : UUID;
+</code></pre>
+<p>* Why this matters: You never need to write manual auto-incrementing integer IDs. UUIDs prevent ID guessing attacks, allow distributed ID generation across offline clients, and eliminate sequence collisions in multi-tenant cloud environments.</p>
+
+<h3>2. <code class="inline-code">managed</code> (Audit Logging)</h3>
+<p>When you add <code class="inline-code">: managed</code> to an entity, CAP automatically injects four audit fields:</p>
+<pre class="code-block language-cds"><code>createdAt  : Timestamp;
+createdBy  : User;
+modifiedAt : Timestamp;
+modifiedBy : User;
+</code></pre>
+<p>* Why this matters: When a user places an order or updates a product, CAP automatically extracts the authenticated user's ID (<code class="inline-code">req.user.id</code>) and the current UTC timestamp, writing them into the record. You do not write a single line of handler code to maintain these audit columns!</p>
+
+<hr class="section-divider" />
+
+<h2>2.3 Associations vs. Compositions: The Most Critical Concept in CAP</h2>
+
+<p>One of the most frequent mistakes junior developers make in CAP is using an <strong>Association</strong> when they should have used a <strong>Composition</strong>, or vice-versa. Understanding the distinction is vital.</p>
+
+<table class="data-table"><thead><tr><th>Feature</th><th>Association (<code class="inline-code">Association to</code>)</th><th>Composition (<code class="inline-code">Composition of</code>)</th></tr></thead><tbody><tr><td><strong>Relationship</strong></td><td>Loose relationship (Peer-to-Peer)</td><td>Strict Parent-Child ownership</td></tr><tr><td><strong>Lifecycle</strong></td><td>Independent. Child exists without parent.</td><td>Dependent. Child cannot exist without parent.</td></tr><tr><td><strong>Deletion</strong></td><td>Deleting parent leaves target intact.</td><td><strong>Cascading Delete:</strong> Deleting parent deletes all children.</td></tr><tr><td><strong>Deep Inserts</strong></td><td>Requires separate creation or existing UUIDs.</td><td>Supports single-payload <strong>Deep Insert</strong> (e.g., Order with 10 Items).</td></tr><tr><td><strong>Draft Support</strong></td><td>Target entity is not part of parent draft.</td><td>Target entities are edited together in Fiori draft mode.</td></tr></tbody></table>
+
+<h3>Code Comparison from Our Application</h3>
+
+<h4>Example 1: Association (Loose Relationship)</h4>
+<p>Look at <code class="inline-code">Products</code> in <code class="inline-code">db/schema.cds</code>:</p>
+<pre class="code-block language-cds"><code>entity Products : cuid, managed {
+    category : Association to Categories;
+    seller   : Association to Sellers;
+    ...
+}
+</code></pre>
+<p>* <strong>Why Association?</strong> A <code class="inline-code">Category</code> (e.g., "Electronics") exists independently of any single product. If a product is deleted, the category must <strong>NOT</strong> be deleted. Similarly, a <code class="inline-code">Seller</code> is an independent business entity.</p>
+
+<h4>Example 2: Composition (Parent-Child Lifecycle)</h4>
+<p>Look at <code class="inline-code">Orders</code> and <code class="inline-code">OrderItems</code> in <code class="inline-code">db/schema.cds</code>:</p>
+<pre class="code-block language-cds"><code>entity Orders : cuid, managed {
+    orderNumber : String(32);
+    customer    : Association to Customers;
+    items       : Composition of many OrderItems on items.order = $self;
+    ...
+}
+
+entity OrderItems : cuid {
+    order       : Association to Orders;
+    product     : Association to Products;
+    quantity    : Integer;
+    unitPrice   : Decimal(12, 2);
+    totalPrice  : Decimal(12, 2);
+}
+</code></pre>
+<p>* <strong>Why Composition?</strong> An <code class="inline-code">OrderItem</code> has no standalone existence outside of the <code class="inline-code">Order</code> it belongs to. If an order is deleted, all its line items must be deleted with it. When a customer executes checkout, CAP allows submitting the entire order and its items in a single HTTP POST request because of this composition!</p>
+<p>* Notice the back-link syntax: <code class="inline-code">items.order = $self</code>. <code class="inline-code">$self</code> is a special CDS keyword representing the parent entity instance.</p>
+
+<hr class="section-divider" />
+
+<h2>2.4 The Complete Domain Entity Graph</h2>
+
+<p>Our marketplace model in <code class="inline-code">db/schema.cds</code> spans 4 key domains:</p>
+
+<pre class="code-block language-"><code>+-----------------------------------------------------------------------------------+
+|                                  CATALOG DOMAIN                                   |
+|                                                                                   |
+|  [Categories] &lt;---- (category) ---- [Products] ---- (seller) ----&gt; [Sellers]     |
+|                                         |                                         |
+|                                (variants) Composition                             |
+|                                         v                                         |
+|                                 [ProductVariants]                                 |
+|                                         |                                         |
+|                                  (offers) Composition                             |
+|                                         v                                         |
+|                                  [ProductOffers]                                  |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          | (linked by variant)
+                                          v
++-----------------------------------------------------------------------------------+
+|                                 INVENTORY DOMAIN                                  |
+|                                                                                   |
+|         [ProductVariants] &lt;----+                                                  |
+|                                | (variant)                                        |
+|                                v                                                  |
+|  [Warehouses] &lt;---(warehouse)--- [Inventories]                                    |
+|                       (quantityAvailable, quantityReserved)                      |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          | (reserved on checkout)
+                                          v
++-----------------------------------------------------------------------------------+
+|                                ORDER &amp; CHECKOUT DOMAIN                            |
+|                                                                                   |
+|  [Customers] &lt;---(customer)--- [Orders] &lt;---(order)--- [Shipments]                |
+|                                   |        &lt;---(order)--- [Payments]              |
+|                                   | (items) Composition                           |
+|                                   v                                               |
+|                              [OrderItems]                                         |
++-----------------------------------------------------------------------------------+
+</code></pre>
+
+<h3>1. Catalog & Merchandising Entities:</h3>
+<p>* <strong><code class="inline-code">Categories</code></strong>: Hierarchical tree structure using parent-child association (<code class="inline-code">parent : Association to Categories</code>), supporting nested levels (Level 1: Electronics, Level 2: Computers, Level 3: Laptops).</p>
+<p>* <strong><code class="inline-code">Products</code></strong>: The core product master holding title, brand, description, and base metrics.</p>
+<p>* <strong><code class="inline-code">ProductVariants</code></strong>: Physical SKU representations holding color, size, and weight.</p>
+<p>* <strong><code class="inline-code">ProductImages</code></strong>: Media URLs, alternate text, and display sort order.</p>
+<p>* <strong><code class="inline-code">ProductOffers</code></strong>: Multi-seller marketplace pricing, condition (NEW, REFURBISHED), and active flags.</p>
+
+<h3>2. Inventory & Warehousing Entities:</h3>
+<p>* <strong><code class="inline-code">Warehouses</code></strong>: Physical logistics centers with geographic codes and country codes.</p>
+<p>* <strong><code class="inline-code">Inventories</code></strong>: Real-time stock counts. Notice the dual fields:</p>
+<p>  * <code class="inline-code">quantityAvailable</code>: Physical inventory sitting on shelves.</p>
+<p>  * <code class="inline-code">quantityReserved</code>: Stock temporarily held for orders currently in checkout or pending payment.</p>
+<p>  <em> </em>Formula:* Effective stock to sell = <code class="inline-code">quantityAvailable - quantityReserved</code>.</p>
+
+<h3>3. Orders & Financial Transactions:</h3>
+<p>* <strong><code class="inline-code">Orders</code></strong>: Order header storing customer reference, billing/shipping address snapshots, financial aggregates (subtotal, tax, shipping, discount, total), and lifecycle status.</p>
+<p>* <strong><code class="inline-code">OrderItems</code></strong>: Price-frozen snapshots of purchased items to preserve historical invoice integrity even if catalog prices change later.</p>
+<p>* <strong><code class="inline-code">Payments</code></strong>: Audit trail of financial captures, payment methods (Credit Card, PayPal, Apple Pay), transaction references, and refund tokens.</p>
+<p>* <strong><code class="inline-code">Shipments</code></strong>: Consignments, tracking numbers, carriers (DHL, FedEx, UPS), and dispatch timestamps.</p>
+
+<hr class="section-divider" />
+
+<h2>2.5 Seed Data File Conventions (<code class="inline-code">db/data/</code>)</h2>
+
+<p>In CAP, you can provide initial mock data using CSV files located in <code class="inline-code">db/data/</code>.</p>
+<p>CAP uses an exact file naming convention:</p>
+
+<pre class="code-block language-"><code>&lt;namespace&gt;-&lt;EntityName&gt;.csv
+</code></pre>
+
+<p>In our project, the namespace in <code class="inline-code">db/schema.cds</code> is:</p>
+<pre class="code-block language-cds"><code>namespace sap.marketplace;
+</code></pre>
+<p>Therefore, the seed files are named:</p>
+<p>* <code class="inline-code">sap.marketplace-Products.csv</code></p>
+<p>* <code class="inline-code">sap.marketplace-Categories.csv</code></p>
+<p>* <code class="inline-code">sap.marketplace-Customers.csv</code></p>
+<p>* <code class="inline-code">sap.marketplace-Orders.csv</code></p>
+
+<h3>Handling Foreign Keys in CSV:</h3>
+<p>When an entity has an association:</p>
+<pre class="code-block language-cds"><code>category : Association to Categories;
+</code></pre>
+<p>CAP maps this in SQL to a foreign key column named <code class="inline-code">category_ID</code>.</p>
+<p>In your CSV header row, you must name the column <code class="inline-code">category_ID</code> and provide the UUID of the target record.</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 3: Service Definition & OData V4 Exposure</h1>
+
+<h2>3.1 Why Separate Services from the Database?</h2>
+<p>In naive database applications, developers often expose tables directly as REST endpoints. In enterprise software, this is an anti-pattern known as <strong>Database Leaking</strong>. Exposing database tables directly creates severe security and maintenance issues:</p>
+<p>1. Internal database fields (e.g., cost prices, audit timestamps, soft-delete flags) are accidentally leaked to public APIs.</p>
+<p>2. Changes to the database schema break frontend client applications.</p>
+<p>3. Different client types (Public Shop vs. Authenticated Customer vs. Warehouse Worker) need completely different views of the same underlying data.</p>
+
+<p>In SAP CAP, <strong>Services</strong> are declared in <code class="inline-code">srv/*.cds</code> as specialized business facades over the domain model.</p>
+
+<hr class="section-divider" />
+
+<h2>3.2 The Anatomy of a Service Projection</h2>
+
+<p>Look at <code class="inline-code">srv/catalog-service.cds</code>:</p>
+
+<pre class="code-block language-cds"><code>using { sap.marketplace as db } from '../db/schema';
+
+service CatalogService @(path: '/odata/v4/catalog') {
+    @readonly
+    entity Products as projection on db.Products {
+        *,
+        virtual null as discountPercentage : Decimal(5, 2),
+        virtual null as primaryImageUrl    : String(500)
+    } excluding {
+        costPrice
+    };
+}
+</code></pre>
+
+<p>Let us dissect what each part of this definition does:</p>
+
+<p>1. <strong><code class="inline-code">using { sap.marketplace as db }</code></strong>: Imports the domain schema as a namespace alias <code class="inline-code">db</code>.</p>
+<p>2. <strong><code class="inline-code">@(path: '/odata/v4/catalog')</code></strong>: Explicitly mounts this service at the given HTTP URL path. By default, CAP serves services at <code class="inline-code">/<service-name></code>. Specifying <code class="inline-code">/odata/v4/catalog</code> guarantees consistent enterprise URL routing.</p>
+<p>3. <strong><code class="inline-code">@readonly</code></strong>: Informs the OData runtime and compiler that clients can only perform HTTP <code class="inline-code">GET</code> requests. Any client attempting <code class="inline-code">POST</code>, <code class="inline-code">PUT</code>, or <code class="inline-code">DELETE</code> will be immediately rejected with <code class="inline-code">405 Method Not Allowed</code>.</p>
+<p>4. <strong><code class="inline-code">as projection on db.Products { * }</code></strong>: Exposes all fields from the database entity <code class="inline-code">Products</code>.</p>
+<p>5. <strong><code class="inline-code">virtual null as discountPercentage</code></strong>: Declares a <strong>virtual field</strong>. A virtual field does <strong>NOT</strong> exist in the database table! It is dynamically calculated in memory by our Node.js custom handler (<code class="inline-code">srv/catalog-service.js</code>) before the response is returned to the user.</p>
+<p>6. <strong><code class="inline-code">excluding { costPrice }</code></strong>: Strips the sensitive wholesale cost price from the public catalog API so malicious users cannot inspect profit margins in DevTools!</p>
+
+<hr class="section-divider" />
+
+<h2>3.3 Actions vs. Functions in OData V4</h2>
+
+<p>In OData V4 and SAP CAP, business logic that goes beyond basic CRUD (Create, Read, Update, Delete) is modeled using <strong>Actions</strong> and <strong>Functions</strong>.</p>
+
+<table class="data-table"><thead><tr><th>Feature</th><th>Function</th><th>Action</th></tr></thead><tbody><tr><td><strong>HTTP Verb</strong></td><td><code class="inline-code">GET</code></td><td><code class="inline-code">POST</code></td></tr><tr><td><strong>Side Effects</strong></td><td><strong>Strictly None (Idempotent)</strong></td><td><strong>May modify data (State Changes)</strong></td></tr><tr><td><strong>Use Case</strong></td><td>Computations, queries, checks</td><td>Checkout, cancel, payment, approval</td></tr><tr><td><strong>Parameters</strong></td><td>Passed in URL query string</td><td>Passed in JSON request body</td></tr></tbody></table>
+
+<h3>1. Function Example from Our Application:</h3>
+<p>Look at <code class="inline-code">srv/cart-service.cds</code>:</p>
+<pre class="code-block language-cds"><code>function validateCart() returns {
+    isValid : Boolean;
+    messages : array of String;
+};
+</code></pre>
+<p>* A customer or frontend can call <code class="inline-code">GET /odata/v4/cart/validateCart()</code> to verify stock availability and pricing before proceeding to checkout. It changes nothing in the database.</p>
+
+<h3>2. Action Example from Our Application:</h3>
+<p>Look at <code class="inline-code">srv/order-service.cds</code>:</p>
+<pre class="code-block language-cds"><code>action checkout(
+    cartId          : UUID,
+    shippingAddressId : UUID,
+    billingAddressId  : UUID,
+    paymentMethod   : String,
+    couponCode      : String
+) returns CheckoutResult;
+</code></pre>
+<p>* The checkout action changes system state: it validates stock, decrements inventory, creates an order record, creates line items, and contacts payment gateway. It requires HTTP <code class="inline-code">POST</code>.</p>
+
+<h3>3. Bound vs. Unbound Actions:</h3>
+<p>* <strong>Unbound Action:</strong> Attached to the service itself (like <code class="inline-code">checkout</code> above). Invoked via <code class="inline-code">POST /odata/v4/order/checkout</code>.</p>
+<p>* <strong>Bound Action:</strong> Attached to a specific entity instance. For example, in <code class="inline-code">srv/order-service.cds</code>:</p>
+  <pre class="code-block language-cds"><code>  entity Orders as projection on db.Orders {
+      ...
+      action cancelOrder(reason: String) returns Orders;
+  }
+  </code></pre>
+<p>  Invoked on a specific order UUID: <code class="inline-code">POST /odata/v4/order/Orders(1234-abcd)/cancelOrder</code>.</p>
+
+<hr class="section-divider" />
+
+<h2>3.4 The Crucial Navigation Rule in OData V4 ($expand)</h2>
+
+<div class="alert alert-danger"><strong>CAUTION:</strong> 
+<div class="blockquote"><strong>The #1 Bug Junior Developers Encounter with CAP & OData V4</strong></div>
+<div class="blockquote">If entity <code class="inline-code">A</code> has an association to entity <code class="inline-code">B</code>, and the frontend asks for <code class="inline-code">A</code> with <code class="inline-code">$expand=B</code>, <strong>entity B MUST be exposed in the exact same service as A!</strong></div>
+
+<h3>The Real-World Bug We Fixed in This Project:</h3>
+<p>In our Storefront UI, the Shopping Cart view loaded cart items and expanded product details:</p>
+<pre class="code-block language-http"><code>GET /odata/v4/cart/CartItems?$expand=product($expand=images),variant
+</code></pre>
+
+<p>Initially, <code class="inline-code">srv/cart-service.cds</code> only exposed <code class="inline-code">Carts</code> and <code class="inline-code">CartItems</code>. When the browser loaded the cart, the server threw:</p>
+<pre class="code-block language-"><code>[400] Bad Request: Navigation property "product" does not exist in service "CartService"
+</code></pre>
+
+<h3>Why did this happen?</h3>
+<p>Even though <code class="inline-code">product</code> was defined in <code class="inline-code">db/schema.cds</code>, CAP enforces <strong>Service Boundaries</strong>. If <code class="inline-code">Products</code> is not declared inside <code class="inline-code">CartService</code>, the OData V4 metadata compiler strips the navigation property from <code class="inline-code">CartService</code> metadata.</p>
+
+<h3>The Correct Enterprise Solution:</h3>
+<p>In <code class="inline-code">srv/cart-service.cds</code>, we expose <strong>read-only projections</strong> for the associated master data:</p>
+
+<pre class="code-block language-cds"><code>service CartService @(path: '/odata/v4/cart') {
+    entity Carts as projection on db.Carts;
+    entity CartItems as projection on db.CartItems;
+
+    // Read-only projections to enable OData V4 $expand navigation:
+    @readonly entity Products as projection on db.Products;
+    @readonly entity ProductVariants as projection on db.ProductVariants;
+    @readonly entity ProductOffers as projection on db.ProductOffers;
+    @readonly entity ProductImages as projection on db.ProductImages;
+}
+</code></pre>
+<p>Once added, the compiler generated the navigation graph in the EDMX metadata, and the storefront expanded product details with <strong>HTTP 200 OK</strong>!</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 4: Event Handlers & Business Logic Implementation</h1>
+
+<h2>4.1 The Event-Driven Architecture of CAP Services</h2>
+<p>In standard Express.js, routing and business logic are mixed together in controller functions. In SAP CAP, services are <strong>Event Emitters</strong>. Every CRUD request and every custom action triggers an event that travels through a three-phase pipeline:</p>
+
+<pre class="code-block language-"><code>Client HTTP Request
+        |
+        v
++-----------------------------------------------------------+
+| 1. BEFORE Phase: this.before(['CREATE', 'UPDATE'], ...)   |
+|    - Input validation &amp; parameter sanitization            |
+|    - Role &amp; tenancy pre-checks                            |
+|    - Prevents invalid requests from hitting database      |
++-----------------------------+-----------------------------+
+                              |
+                              v
++-----------------------------------------------------------+
+| 2. ON Phase: this.on(['READ', 'checkout'], ...)           |
+|    - The core execution handler                           |
+|    - Replaces default handler or handles custom actions   |
+|    - Queries/modifies database via CQL                    |
++-----------------------------+-----------------------------+
+                              |
+                              v
++-----------------------------------------------------------+
+| 3. AFTER Phase: this.after(['READ'], ...)                 |
+|    - Enriching returned data                              |
+|    - Calculating virtual properties                       |
+|    - Sending asynchronous audit logs &amp; notifications      |
++-----------------------------------------------------------+
+        |
+        v
+Client HTTP Response
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>4.2 The Request Object (<code class="inline-code">req</code>) and Error Handling</h2>
+
+<p>Every handler in CAP receives a <code class="inline-code">req</code> object. Master these fundamental methods:</p>
+
+<p>1. <strong><code class="inline-code">req.data</code></strong>: Contains the input payload sent by the client.</p>
+<p>2. <strong><code class="inline-code">req.user</code></strong>: Represents the authenticated user.</p>
+<p>   * <code class="inline-code">req.user.id</code>: The user's ID/email.</p>
+<p>   * <code class="inline-code">req.user.is('Administrator')</code>: Returns <code class="inline-code">true</code> if user has the role.</p>
+<p>3. <strong><code class="inline-code">req.reject(httpCode, errorMessage)</code></strong>: Immediately terminates the request and rolls back the active database transaction!</p>
+   <pre class="code-block language-javascript"><code>   if (stockAvailable &lt; item.quantity) {
+       req.reject(400, <code class="inline-code">Insufficient stock for product ${item.title}. Only ${stockAvailable} left.</code>);
+   }
+   </code></pre>
+<p>4. <strong><code class="inline-code">req.error(httpCode, errorMessage)</code></strong>: Queues an error message to return to the client without aborting immediately (useful for collecting multiple validation errors).</p>
+
+<hr class="section-divider" />
+
+<h2>4.3 Database Queries with CDS Query Language (CQL)</h2>
+
+<p>CAP provides a fluent query builder called <strong>CQL</strong> that executes dialect-agnostic SQL:</p>
+
+<pre class="code-block language-javascript"><code>import cds from '@sap/cds';
+
+// 1. SELECT query with conditions and sorting
+const products = await SELECT.from('sap.marketplace.Products')
+    .where({ status: 'ACTIVE' })
+    .orderBy('averageRating desc')
+    .limit(10);
+
+// 2. INSERT a new record
+await INSERT.into('sap.marketplace.Orders').entries({
+    orderNumber: 'ORD-2026-001',
+    customer_ID: customerId,
+    totalAmount: 199.99
+});
+
+// 3. UPDATE with atomic math expression
+await UPDATE('sap.marketplace.Inventories')
+    .set('quantityReserved = quantityReserved +', requestedQty)
+    .where({ variant_ID: variantId });
+
+// 4. DELETE
+await DELETE.from('sap.marketplace.CartItems').where({ cart_ID: cartId });
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>4.4 Real-World Deep Dive: The 18-Step Enterprise Checkout Flow</h2>
+
+<p>In <code class="inline-code">srv/order-service.js</code>, our <code class="inline-code">checkout</code> action orchestrates a complete 18-step distributed transaction. Let us walk through the exact enterprise steps:</p>
+
+<pre class="code-block language-javascript"><code>this.on('checkout', async (req) =&gt; {
+    const { cartId, shippingAddressId, billingAddressId, paymentMethod, couponCode } = req.data;
+    const tx = cds.tx(req); // Bind to current database transaction
+
+    // Step 1: Validate customer authentication
+    const userEmail = req.user.id;
+    const customer = await tx.run(SELECT.one.from('sap.marketplace.Customers').where({ email: userEmail }));
+    if (!customer) req.reject(401, 'Customer profile not found');
+
+    // Step 2: Retrieve active cart and verify it has items
+    const cart = await tx.run(SELECT.one.from('sap.marketplace.Carts').where({ ID: cartId }));
+    const items = await tx.run(SELECT.from('sap.marketplace.CartItems').where({ cart_ID: cartId, isSavedForLater: false }));
+    if (!items || items.length === 0) {
+        req.reject(400, 'Cannot checkout an empty shopping cart');
+    }
+
+    // Step 3: Validate Shipping &amp; Billing Addresses belong to customer
+    const shipAddr = await tx.run(SELECT.one.from('sap.marketplace.Addresses').where({ ID: shippingAddressId, customer_ID: customer.ID }));
+    if (!shipAddr) req.reject(400, 'Invalid shipping address selected');
+
+    // Step 4: Verify warehouse inventory availability for all items
+    for (const item of items) {
+        const inv = await tx.run(SELECT.one.from('sap.marketplace.Inventories').where({ variant_ID: item.variant_ID }));
+        const available = (inv?.quantityAvailable || 0) - (inv?.quantityReserved || 0);
+        if (available &lt; item.quantity) {
+            req.reject(400, <code class="inline-code">Insufficient stock for item ${item.variant_ID}. Available: ${available}</code>);
+        }
+    }
+
+    // Step 5: Temporarily reserve stock to prevent race conditions
+    for (const item of items) {
+        await tx.run(UPDATE('sap.marketplace.Inventories')
+            .set('quantityReserved = quantityReserved +', item.quantity)
+            .where({ variant_ID: item.variant_ID }));
+    }
+
+    // Step 6: Calculate financial totals (Subtotal, Tax, Shipping, Coupon)
+    const subtotal = items.reduce((acc, cur) =&gt; acc + Number(cur.totalPrice), 0);
+    const tax = Number((subtotal * 0.08).toFixed(2));
+    const shipping = subtotal &gt; 50 ? 0.00 : 9.99;
+    let discount = 0.00;
+    if (couponCode) {
+        const coupon = await tx.run(SELECT.one.from('sap.marketplace.Coupons').where({ code: couponCode, isActive: true }));
+        if (coupon) discount = Number(((subtotal * coupon.discountPercentage) / 100).toFixed(2));
+    }
+    const grandTotal = Number((subtotal + tax + shipping - discount).toFixed(2));
+
+    // Step 7: Generate human-readable order number
+    const orderNumber = <code class="inline-code">ORD-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000 + Math.random() * 9000)}</code>;
+
+    // Step 8: Create Order Header record
+    const orderId = cds.utils.uuid();
+    await tx.run(INSERT.into('sap.marketplace.Orders').entries({
+        ID: orderId,
+        orderNumber,
+        customer_ID: customer.ID,
+        shippingAddress_ID: shippingAddressId,
+        billingAddress_ID: billingAddressId,
+        subtotalAmount: subtotal,
+        taxAmount: tax,
+        shippingAmount: shipping,
+        discountAmount: discount,
+        totalAmount: grandTotal,
+        orderStatus: 'PENDING_PAYMENT',
+        paymentStatus: 'UNPAID'
+    }));
+
+    // Step 9: Create snapshot OrderItems
+    for (const item of items) {
+        await tx.run(INSERT.into('sap.marketplace.OrderItems').entries({
+            order_ID: orderId,
+            product_ID: item.product_ID,
+            variant_ID: item.variant_ID,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+            totalPrice: item.totalPrice
+        }));
+    }
+
+    // Step 10: Process Payment capture via PaymentService
+    const paymentService = await cds.connect.to('PaymentService');
+    try {
+        const paymentResult = await paymentService.createPayment({
+            orderId,
+            amount: grandTotal,
+            currency: 'USD',
+            paymentMethod
+        });
+
+        // Step 11: Payment success: commit inventory &amp; update order
+        for (const item of items) {
+            await tx.run(UPDATE('sap.marketplace.Inventories')
+                .set({
+                    quantityAvailable: { '-=': item.quantity },
+                    quantityReserved:  { '-=': item.quantity }
+                })
+                .where({ variant_ID: item.variant_ID }));
+        }
+
+        await tx.run(UPDATE('sap.marketplace.Orders')
+            .set({ orderStatus: 'CONFIRMED', paymentStatus: 'PAID' })
+            .where({ ID: orderId }));
+
+        // Step 12: Clear cart items &amp; send customer notification
+        await tx.run(DELETE.from('sap.marketplace.CartItems').where({ cart_ID: cartId }));
+        await tx.run(INSERT.into('sap.marketplace.Notifications').entries({
+            customer_ID: customer.ID,
+            title: 'Order Confirmed',
+            message: <code class="inline-code">Your order ${orderNumber} has been received and confirmed.</code>,
+            isRead: false
+        }));
+
+        return { orderId, orderNumber, status: 'CONFIRMED', totalAmount: grandTotal };
+
+    } catch (err) {
+        // Step 13: Payment failed: Rollback inventory hold &amp; reject
+        for (const item of items) {
+            await tx.run(UPDATE('sap.marketplace.Inventories')
+                .set('quantityReserved = quantityReserved -', item.quantity)
+                .where({ variant_ID: item.variant_ID }));
+        }
+        await tx.run(UPDATE('sap.marketplace.Orders')
+            .set({ orderStatus: 'PAYMENT_FAILED', paymentStatus: 'FAILED' })
+            .where({ ID: orderId }));
+        req.reject(402, <code class="inline-code">Payment transaction failed: ${err.message}</code>);
+    }
+});
+</code></pre>
+
+<h3>Key Junior Takeaways:</h3>
+<p>1. <strong>Never perform multiple writes without <code class="inline-code">cds.tx(req)</code></strong>: If a network failure occurs midway, the transaction rollback prevents orphaned records or incorrect inventory deductions.</p>
+<p>2. <strong>Snapshot line items</strong>: Notice step 9 writes <code class="inline-code">unitPrice</code> and <code class="inline-code">totalPrice</code> into <code class="inline-code">OrderItems</code>. Never calculate historical orders dynamically from current product prices.</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 5: Security, Authentication & Authorization (XSUAA)</h1>
+
+<h2>5.1 Architecture of SAP BTP Security</h2>
+<p>In enterprise cloud applications, security must never rely exclusively on frontend UI controls (such as hiding a "Delete" button). A malicious user can open Chrome DevTools or curl and submit HTTP requests directly to your backend APIs.</p>
+
+<p>In SAP BTP, security is governed by the <strong>Extended Services for User Account and Authentication (XSUAA)</strong> service, which implements the <strong>OAuth 2.0 / JWT (JSON Web Token)</strong> standard.</p>
+
+<pre class="code-block language-"><code>+------------------+         1. Login Request         +--------------------+
+|  Browser Client  | -------------------------------&gt; |   SAP Cloud IDP    |
+|   (User Alice)   | &lt;------------------------------- | (Identity Provider)|
++------------------+     2. Issues Signed JWT Token   +--------------------+
+         |
+         | 3. HTTP Request with Header:
+         |    "Authorization: Bearer &lt;JWT-Token&gt;"
+         v
++--------------------------------------------------------------------------+
+| CAP Application Backend (@sap/cds-mtxs &amp; passport)                       |
+|                                                                          |
+| 1. Validates JWT Signature using XSUAA public key                        |
+| 2. Decodes Token Claims:                                                 |
+|    - User Identity: req.user.id ("alice@example.com")                    |
+|    - Scopes: ["$XSAPPNAME.Customer", "$XSAPPNAME.Buyer"]                 |
+|    - Attributes: customerId, tenantId                                    |
+| 3. Checks CDS @requires &amp; @restrict rules                                |
+|    - If authorized -&gt; executes query                                     |
+|    - If unauthorized -&gt; returns 401 Unauthorized or 403 Forbidden        |
++--------------------------------------------------------------------------+
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>5.2 Decoupling Roles and Scopes in <code class="inline-code">xs-security.json</code></h2>
+
+<p>Open <code class="inline-code">xs-security.json</code> in the project root. It defines three key levels of security metadata:</p>
+
+<h3>1. Scopes (Technical Permissions)</h3>
+<p>Scopes are the granular technical permissions verified by the CAP runtime:</p>
+<pre class="code-block language-json"><code>"scopes": [
+  { "name": "$XSAPPNAME.Customer", "description": "Customer storefront access" },
+  { "name": "$XSAPPNAME.Seller", "description": "Seller portal access" },
+  { "name": "$XSAPPNAME.ProductManager", "description": "Manage catalog products" },
+  { "name": "$XSAPPNAME.OrderManager", "description": "Manage customer orders &amp; fulfillment" },
+  { "name": "$XSAPPNAME.InventoryManager", "description": "Manage warehouse stock" },
+  { "name": "$XSAPPNAME.Administrator", "description": "Full system administrator access" }
+]
+</code></pre>
+
+<h3>2. Role Templates (Blueprints)</h3>
+<p>Role templates bundle one or more scopes together into a functional template:</p>
+<pre class="code-block language-json"><code>"role-templates": [
+  {
+    "name": "CustomerRole",
+    "description": "Storefront customer capabilities",
+    "scope-references": ["$XSAPPNAME.Customer"]
+  },
+  {
+    "name": "AdminRole",
+    "description": "Full administrative privileges",
+    "scope-references": ["$XSAPPNAME.Administrator"]
+  }
+]
+</code></pre>
+
+<h3>3. Role Collections (User Assignment)</h3>
+<p>Role collections are assigned to actual human users in the SAP BTP Cockpit:</p>
+<pre class="code-block language-json"><code>"role-collections": [
+  {
+    "name": "Marketplace_Customer",
+    "description": "Customer shoppers",
+    "role-template-references": ["$XSAPPNAME.CustomerRole"]
+  }
+]
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>5.3 Enforcing Authorization in CDS (<code class="inline-code">@requires</code> & <code class="inline-code">@restrict</code>)</h2>
+
+<p>CAP provides two declarative annotations for service and entity authorization:</p>
+
+<h3>1. Service-Level Gatekeeping (<code class="inline-code">@requires</code>)</h3>
+<p>In <code class="inline-code">srv/admin-service.cds</code>:</p>
+<pre class="code-block language-cds"><code>service AdminService @(requires: ['Administrator', 'ProductManager', 'OrderManager', 'InventoryManager']) { ... }
+</code></pre>
+<p>* If an unauthenticated user or a standard customer attempts to query <code class="inline-code">/odata/v4/admin/Products</code>, CAP immediately rejects the request with <strong>HTTP 403 Forbidden</strong> before any database query is executed.</p>
+
+<h3>2. Entity-Level Operations & Row-Level Security (<code class="inline-code">@restrict</code>)</h3>
+<p>In <code class="inline-code">srv/customer-service.cds</code>:</p>
+<pre class="code-block language-cds"><code>service CustomerService @(requires: 'authenticated-user') {
+    @restrict: [
+        { grant: ['READ', 'UPDATE'], to: 'Customer', where: 'customer.email = $user.id' },
+        { grant: '*', to: 'Administrator' }
+    ]
+    entity Addresses as projection on db.Addresses;
+}
+</code></pre>
+
+<h3>Why this is revolutionary:</h3>
+<p>* <strong>Horizontal Privilege Escalation Prevention:</strong> If Alice's customer ID is <code class="inline-code">cust-1</code> and Bob's is <code class="inline-code">cust-2</code>, Alice cannot read Bob's addresses even if she knows Bob's UUID!</p>
+<p>* <strong>Zero Boilerplate:</strong> The <code class="inline-code">where: 'customer.email = $user.id'</code> clause is automatically injected by CAP into the underlying SQL query:</p>
+  <pre class="code-block language-sql"><code>  SELECT * FROM Addresses WHERE customer_email = 'alice@example.com';
+  </code></pre>
+
+<hr class="section-divider" />
+
+<h2>5.4 Mocking Security in Local Development (<code class="inline-code">package.json</code>)</h2>
+
+<p>In local development, you do not have an active BTP XSUAA cloud instance running. CAP provides a mock authentication provider configured in <code class="inline-code">package.json</code>:</p>
+
+<pre class="code-block language-json"><code>"cds": {
+  "requires": {
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "alice": {
+          "roles": ["Customer"],
+          "attr": { "id": "cust-001" }
+        },
+        "carol_prod": {
+          "roles": ["ProductManager"]
+        },
+        "admin": {
+          "roles": ["Administrator", "Customer", "OrderManager", "ProductManager"]
+        }
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>To test an endpoint as Alice, simply pass Basic Authentication header:</p>
+<p><code class="inline-code">Authorization: Basic YWxpY2U6</code> (alice with empty password).</p>
+<p>In production (<code class="inline-code">[production]</code>), CAP automatically switches to <code class="inline-code">"kind": "xsuaa"</code>.</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 6: Storefront Frontend (SAPUI5 Freestyle)</h1>
+
+<h2>6.1 Why SAPUI5 Freestyle for the B2C Storefront?</h2>
+<p>SAP provides two frontend paradigms:</p>
+<p>1. <strong>SAP Fiori Elements:</strong> A metadata-driven UI framework that generates standard enterprise screens from CDS annotations.</p>
+<p>2. <strong>SAPUI5 Freestyle:</strong> A component-based MVC (Model-View-Controller) framework offering full control over HTML5 DOM, custom CSS styling, complex client animations, and bespoke user flows.</p>
+
+<p>For our consumer-facing Storefront (<code class="inline-code">app/shop-ui</code>), we chose <strong>SAPUI5 Freestyle</strong>. Consumer e-commerce requires:</p>
+<p>* An Amazon-style dark navigation header with search suggestions and dynamic cart badge.</p>
+<p>* Rich merchandising hero banners and carousels.</p>
+<p>* High-density product card grids with discount badges and star rating displays.</p>
+<p>* Multi-step consumer checkout workflows.</p>
+
+<hr class="section-divider" />
+
+<h2>6.2 Component & Manifest Configuration (<code class="inline-code">manifest.json</code>)</h2>
+
+<p>The <code class="inline-code">manifest.json</code> file is the application descriptor in SAPUI5. It defines data sources, models, and client-side routing.</p>
+
+<h3>1. Multiple OData V4 DataSources</h3>
+<p>Notice how <code class="inline-code">app/shop-ui/webapp/manifest.json</code> connects to our microservices:</p>
+
+<pre class="code-block language-json"><code>"dataSources": {
+  "catalogService": {
+    "uri": "/odata/v4/catalog/",
+    "type": "OData",
+    "settings": { "odataVersion": "4.0" }
+  },
+  "cartService": {
+    "uri": "/odata/v4/cart/",
+    "type": "OData",
+    "settings": { "odataVersion": "4.0" }
+  },
+  "orderService": {
+    "uri": "/odata/v4/order/",
+    "type": "OData",
+    "settings": { "odataVersion": "4.0" }
+  },
+  "customerService": {
+    "uri": "/odata/v4/customer/",
+    "type": "OData",
+    "settings": { "odataVersion": "4.0" }
+  }
+}
+</code></pre>
+
+<p>Each data source is instantiated into a named model:</p>
+<p>* Default Model (<code class="inline-code">""</code>): Bound to <code class="inline-code">catalogService</code> (for browsing products, categories, search).</p>
+<p>* <code class="inline-code">"cart"</code>: Bound to <code class="inline-code">cartService</code> (for shopping cart items and badge counter).</p>
+<p>* <code class="inline-code">"order"</code>: Bound to <code class="inline-code">orderService</code> (for order history and checkout).</p>
+<p>* <code class="inline-code">"customer"</code>: Bound to <code class="inline-code">customerService</code> (for address book and wishlist).</p>
+
+<h3>2. Client-Side Hash-Based Routing (17 Routes)</h3>
+<p>SAPUI5 uses declarative routing:</p>
+<pre class="code-block language-json"><code>"routes": [
+  { "name": "home", "pattern": "", "target": "home" },
+  { "name": "productDetails", "pattern": "product/{productId}", "target": "productDetails" },
+  { "name": "cart", "pattern": "cart", "target": "cart" },
+  { "name": "checkout", "pattern": "checkout", "target": "checkout" },
+  { "name": "orders", "pattern": "orders", "target": "orders" }
+]
+</code></pre>
+<p>When the browser URL hash changes to <code class="inline-code">#/product/prod-001</code>, the router automatically displays the <code class="inline-code">ProductDetails.view.xml</code> view and triggers <code class="inline-code">ProductDetails.controller.js</code>.</p>
+
+<hr class="section-divider" />
+
+<h2>6.3 Critical SAPUI5 OData V4 Binding Gotcha</h2>
+
+<div class="alert alert-warning"><strong>WARNING:</strong> 
+<div class="blockquote"><strong>The Paging Trap: Never put <code class="inline-code">$top</code> or <code class="inline-code">$skip</code> inside <code class="inline-code">parameters: { ... }</code> in SAPUI5 OData V4!</strong></div>
+
+<h3>The Bug That Broke the Storefront:</h3>
+<p>In <code class="inline-code">Home.view.xml</code>, our featured product grid was originally declared like this:</p>
+<pre class="code-block language-xml"><code>&lt;!-- WRONG - DO NOT DO THIS IN ODATA V4! --&gt;
+&lt;grid:CSSGrid items="{
+    path: '/Products',
+    parameters: {
+        '$filter': 'isFeatured eq true',
+        '$top': 4,
+        '$skip': 0
+    }
+}"&gt;
+</code></pre>
+
+<h3>Why It Failed:</h3>
+<p>In SAPUI5 OData V4, paging is managed internally by the <code class="inline-code">ODataListBinding</code> class. If you pass <code class="inline-code">$top</code> or <code class="inline-code">$skip</code> inside <code class="inline-code">parameters</code>, the UI5 framework throws a fatal, unhandled exception:</p>
+<pre class="code-block language-"><code>Error: System query option $top is not supported - sap.ui.model.odata.v4.ODataListBinding
+</code></pre>
+<p>This crashed the SAPUI5 router, aborting the view initialization before anything rendered on screen!</p>
+
+<h3>The Correct SAPUI5 OData V4 Pattern:</h3>
+<p>Declare <code class="inline-code">length</code> and <code class="inline-code">startIndex</code> as top-level properties on the binding definition:</p>
+<pre class="code-block language-xml"><code>&lt;!-- CORRECT - Standard SAPUI5 OData V4 Binding --&gt;
+&lt;grid:CSSGrid items="{
+    path: '/Products',
+    length: 4,
+    startIndex: 0,
+    parameters: {
+        '$filter': 'isFeatured eq true',
+        '$expand': 'variants($expand=offers),images'
+    }
+}"&gt;
+</code></pre>
+<p>In addition, configure <code class="inline-code">"autoExpandSelect": false</code> in <code class="inline-code">manifest.json</code> for freestyle models to prevent UI5 from rewriting freestyle XML view bindings into malformed requests.</p>
+
+<hr class="section-divider" />
+
+<h2>6.4 Reusable UI Components: Fragments & BaseController</h2>
+
+<h3>1. XML Fragments for DRY (Don't Repeat Yourself) UI</h3>
+<p>In <code class="inline-code">app/shop-ui/webapp/view/fragments/</code>, we built modular UI components:</p>
+<p>* <code class="inline-code">ProductCard.fragment.xml</code>: Encapsulates the product thumbnail, price badge, rating stars, and "Add to Cart" button. Reused across Home, Search Results, and Category pages.</p>
+<p>* <code class="inline-code">CartSummary.fragment.xml</code>: Displays subtotal, tax, shipping, coupon input, and "Proceed to Checkout" button. Reused in Cart and Checkout views.</p>
+
+<h3>2. BaseController Pattern</h3>
+<p>Instead of duplicating helper methods across 17 controllers, <code class="inline-code">BaseController.js</code> provides common utilities:</p>
+<pre class="code-block language-javascript"><code>sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/UIComponent",
+    "marketplace/shop/model/formatter"
+], function (Controller, UIComponent, formatter) {
+    "use strict";
+
+    return Controller.extend("marketplace.shop.controller.BaseController", {
+        formatter: formatter,
+
+        getModel: function (sName) {
+            return this.getView().getModel(sName) || this.getOwnerComponent().getModel(sName);
+        },
+
+        getRouter: function () {
+            return UIComponent.getRouterFor(this);
+        },
+
+        navTo: function (sRoute, mData) {
+            this.getRouter().navTo(sRoute, mData);
+        }
+    });
+});
+</code></pre>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 7: Backoffice Frontend (SAP Fiori Elements)</h1>
+
+<h2>7.1 What is SAP Fiori Elements?</h2>
+<p>For the internal business backoffice (<code class="inline-code">app/admin-ui</code>), our requirements were very different from the consumer storefront:</p>
+<p>* Business users need comprehensive management screens for 9 operational areas: Products, Orders, Customers, Inventory, Sellers, Promotions, Reviews, Payments, and Shipments.</p>
+<p>* Building 9 separate CRUD applications from scratch in freestyle UI5 would take months and produce inconsistent UI layouts.</p>
+
+<p><strong>SAP Fiori Elements</strong> solves this by generating complete enterprise web applications entirely from <strong>CDS UI Annotations</strong>. Instead of writing HTML/XML views and JavaScript controllers, we write declarative metadata in <code class="inline-code">app/admin-ui/annotations.cds</code>.</p>
+
+<hr class="section-divider" />
+
+<h2>7.2 Core CDS UI Annotations Breakdown (<code class="inline-code">app/admin-ui/annotations.cds</code>)</h2>
+
+<p>Let us examine the annotations that power the <strong>Product Management</strong> screen:</p>
+
+<h3>1. Header Information (<code class="inline-code">@UI.HeaderInfo</code>)</h3>
+<p>Defines the title of the page and singular/plural entity names:</p>
+<pre class="code-block language-cds"><code>annotate AdminService.Products with @(
+    UI.HeaderInfo: {
+        TypeName: 'Product',
+        TypeNamePlural: 'Products',
+        Title: { $Type: 'UI.DataField', Value: title },
+        Description: { $Type: 'UI.DataField', Value: brand }
+    }
+);
+</code></pre>
+
+<h3>2. List Report Columns (<code class="inline-code">@UI.LineItem</code>)</h3>
+<p>Defines the table columns, their display order, and responsiveness:</p>
+<pre class="code-block language-cds"><code>annotate AdminService.Products with @(
+    UI.LineItem: [
+        { $Type: 'UI.DataField', Value: title, Label: 'Product Title', ![@UI.Importance]: #High },
+        { $Type: 'UI.DataField', Value: brand, Label: 'Brand' },
+        { $Type: 'UI.DataField', Value: category.name, Label: 'Category' },
+        { $Type: 'UI.DataField', Value: basePrice, Label: 'Base Price' },
+        { $Type: 'UI.DataField', Value: averageRating, Label: 'Rating' },
+        {
+            $Type: 'UI.DataField',
+            Value: status,
+            Label: 'Status',
+            Criticality: statusCriticality
+        }
+    ]
+);
+</code></pre>
+
+<h3>3. Filter Bar (<code class="inline-code">@UI.SelectionFields</code>)</h3>
+<p>Defines which fields appear in the SmartFilterBar at the top of the table:</p>
+<pre class="code-block language-cds"><code>annotate AdminService.Products with @(
+    UI.SelectionFields: [
+        title,
+        brand,
+        category_ID,
+        seller_ID,
+        status
+    ]
+);
+</code></pre>
+<p>Fiori Elements automatically renders input fields, date pickers, or value help dialogs based on the underlying data types.</p>
+
+<h3>4. Semantic Colors (<code class="inline-code">@UI.Criticality</code>)</h3>
+<p>Criticality renders semantic color badges without custom CSS:</p>
+<p>* <code class="inline-code">1</code> or <code class="inline-code">#Negative</code> = Red (e.g. OUT_OF_STOCK, CANCELLED)</p>
+<p>* <code class="inline-code">2</code> or <code class="inline-code">#Critical</code> = Orange/Yellow (e.g. LOW_STOCK, PENDING_PAYMENT)</p>
+<p>* <code class="inline-code">3</code> or <code class="inline-code">#Positive</code> = Green (e.g. IN_STOCK, DELIVERED, ACTIVE)</p>
+<p>* <code class="inline-code">0</code> or <code class="inline-code">#Neutral</code>  = Grey/Default</p>
+
+<p>In <code class="inline-code">srv/admin-service.js</code>, we calculate <code class="inline-code">statusCriticality</code> dynamically in <code class="inline-code">after('READ')</code>:</p>
+<pre class="code-block language-javascript"><code>this.after('READ', 'Products', (each) =&gt; {
+    if (each.status === 'ACTIVE') each.statusCriticality = 3;
+    else if (each.status === 'INACTIVE') each.statusCriticality = 1;
+    else each.statusCriticality = 0;
+});
+</code></pre>
+
+<h3>5. Object Page Sections (<code class="inline-code">@UI.Facets</code> & <code class="inline-code">@UI.FieldGroup</code>)</h3>
+<p>When a user clicks a row in the List Report, Fiori Elements opens the <strong>Object Page</strong>.</p>
+<p><code class="inline-code">@UI.Facets</code> organizes the layout into tabs and accordion sections:</p>
+<pre class="code-block language-cds"><code>annotate AdminService.Products with @(
+    UI.Facets: [
+        {
+            $Type: 'UI.CollectionFacet',
+            ID: 'GeneralSection',
+            Label: 'General Information',
+            Facets: [
+                { $Type: 'UI.ReferenceFacet', Target: '@UI.FieldGroup#General', Label: 'Details' },
+                { $Type: 'UI.ReferenceFacet', Target: '@UI.FieldGroup#Pricing', Label: 'Pricing' }
+            ]
+        },
+        {
+            $Type: 'UI.ReferenceFacet',
+            Target: 'variants/@UI.LineItem',
+            Label: 'Product Variants'
+        },
+        {
+            $Type: 'UI.ReferenceFacet',
+            Target: 'reviews/@UI.LineItem',
+            Label: 'Customer Reviews'
+        }
+    ],
+    UI.FieldGroup#General: {
+        Data: [
+            { $Type: 'UI.DataField', Value: title },
+            { $Type: 'UI.DataField', Value: description },
+            { $Type: 'UI.DataField', Value: brand }
+        ]
+    }
+);
+</code></pre>
+<p>* Notice how <code class="inline-code">variants/@UI.LineItem</code> reuses the variant entity's line items table as a nested child table on the product screen!</p>
+
+<h3>6. Search Helps (<code class="inline-code">@Common.ValueList</code>)</h3>
+<p>When selecting a category, users should see a search dialog rather than typing raw UUIDs:</p>
+<pre class="code-block language-cds"><code>annotate AdminService.Products with {
+    category @Common.ValueList: {
+        CollectionPath: 'Categories',
+        Parameters: [
+            { $Type: 'Common.ValueListParameterInOut', LocalDataProperty: category_ID, ValueListProperty: 'ID' },
+            { $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'name' }
+        ]
+    }
+};
+</code></pre>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 8: Multitarget Application (MTA) & Cloud Deployment</h1>
+
+<h2>8.1 What is an SAP Multitarget Application (MTA)?</h2>
+<p>In enterprise cloud development, a complete business application is rarely a single monolithic server. Our marketplace consists of:</p>
+<p>1. A Node.js CAP backend service.</p>
+<p>2. A SAP HANA Cloud relational database schema.</p>
+<p>3. Two independent HTML5 frontend web applications (<code class="inline-code">shop-ui</code> and <code class="inline-code">admin-ui</code>).</p>
+<p>4. Multiple cloud service bindings (XSUAA, Destinations, HTML5 App Repo, HDI).</p>
+
+<p>In SAP BTP, deploying these distinct pieces independently by hand would be error-prone and slow.</p>
+<p>The <strong>Multitarget Application (MTA)</strong> standard solves this by packaging the entire distributed system into a single cohesive archive (<code class="inline-code">.mtar</code>) governed by a single deployment descriptor: <strong><code class="inline-code">mta.yaml</code></strong>.</p>
+
+<hr class="section-divider" />
+
+<h2>8.2 Dissecting <code class="inline-code">mta.yaml</code></h2>
+
+<p>The <code class="inline-code">mta.yaml</code> file defines <strong>Modules</strong> (software artifacts that run) and <strong>Resources</strong> (cloud services provisioned on BTP):</p>
+
+<pre class="code-block language-"><code>+--------------------------------------------------------------------------------+
+|                             mta.yaml ROOT ARCHIVE                              |
+|                                                                                |
+|  MODULES (What runs):                                                          |
+|  1. amazon-clone-srv           (Node.js CAP Backend)                           |
+|  2. amazon-clone-db-deployer   (HANA Database Migrations Deployer)             |
+|  3. amazon-clone-app-deployer  (HTML5 Application Repository Content Deployer)  |
+|  4. marketplace-shop           (SAPUI5 Storefront Frontend)                    |
+|  5. marketplace-admin          (SAP Fiori Elements Admin Frontend)             |
+|                                                                                |
+|  RESOURCES (BTP Managed Services):                                             |
+|  - amazon-clone-db             (SAP HANA HDI Container)                        |
+|  - amazon-clone-auth           (SAP BTP XSUAA Service Instance)                |
+|  - amazon-clone-destination    (BTP Destination Service)                       |
+|  - amazon-clone-html5-repo-host(HTML5 Application Repository)                  |
++--------------------------------------------------------------------------------+
+</code></pre>
+
+<h3>Key Module Configurations:</h3>
+
+<h4>1. Backend Service Module (<code class="inline-code">amazon-clone-srv</code>)</h4>
+<pre class="code-block language-yaml"><code>- name: amazon-clone-srv
+  type: nodejs
+  path: gen/srv
+  parameters:
+    buildpack: nodejs_buildpack
+    memory: 512M
+  provides:
+    - name: srv-api
+      properties:
+        srv-url: ${default-url}
+  requires:
+    - name: amazon-clone-db
+    - name: amazon-clone-auth
+    - name: amazon-clone-destination-service
+</code></pre>
+<p>* Notice <code class="inline-code">provides: srv-api</code>: This exports the backend's live URL so other modules and destinations can bind to it dynamically.</p>
+
+<h4>2. HANA Database Deployer Module (<code class="inline-code">amazon-clone-db-deployer</code>)</h4>
+<pre class="code-block language-yaml"><code>- name: amazon-clone-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+    - name: amazon-clone-db
+</code></pre>
+<p>* Uses SAP's official <strong>HDB Deployer</strong> container to run database migrations, create SAP HANA column tables, and create database views automatically.</p>
+
+<hr class="section-divider" />
+
+<h2>8.3 The Build and Packaging Pipeline</h2>
+
+<p>To produce the deployment archive, run the following automated pipeline:</p>
+
+<pre class="code-block language-bash"><code>&lt;h1 class="chapter-title"&gt;1. Compile CDS models to production output (gen/srv and gen/db)&lt;/h1&gt;
+npx cds build --production
+
+&lt;h1 class="chapter-title"&gt;2. Package both UI5 applications into zip archives&lt;/h1&gt;
+npm run build:ui
+
+&lt;h1 class="chapter-title"&gt;3. Compile the MTA Archive using Cloud MTA Build Tool (mbt)&lt;/h1&gt;
+mbt build
+</code></pre>
+
+<p>The output is written to:</p>
+<pre class="code-block language-"><code>mta_archives/amazon-clone_1.0.0.mtar
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>8.4 Production Deployment Commands (Cloud Foundry)</h2>
+
+<p>Once the <code class="inline-code">.mtar</code> file is generated, deploy it to your SAP BTP subaccount:</p>
+
+<pre class="code-block language-bash"><code>&lt;h1 class="chapter-title"&gt;Step 1: Login to SAP BTP Cloud Foundry API&lt;/h1&gt;
+cf login -a https://api.cf.eu10.hana.ondemand.com
+
+&lt;h1 class="chapter-title"&gt;Step 2: Target your Organization and Space&lt;/h1&gt;
+cf target -o my-btp-org -s dev
+
+&lt;h1 class="chapter-title"&gt;Step 3: Deploy the MTA archive&lt;/h1&gt;
+cf deploy mta_archives/amazon-clone_1.0.0.mtar
+</code></pre>
+
+<p>The Cloud Foundry deployer reads <code class="inline-code">mta.yaml</code>, automatically creates all service instances (XSUAA, HDI Container, Destination Service), deploys the database schema, launches the Node.js backend, and uploads the HTML5 applications into the SAP BTP HTML5 Repository.</p>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 9: Enterprise Automated Testing & Quality Assurance</h1>
+
+<h2>9.1 The Testing Philosophy in SAP CAP</h2>
+<p>In enterprise applications, manual testing is insufficient. A change in a single CDS entity or calculation handler can ripple across multiple downstream services.</p>
+<p>Our project features <strong>136 automated tests across 9 comprehensive test suites</strong>, achieving 100% pass rate.</p>
+
+<p>We use the official SAP testing harness <strong><code class="inline-code">@cap-js/cds-test</code></strong>, combined with <strong>Mocha</strong> and <strong>Chai</strong>:</p>
+
+<pre class="code-block language-javascript"><code>import cds from '@sap/cds';
+const { GET, POST, expect } = cds.test(__dirname + '/..');
+</code></pre>
+
+<h3>Why <code class="inline-code">@cap-js/cds-test</code> is Powerful:</h3>
+<p>* Automatically spins up a real CAP test server with an in-memory database.</p>
+<p>* Deploys the entire <code class="inline-code">db/schema.cds</code> and populates seed data from <code class="inline-code">db/data/</code> in milliseconds.</p>
+<p>* Provides high-level HTTP client helpers (<code class="inline-code">GET</code>, <code class="inline-code">POST</code>, <code class="inline-code">PATCH</code>, <code class="inline-code">DELETE</code>) with built-in mock authentication:</p>
+  <pre class="code-block language-javascript"><code>  // Send request as Alice (Customer role)
+  const response = await GET('/odata/v4/cart/Carts', { auth: { username: 'alice' } });
+  </code></pre>
+
+<hr class="section-divider" />
+
+<h2>9.2 The 9 Test Suites Breakdown</h2>
+
+<table class="data-table"><thead><tr><th>Test Suite</th><th>File Path</th><th>Focus Area</th></tr></thead><tbody><tr><td><strong>1. Catalog Tests</strong></td><td><code class="inline-code">test/catalog.test.js</code></td><td>Category hierarchy, product search, brand filters, active status</td></tr><tr><td><strong>2. Cart Tests</strong></td><td><code class="inline-code">test/cart.test.js</code></td><td>Add to cart, quantity change, tax & shipping calculations, coupons</td></tr><tr><td><strong>3. Checkout & Orders</strong></td><td><code class="inline-code">test/checkout-order.test.js</code></td><td>18-step checkout, stock reservation, cancellations, customer returns</td></tr><tr><td><strong>4. Customer Service</strong></td><td><code class="inline-code">test/customer-service.test.js</code></td><td>Profile, addresses, wishlist, notifications, data isolation</td></tr><tr><td><strong>5. Inventory & Admin</strong></td><td><code class="inline-code">test/inventory-admin.test.js</code></td><td>Real-time stock counts, reservations, warehouse sync, shipments</td></tr><tr><td><strong>6. Payment Service</strong></td><td><code class="inline-code">test/payment-service.test.js</code></td><td>Payment capture, simulated card gateway, refunds, idempotency</td></tr><tr><td><strong>7. Security & XSUAA</strong></td><td><code class="inline-code">test/auth-xsuaa.test.js</code></td><td>401 unauthenticated, 403 forbidden, role-based access control</td></tr><tr><td><strong>8. Negative & Edge Cases</strong></td><td><code class="inline-code">test/negative-scenarios.test.js</code></td><td>Insufficient stock, invalid coupons, empty cart checkout</td></tr><tr><td><strong>9. Critical E2E Flow</strong></td><td><code class="inline-code">test/e2e-critical-flow.test.js</code></td><td><strong>12-Step sequential user journey</strong> simulating real shopper</td></tr></tbody></table>
+
+<hr class="section-divider" />
+
+<h2>9.3 The 12-Step End-to-End Critical User Journey</h2>
+
+<p>In <code class="inline-code">test/e2e-critical-flow.test.js</code>, we execute a complete sequential business flow:</p>
+
+<pre class="code-block language-"><code>1. Browse Catalog  --&gt; 2. Search Product  --&gt; 3. Open Details  --&gt; 4. Add to Cart
+        |
+        v
+5. Change Quantity --&gt; 6. Apply Coupon    --&gt; 7. Checkout       --&gt; 8. Payment Capture
+        |
+        v
+9. Order Created   --&gt; 10. View History   --&gt; 11. Cancel Order  --&gt; 12. Submit Review
+</code></pre>
+
+<h3>Real Test Code Example:</h3>
+<pre class="code-block language-javascript"><code>it('should execute 18-step checkout successfully', async () =&gt; {
+    const { data } = await POST('/odata/v4/order/checkout', {
+        cartId: 'cart0000-0000-0000-0000-000000000001',
+        shippingAddressId: 'addr0000-0000-0000-0000-000000000001',
+        billingAddressId:  'addr0000-0000-0000-0000-000000000001',
+        paymentMethod: 'CREDIT_CARD',
+        couponCode: 'WELCOME10'
+    }, { auth: { username: 'alice' } });
+
+    expect(data.status).to.equal('CONFIRMED');
+    expect(data.orderNumber).to.match(/^ORD-/);
+    expect(data.totalAmount).to.be.greaterThan(0);
+});
+</code></pre>
+
+<hr class="section-divider" />
+
+<h2>9.4 Running Tests and Linting</h2>
+
+<p>Every junior developer must run these commands before submitting code:</p>
+
+<pre class="code-block language-bash"><code>&lt;h1 class="chapter-title"&gt;Run all 136 tests:&lt;/h1&gt;
+npm test
+
+&lt;h1 class="chapter-title"&gt;Run CDS code style and syntax linter:&lt;/h1&gt;
+npm run lint
+</code></pre>
+
+
+<hr class="section-divider" />
+
+
+<h1 class="chapter-title">Chapter 10: Junior Developer Playbook & Common Pitfalls</h1>
+
+<h2>10.1 Ten Common Mistakes Every Junior CAP Developer Makes</h2>
+
+<h3>Mistake 1: Unexposed Navigation Targets with <code class="inline-code">$expand</code></h3>
+<p>* <strong>The Error:</strong> <code class="inline-code">[400] Bad Request: Navigation property "xyz" does not exist</code>.</p>
+<p><em> <strong>The Cause:</strong> You called <code class="inline-code">$expand=xyz</code> from the UI, but entity <code class="inline-code">xyz</code> was not declared inside that specific service in <code class="inline-code">srv/</em>.cds</code>.</p>
+<p>* <strong>The Fix:</strong> Always expose a <code class="inline-code">@readonly entity xyz as projection on db.xyz;</code> in the service.</p>
+
+<h3>Mistake 2: Declaring <code class="inline-code">$top</code> / <code class="inline-code">$skip</code> in SAPUI5 Binding Parameters</h3>
+<p>* <strong>The Error:</strong> <code class="inline-code">System query option $top is not supported</code>.</p>
+<p>* <strong>The Cause:</strong> SAPUI5 OData V4 manages paging internally. Putting <code class="inline-code">$top</code> in XML view <code class="inline-code">parameters</code> crashes the router.</p>
+<p>* <strong>The Fix:</strong> Put <code class="inline-code">length: 4</code> and <code class="inline-code">startIndex: 0</code> directly on the binding object outside <code class="inline-code">parameters</code>.</p>
+
+<h3>Mistake 3: Executing Multiple Database Writes Without a Transaction</h3>
+<p>* <strong>The Error:</strong> Data corruption when a failure occurs midway through checkout.</p>
+<p>* <strong>The Cause:</strong> Calling <code class="inline-code">await INSERT</code> and <code class="inline-code">await UPDATE</code> without binding to <code class="inline-code">cds.tx(req)</code>.</p>
+<p>* <strong>The Fix:</strong> Always use <code class="inline-code">const tx = cds.tx(req); await tx.run(...);</code>. If an error occurs, CAP automatically rolls back all changes.</p>
+
+<h3>Mistake 4: Using Association Instead of Composition for Line Items</h3>
+<p>* <strong>The Error:</strong> Child records are orphaned when parent is deleted, or deep insert fails.</p>
+<p>* <strong>The Cause:</strong> Using <code class="inline-code">items : Association to many OrderItems</code> instead of <code class="inline-code">items : Composition of many OrderItems on items.order = $self</code>.</p>
+<p>* <strong>The Fix:</strong> Use <code class="inline-code">Composition of</code> for parent-child lifecycles.</p>
+
+<h3>Mistake 5: Incorrect CSV Seed File Headers</h3>
+<p>* <strong>The Error:</strong> Foreign key values are null or ignored when loading mock data.</p>
+<p>* <strong>The Cause:</strong> Naming the CSV column <code class="inline-code">category</code> instead of <code class="inline-code">category_ID</code>.</p>
+<p>* <strong>The Fix:</strong> For any association <code class="inline-code">category : Association to Categories</code>, the relational column in SQL and CSV is always <code class="inline-code"><associationName>_ID</code>.</p>
+
+<h3>Mistake 6: Relying on Frontend Hiding for Security</h3>
+<p>* <strong>The Error:</strong> Unauthorized users can delete records or view other customers' carts using curl or Postman.</p>
+<p>* <strong>The Cause:</strong> Checking user role in JavaScript UI instead of CDS <code class="inline-code">@restrict</code>.</p>
+<p>* <strong>The Fix:</strong> Always enforce security at the CAP service layer with <code class="inline-code">@requires</code> and <code class="inline-code">@restrict</code>.</p>
+
+<h3>Mistake 7: Hardcoding Full Cloud URLs</h3>
+<p>* <strong>The Error:</strong> Frontend fails when deployed to Cloud Foundry due to CORS or broken domains.</p>
+<p>* <strong>The Cause:</strong> Hardcoding <code class="inline-code">http://localhost:4004</code> in UI5 models or manifest.</p>
+<p>* <strong>The Fix:</strong> Use relative paths (e.g., <code class="inline-code">/odata/v4/catalog/</code>) and route via the Managed App Router.</p>
+
+<h3>Mistake 8: Forgetting to Re-Deploy SQLite Views</h3>
+<p>* <strong>The Error:</strong> <code class="inline-code">SQLITE_ERROR: no such table: CartService_Products</code>.</p>
+<p>* <strong>The Cause:</strong> Adding a new service projection without redeploying the SQLite schema.</p>
+<p><em> <strong>The Fix:</strong> Run <code class="inline-code">npx cds deploy --to sqlite:db.sqlite</code> or <code class="inline-code">cds.deploy('</em>')</code>.</p>
+
+<h3>Mistake 9: Failing to Freeze Historical Snapshot Prices</h3>
+<p>* <strong>The Error:</strong> An order placed last month changes total price when the seller raises the catalog price today.</p>
+<p>* <strong>The Cause:</strong> Calculating order totals by joining with current catalog product prices.</p>
+<p>* <strong>The Fix:</strong> Snapshot the price into <code class="inline-code">OrderItems.unitPrice</code> at the exact second of purchase.</p>
+
+<h3>Mistake 10: Writing Custom UI Code Instead of Annotations in Admin Screens</h3>
+<p>* <strong>The Error:</strong> Huge boilerplate JavaScript controllers for simple tabular and form screens.</p>
+<p>* <strong>The Cause:</strong> Not knowing how to leverage Fiori Elements.</p>
+<p>* <strong>The Fix:</strong> Use <code class="inline-code">@UI.LineItem</code>, <code class="inline-code">@UI.HeaderInfo</code>, and <code class="inline-code">@UI.Facets</code>. Fiori Elements handles sorting, filtering, paging, and responsive rendering with 0 JavaScript.</p>
+
+<hr class="section-divider" />
+
+<h2>10.2 Essential CDS CLI Cheat Sheet</h2>
+
+<table class="data-table"><thead><tr><th>Command</th><th>What It Does</th></tr></thead><tbody><tr><td><code class="inline-code">cds watch</code></td><td>Starts local development server with auto-restart on file save</td></tr><tr><td><code class="inline-code">cds serve</code></td><td>Serves all services in <code class="inline-code">srv/</code> on port 4004</td></tr><tr><td><code class="inline-code">cds compile db/schema.cds --to sql</code></td><td>Inspects the generated SQL DDL statements</td></tr><tr><td><code class="inline-code">cds compile srv/catalog-service.cds --to edmx</code></td><td>Inspects the generated OData V4 EDMX XML metadata</td></tr><tr><td><code class="inline-code">cds deploy --to sqlite:db.sqlite</code></td><td>Deploys schema and views to local SQLite database</td></tr><tr><td><code class="inline-code">cds lint</code></td><td>Validates CDS syntax, naming conventions, and best practices</td></tr><tr><td><code class="inline-code">cds env</code></td><td>Inspects active configuration, database profiles, and auth settings</td></tr><tr><td><code class="inline-code">npm test</code></td><td>Runs the entire 136-test suite</td></tr><tr><td><code class="inline-code">npm run build</code></td><td>Runs production compilation and UI packaging</td></tr><tr><td><code class="inline-code">mbt build</code></td><td>Builds the complete Cloud Foundry <code class="inline-code">.mtar</code> deployment archive</td></tr></tbody></table>
+
+<hr class="section-divider" />
+
+<h2>10.3 Step-by-Step: How to Add a New Feature to This Project</h2>
+
+<p>Follow this 7-step checklist whenever you are assigned a new business requirement:</p>
+
+<pre class="code-block language-"><code>Step 1: Declare Domain Model in db/schema.cds
+        (Use cuid, managed, enums, Associations/Compositions)
+                         |
+                         v
+Step 2: Add Seed CSV Data in db/data/sap.marketplace-&lt;Entity&gt;.csv
+        (Include header row with UUIDs and _ID foreign keys)
+                         |
+                         v
+Step 3: Expose Projection in srv/&lt;service-name&gt;.cds
+        (Add @readonly, @restrict, virtual fields, actions)
+                         |
+                         v
+Step 4: Implement Logic in srv/&lt;service-name&gt;.js
+        (Handle before validation, on actions, after virtual fields)
+                         |
+                         v
+Step 5: Bind to UI
+        (Freestyle XML View for Storefront OR CDS Annotations for Admin)
+                         |
+                         v
+Step 6: Write Automated Tests in test/
+        (Test happy path + negative edge cases with @cap-js/cds-test)
+                         |
+                         v
+Step 7: Verify with npm test and npm run lint
+        (Ensure all 136+ tests pass with 0 errors)
+</code></pre>
+
+</div>
+
+</body>
+</html>
